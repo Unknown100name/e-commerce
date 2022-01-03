@@ -2,11 +2,18 @@ package org.unknown100name.ecommerce.pojo.entity;
 
 import java.io.Serializable;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * @author unknown100name
  * @description 用于商品的图片显示
  * @since 2022/1/2
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ItemImage implements Serializable {
 
     private static final long serialVersionUID = 3090544149941738936L;
@@ -22,7 +29,7 @@ public class ItemImage implements Serializable {
      * {@link Item#id} 商品图
      * {@link InnerItem#id} 细分商品图
      */
-    private String ItemId;
+    private Long ItemId;
 
     /**
      * 类别

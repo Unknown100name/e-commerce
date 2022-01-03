@@ -1,32 +1,26 @@
-package org.unknown100name.ecommerce.pojo.dto;
+package org.unknown100name.ecommerce.pojo.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 /**
  * @author unknown100name
- * @description 用户 DTO
- * @since 2022/1/2
+ * @description 用户注册参数
+ * @since 2022/1/3
  */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UserDTO implements Serializable {
+public class UserRegisterParam {
 
-    private static final long serialVersionUID = 6091986662827621269L;
-
-    private Long id;
-
-     /**
+    /**
      * nickname
      */
     private String nick;
 
     /**
-     * 密码 SHA1
+     * 密码 -> 密码 SHA1
      */
     private String password;
 
@@ -61,8 +55,7 @@ public class UserDTO implements Serializable {
     private String idCard;
 
     /**
-     * 是否注销
+     * 验证码
      */
-    private Boolean delete;
-    
+    private String vertifyCode;
 }

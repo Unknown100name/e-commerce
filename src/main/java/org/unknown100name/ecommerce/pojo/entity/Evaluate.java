@@ -1,14 +1,30 @@
 package org.unknown100name.ecommerce.pojo.entity;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+
+import org.unknown100name.ecommerce.pojo.vo.EvaluateGiveParam;
+import org.unknown100name.ecommerce.util.IdUtil;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author unknown100name
  * @description 评价
  * @since 2022/1/2
  */
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Evaluate implements Serializable {
+
+    public Evaluate(EvaluateGiveParam evaluateGiveParam) {
+        this.id = IdUtil.getId();
+        this.content = evaluateGiveParam.getContent();
+        this.type = evaluateGiveParam.getType();
+        this.time = System.currentTimeMillis();
+    }
 
     private static final long serialVersionUID = -4514631523163089574L;
 

@@ -39,7 +39,7 @@ public class ItemBaseDTO implements Serializable {
      * 4: 已下线(权限等同于已审核)
      * 5: 已删除
      */
-    private String state;
+    private Integer state;
 
     /**
      * 商家

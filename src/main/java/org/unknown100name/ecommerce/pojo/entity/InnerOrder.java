@@ -3,12 +3,31 @@ package org.unknown100name.ecommerce.pojo.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import org.unknown100name.ecommerce.pojo.dto.InnerShoppingCarDTO;
+import org.unknown100name.ecommerce.util.IdUtil;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * @author unknown100name
  * @description 子订单 用于一个大订单{@link Order}中包含每个商品的子订单
  * @since 2022/1/2
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class InnerOrder implements Serializable {
+
+    public InnerOrder(Order insertOrder, InnerShoppingCarDTO existInnerShoppingCar) {
+        this.id = IdUtil.getId();
+        this.orderId = insertOrder.getId();
+        this.state = 0;
+        this.innerItemId = existInnerShoppingCar.getInnerItemDTO().getId();
+        this.number = existInnerShoppingCar.getCount();
+        this.singlePrice = existInnerShoppingCar.getInnerItemDTO().getPrice();
+    }
 
     private static final long serialVersionUID = 289732166911578852L;
 

@@ -3,11 +3,18 @@ package org.unknown100name.ecommerce.pojo.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * @author unknown100name
  * @description 细分商品
  * @since 2022/1/2
  */
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class InnerItem implements Serializable {
 
     private static final long serialVersionUID = 9022119600667721349L;

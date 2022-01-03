@@ -26,7 +26,7 @@ public class OrderDTO implements Serializable {
     /**
      * 订单下单时间
      */
-    private Timestamp time;
+    private Long time;
 
     /**
      * 联系地址

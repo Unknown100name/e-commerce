@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+import org.unknown100name.ecommerce.pojo.vo.UserRegisterParam;
+import org.unknown100name.ecommerce.util.IdUtil;
+
 /**
  * @author unknown100name
  * @description 用户
@@ -26,7 +29,7 @@ public class User implements Serializable {
     private String nick;
 
     /**
-     * 密码 MD5
+     * 密码 SHA1
      */
     private String password;
 
@@ -64,4 +67,16 @@ public class User implements Serializable {
      * 是否注销
      */
     private Boolean delete;
+
+    public User(UserRegisterParam userRegisterParam){
+        this.id = IdUtil.getId();
+        this.nick = userRegisterParam.getNick();
+        this.password = userRegisterParam.getPassword();
+        this.phone = userRegisterParam.getPhone();
+        this.type = userRegisterParam.getType();
+        this.gender = userRegisterParam.getGender();
+        this.realName = userRegisterParam.getRealName();
+        this.idCard = userRegisterParam.getIdCard();
+        this.delete = false;
+    }
 }
