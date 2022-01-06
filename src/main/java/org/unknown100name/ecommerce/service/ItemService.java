@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.unknown100name.ecommerce.pojo.dto.ItemBaseDTO;
 import org.unknown100name.ecommerce.pojo.dto.ItemDetailDTO;
+import org.unknown100name.ecommerce.pojo.vo.ItemCreateParam;
 import org.unknown100name.ecommerce.util.BaseResult;
 
 /**
@@ -23,4 +24,16 @@ public interface ItemService {
     BaseResult<ItemBaseDTO> base(Long itemId);
 
     BaseResult<ItemDetailDTO> detail(Long itemId);
+
+    BaseResult<?> create(ItemCreateParam itemCreateParam);
+
+    // BaseResult<?> update(ItemCreateParam itemCreateParam);
+
+    BaseResult<?> upload(Long parseLong);
+
+    BaseResult<?> up(Long itemId);
+
+    BaseResult<?> down(Long itemId);
+
+    BaseResult<?> delete(Long itemId);
 }

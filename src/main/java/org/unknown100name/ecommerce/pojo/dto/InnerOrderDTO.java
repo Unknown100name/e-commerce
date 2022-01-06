@@ -1,10 +1,6 @@
-package org.unknown100name.ecommerce.pojo.entity;
+package org.unknown100name.ecommerce.pojo.dto;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
-
-import org.unknown100name.ecommerce.pojo.dto.InnerShoppingCarDTO;
-import org.unknown100name.ecommerce.util.IdUtil;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,19 +14,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class InnerOrder implements Serializable {
-
-    public InnerOrder(Order insertOrder, InnerShoppingCarDTO existInnerShoppingCar) {
-        this.id = IdUtil.getId();
-        this.orderId = insertOrder.getId();
-        this.state = 0;
-        this.innerItemId = existInnerShoppingCar.getInnerItemDTO().getId();
-        this.number = existInnerShoppingCar.getCount();
-        this.singlePrice = existInnerShoppingCar.getInnerItemDTO().getPrice();
-    }
-
-    private static final long serialVersionUID = 289732166911578852L;
-
+public class InnerOrderDTO {
+    
     private Long id;
 
     /**
@@ -75,5 +60,4 @@ public class InnerOrder implements Serializable {
      * 退货快递号
      */
     private String backExpressCode;
-
 }

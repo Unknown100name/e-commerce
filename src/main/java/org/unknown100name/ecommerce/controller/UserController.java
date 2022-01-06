@@ -116,6 +116,10 @@ public class UserController {
         return userService.resetPassword(Long.parseLong(userId), oldPassword, newPassword);
     }   
 
+    /**
+     * 获取验证码
+     * @return
+     */
     @GetMapping("vertifyCodeImage")
     @ResponseBody
     public BaseResult<?> vertifyCodeImage(){

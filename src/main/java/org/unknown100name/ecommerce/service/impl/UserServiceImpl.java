@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
     public BaseResult<?> forgetPassword(String nick, String idCard) {
         // 验证身份证
         UserDTO existUser = userMapper.getUserByNick(nick);
-        if(existUser == null || idCard.equals(existUser.getIdCard())){
+        if(idCard.equals(existUser.getIdCard())){
             return BaseResult.failResult(BaseResultMsg.ERROR_NICK_OR_IDCARD);
         }
         // 重置密码, 默认为身份证后六位
@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
     public BaseResult<?> resetPassword(Long userId, String oldPassword, String newPassword) {
         // 验证身份证
         UserDTO existUser = userMapper.getUserById(userId);
-        if(existUser == null || !oldPassword.equals(existUser.getPassword())){
+        if(!oldPassword.equals(existUser.getPassword())){
             return BaseResult.failResult(BaseResultMsg.ERROR_NICK_OR_PASSWORD);
         }
         // 重置密码

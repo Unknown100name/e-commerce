@@ -3,6 +3,7 @@ package org.unknown100name.ecommerce.controller;
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +29,12 @@ public class BuyerController{
     @Resource
     private OrderService orderService;
 
+    /**
+     * 添加到购物车 + 添加个数
+     * @param userId
+     * @param innerItemId
+     * @return
+     */
     @PostMapping("/shoppingCar/increase")
     @ResponseBody
     @TokenAuth
@@ -35,6 +42,12 @@ public class BuyerController{
         return shoppingCarService.increase(Long.parseLong(userId), Long.parseLong(innerItemId));
     }
 
+    /**
+     * 减少个数
+     * @param userId
+     * @param innerItemId
+     * @return
+     */
     @PostMapping("/shoppingCar/decrease")
     @ResponseBody
     @TokenAuth
@@ -42,6 +55,12 @@ public class BuyerController{
         return shoppingCarService.decrease(Long.parseLong(userId), Long.parseLong(innerItemId));
     }
 
+    /**
+     * 从购物车中删除
+     * @param userId
+     * @param innerItemId
+     * @return
+     */
     @PostMapping("/shoppingCar/delete")
     @ResponseBody
     @TokenAuth
@@ -49,6 +68,11 @@ public class BuyerController{
         return shoppingCarService.delete(Long.parseLong(userId), Long.parseLong(innerItemId));
     }
 
+    /**
+     * 获取购物车详情
+     * @param userId
+     * @return
+     */
     @PostMapping("/shoppingCar/get")
     @ResponseBody
     @TokenAuth
@@ -56,11 +80,76 @@ public class BuyerController{
         return shoppingCarService.get(Long.parseLong(userId));
     }
 
+    /**
+     * 提交订单准备支付
+     * @param shoppingCarTurnOrderParam
+     * @return
+     */
     @PostMapping("/order/prepay")
     @ResponseBody
     @TokenAuth
-    public BaseResult<?> orderPrePay(ShoppingCarTurnOrderParam shoppingCarTurnOrderParam){
+    public BaseResult<?> orderPrePay(@RequestBody ShoppingCarTurnOrderParam shoppingCarTurnOrderParam){
         return orderService.prePay(shoppingCarTurnOrderParam);
     }
 
+
+    /**
+     * 支付
+     * @param orderId
+     * @return
+     */
+    @PostMapping("/order/pay")
+    @ResponseBody
+    @TokenAuth
+    public BaseResult<?> orderPay(String userId, String orderId){
+        return orderService.pay(Long.parseLong(orderId));
+    }
+
+    /**
+     * 确认收货
+     * @param innerOrderId
+     * @return
+     */
+    @PostMapping("/order/accept")
+    @ResponseBody
+    @TokenAuth
+    public BaseResult<?> orderAccept(String userId, String innerOrderId){
+        return orderService.accept(Long.parseLong(innerOrderId));
+    }
+
+    /**
+     * 取消订单
+     * @param orderId
+     * @return
+     */
+    @PostMapping("/order/cancel")
+    @ResponseBody
+    @TokenAuth
+    public BaseResult<?> orderCancel(String userId, String orderId){
+        return orderService.buyerCancel(Long.parseLong(orderId));
+    }
+
+    // /**
+    //  * 退货
+    //  * @param innerOrderId
+    //  * @return
+    //  */
+    // @PostMapping("/order/reject")
+    // @ResponseBody
+    // @TokenAuth
+    // public BaseResult<?> orderReject(String userId, String innerOrderId){
+    //     return orderService.reject(Long.parseLong(innerOrderId));
+    // }
+
+    /**
+     * TODO：获得推荐列表
+     * @param userId
+     * @return
+     */
+    @PostMapping("/item/recommendList")
+    @ResponseBody
+    @TokenAuth
+    public BaseResult<?> orderReject(String userId){
+        return null;
+    }
 }

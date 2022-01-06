@@ -12,10 +12,14 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.unknown100name.ecommerce.dao.ContactMapper;
+import org.unknown100name.ecommerce.dao.ItemMapper;
 import org.unknown100name.ecommerce.dao.OrderMapper;
 import org.unknown100name.ecommerce.dao.ShoppingCarMapper;
 import org.unknown100name.ecommerce.pojo.dto.ContactDTO;
+import org.unknown100name.ecommerce.pojo.dto.InnerItemDTO;
+import org.unknown100name.ecommerce.pojo.dto.InnerOrderDTO;
 import org.unknown100name.ecommerce.pojo.dto.InnerShoppingCarDTO;
+import org.unknown100name.ecommerce.pojo.dto.OrderDTO;
 import org.unknown100name.ecommerce.pojo.dto.ShoppingCarDTO;
 import org.unknown100name.ecommerce.pojo.entity.InnerOrder;
 import org.unknown100name.ecommerce.pojo.entity.Order;
@@ -41,6 +45,9 @@ public class OrderServiceImpl implements OrderService{
 
     @Resource
     private ContactMapper contactMapper;
+
+    @Resource
+    private ItemMapper itemMapper;
 
     /**
      * TODO: 待测试
@@ -103,5 +110,47 @@ public class OrderServiceImpl implements OrderService{
             return BaseResult.failResult(BaseResultMsg.ERROR_UNKNOWN);
         }
     }
+
+    @Override
+    public BaseResult<?> pay(Long orderId) {
+        OrderDTO existOrder = orderMapper.getOrderById(orderId);
+        existOrder.getInnerOrderList().forEach(
+            innerOrder -> orderMapper.updateInnerOrderState(innerOrder.getId(), 0, 1)
+        );
+        return BaseResult.successResult(null, null);
+    }
+
+    @Override
+    public BaseResult<?> send(Long innerOrderId) {
+        orderMapper.updateInnerOrderState(innerOrderId, 1, 2);
+        return BaseResult.successResult(null, null);
+    }    
     
+    @Override
+    public BaseResult<?> accept(Long innerOrderId) {
+        orderMapper.updateInnerOrderState(innerOrderId, 2, 3);
+        InnerOrderDTO innerOrderDTO = orderMapper.getInnerOrderById(innerOrderId);
+        itemMapper.increaseSell(innerOrderDTO.getInnerItemId());
+        return BaseResult.successResult(null, null);
+    }
+
+    @Override
+    public BaseResult<?> buyerCancel(Long innerOrderId) {
+        orderMapper.updateInnerOrderState(innerOrderId, 0, -1);
+        return BaseResult.successResult(null, null);
+    }
+
+    @Override
+    public BaseResult<?> sellerCancel(Long innerOrderId) {
+        orderMapper.updateInnerOrderState(innerOrderId, 1, -1);
+        return BaseResult.successResult(null, null);
+    }
+    
+    
+    // @Override
+    // public BaseResult<?> reject(Long innerOrderId) {
+    //     orderMapper.updateInnerOrderState(innerOrderId, 3, 5);
+    //     return BaseResult.successResult(null, null);
+    // }
+
 }

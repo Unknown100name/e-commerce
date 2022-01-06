@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.unknown100name.ecommerce.pojo.dto.ItemBaseDTO;
 import org.unknown100name.ecommerce.pojo.dto.ItemDetailDTO;
+import org.unknown100name.ecommerce.pojo.entity.InnerItem;
+import org.unknown100name.ecommerce.pojo.entity.Item;
 
 /**
  * @author unknown100name
@@ -41,5 +43,31 @@ public interface ItemMapper {
      * @return
      */
     ItemDetailDTO getItemDetailById(Long itemId);
+
+    /**
+     * 插入内部商品
+     * @param innerItemList
+     */
+    void insertInnerItem(List<InnerItem> innerItemList);
+
+    /**
+     * 插入商品
+     * @param insertItem
+     */
+    void insertItem(Item insertItem);
+
+    /**
+     * 更新商品状态
+     * @param itemId
+     * @param from
+     * @param to
+     */
+    void updateItemState(Long itemId, int from, int to);
+
+    /***
+     * 增加该商品的销量
+     * @param innerItemId
+     */
+    void increaseSell(Long innerItemId);
     
 }

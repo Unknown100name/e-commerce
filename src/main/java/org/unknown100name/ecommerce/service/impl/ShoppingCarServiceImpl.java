@@ -7,6 +7,7 @@ import org.unknown100name.ecommerce.dao.ShoppingCarMapper;
 import org.unknown100name.ecommerce.pojo.dto.ShoppingCarDTO;
 import org.unknown100name.ecommerce.service.ShoppingCarService;
 import org.unknown100name.ecommerce.util.BaseResult;
+import org.unknown100name.ecommerce.util.BaseResultMsg;
 
 /**
  * @author unknown100name
@@ -21,14 +22,22 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
 
     @Override
     public BaseResult<?> increase(Long userId, Long innerItemId) {
-        shoppingCarMapper.increase(userId, innerItemId);
+        if(shoppingCarMapper.getByUserIdAndInnerItemId(userId, innerItemId) == null){
+            shoppingCarMapper.create(userId, innerItemId);
+        }else{
+            shoppingCarMapper.increase(userId, innerItemId);
+        }
         return BaseResult.successResult(null, null);
     }
 
     @Override
     public BaseResult<?> decrease(Long userId, Long innerItemId) {
-        shoppingCarMapper.decrease(userId, innerItemId);
-        return BaseResult.successResult(null, null);
+        if(shoppingCarMapper.getByUserIdAndInnerItemId(userId, innerItemId) == null){
+            return BaseResult.failResult(BaseResultMsg.ERROR_PARAM);
+        }else{
+            shoppingCarMapper.decrease(userId, innerItemId);
+            return BaseResult.successResult(null, null);
+        }
     }
 
     @Override

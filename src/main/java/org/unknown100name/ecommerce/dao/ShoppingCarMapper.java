@@ -1,8 +1,7 @@
 package org.unknown100name.ecommerce.dao;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
+import org.unknown100name.ecommerce.pojo.dto.InnerShoppingCarDTO;
 import org.unknown100name.ecommerce.pojo.dto.ShoppingCarDTO;
 
 /**
@@ -20,5 +19,9 @@ public interface ShoppingCarMapper {
     void delete(Long userId, Long innerItemId);
 
     ShoppingCarDTO getByUserId(Long userId);
+
+    InnerShoppingCarDTO getByUserIdAndInnerItemId(Long userId, Long innerItemId);
+
+    void create(Long userId, Long innerItemId);
     
 }
