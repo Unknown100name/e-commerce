@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.unknown100name.ecommerce.aspect.TokenAuth;
 import org.unknown100name.ecommerce.pojo.vo.UserLoginParam;
 import org.unknown100name.ecommerce.pojo.vo.UserRegisterParam;
+import org.unknown100name.ecommerce.service.RedisService;
 import org.unknown100name.ecommerce.service.UserService;
 import org.unknown100name.ecommerce.util.BaseResult;
 import org.unknown100name.ecommerce.util.BaseResultMsg;
@@ -32,6 +33,9 @@ public class UserController {
 
     @Resource
     private VertifyCodeUtil vertifyCodeUtil;
+
+    @Resource
+    private RedisService redisService;
 
     /**
      * 登录
@@ -125,6 +129,7 @@ public class UserController {
     public BaseResult<?> vertifyCodeImage(){
         // TODO: IP 获取
         String newImageBase64 = vertifyCodeUtil.getNewVertifyCode(null);
+        // Redis 存储
         if(newImageBase64 == null){
             return BaseResult.failResult(BaseResultMsg.ERROR_VERTIFYCODE_TOO_QUICK);
         }else{
