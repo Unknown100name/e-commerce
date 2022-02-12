@@ -16,7 +16,6 @@ import org.unknown100name.ecommerce.dao.ItemMapper;
 import org.unknown100name.ecommerce.dao.OrderMapper;
 import org.unknown100name.ecommerce.dao.ShoppingCarMapper;
 import org.unknown100name.ecommerce.pojo.dto.ContactDTO;
-import org.unknown100name.ecommerce.pojo.dto.InnerItemDTO;
 import org.unknown100name.ecommerce.pojo.dto.InnerOrderDTO;
 import org.unknown100name.ecommerce.pojo.dto.InnerShoppingCarDTO;
 import org.unknown100name.ecommerce.pojo.dto.OrderDTO;
