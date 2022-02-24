@@ -47,7 +47,7 @@ public class UserController {
     public BaseResult<?> login(@RequestBody UserLoginParam userLoginParam){
         // TODO: IP 获取
         if(!vertifyCodeUtil.compareWithVertifyCode(null, userLoginParam.getVertifyCode())){
-            return BaseResult.failResult(BaseResultMsg.ERROR_VERTIFYCODE);
+            return BaseResult.failResult(BaseResultMsg.ERROR_VERTIFY_CODE);
         }
         // password 转 sha1
         userLoginParam.setPassword(SHA1Util.encodeToMD5(userLoginParam.getPassword()));
@@ -64,7 +64,7 @@ public class UserController {
     public BaseResult<?> register(@RequestBody UserRegisterParam userRegisterParam){
         // TODO: IP 获取
         if(!vertifyCodeUtil.compareWithVertifyCode(null, userRegisterParam.getVertifyCode())){
-            return BaseResult.failResult(BaseResultMsg.ERROR_VERTIFYCODE);
+            return BaseResult.failResult(BaseResultMsg.ERROR_VERTIFY_CODE);
         }
         //password 转 sha1
         userRegisterParam.setPassword(SHA1Util.encodeToMD5(userRegisterParam.getPassword()));
@@ -109,8 +109,9 @@ public class UserController {
 
     /**
      * 重置密码
-     * @param nick
-     * @param idCard
+     * @param userId
+     * @param oldPassword
+     * @param newPassword
      * @return
      */
     @PostMapping("resetPassword")
@@ -131,7 +132,7 @@ public class UserController {
         String newImageBase64 = vertifyCodeUtil.getNewVertifyCode(null);
         // Redis 存储
         if(newImageBase64 == null){
-            return BaseResult.failResult(BaseResultMsg.ERROR_VERTIFYCODE_TOO_QUICK);
+            return BaseResult.failResult(BaseResultMsg.ERROR_VERTIFY_CODE_TOO_QUICK);
         }else{
             return BaseResult.successResult(null, newImageBase64);
         }

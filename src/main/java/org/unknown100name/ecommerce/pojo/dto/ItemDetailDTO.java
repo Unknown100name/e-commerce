@@ -34,7 +34,7 @@ public class ItemDetailDTO implements Serializable {
     /**
      * 详情页
      */
-    private String H5Base64;
+    private String h5Base64;
 
     /**
      * 商品状态
@@ -50,7 +50,7 @@ public class ItemDetailDTO implements Serializable {
     /**
      * 商家
      */
-    private UserDTO shop;
+    private UserBaseDTO shop;
 
     /**
      * 销量
@@ -65,7 +65,7 @@ public class ItemDetailDTO implements Serializable {
     /**
      * 商品图册
      */
-    private List<String> ImageListBase64;
+    private List<String> imageListBase64;
 
     /**
      * 细分商品列表

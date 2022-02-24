@@ -2,6 +2,8 @@ package org.unknown100name.ecommerce.pojo.entity;
 
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import org.unknown100name.ecommerce.pojo.vo.EvaluateGiveParam;
 import org.unknown100name.ecommerce.util.IdUtil;
 
@@ -17,6 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@TableName("evaluate")
 public class Evaluate implements Serializable {
 
     public Evaluate(EvaluateGiveParam evaluateGiveParam) {
@@ -28,11 +31,19 @@ public class Evaluate implements Serializable {
 
     private static final long serialVersionUID = -4514631523163089574L;
 
+    @TableField(value = "id")
     private Long id;
+
+    /**
+     * 评价商品 ID
+     */
+    @TableField(value = "inner_item_id")
+    private Long innerItemId;
 
     /**
      * 评论时间
      */
+    @TableField(value = "time")
     private Long time;
 
     /**
@@ -48,10 +59,12 @@ public class Evaluate implements Serializable {
      * 4-6: 中评
      * 7-10: 好评
      */
+    @TableField(value = "type")
     private Integer type;
 
     /**
      * 评论内容
      */
+    @TableField(value = "content")
     private String content;
 }

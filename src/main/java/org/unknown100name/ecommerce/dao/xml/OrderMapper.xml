@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.unknown100name.ecommerce.dao.OrderMapper">
+
+    <sql id="orderDTOProperty">
+        id, time
+    </sql>
+
+    <sql id="innerOrderDTOProperty">
+        id, order_id, state, inner_item_id, number, single_price, express_code, back_express_code
+    </sql>
+
+    <resultMap id="orderDTO" type="org.unknown100name.ecommerce.pojo.dto.OrderDTO">
+        <id column="id" property="id" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <result column="time" property="time" javaType="java.lang.Long" jdbcType="INTEGER"/>
+
+        <association property="contactDTO" javaType="org.unknown100name.ecommerce.pojo.dto.ContactDTO" select="org.unknown100name.ecommerce.dao.ContactMapper.getContactById" column="contact_id"/>
+        <collection property="innerOrderList" javaType="org.unknown100name.ecommerce.pojo.dto.InnerOrderDTO" select="org.unknown100name.ecommerce.dao.OrderMapper.getInnerOrderByOrderId" column="id"/>
+    </resultMap>
+
+    <resultMap id="innerOrderDTO" type="org.unknown100name.ecommerce.pojo.dto.InnerOrderDTO">
+        <id column="id" property="id" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <result column="order_id" property="orderId" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <result column="state" property="state" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <result column="inner_item_id" property="innerItemId" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <result column="number" property="number" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <result column="single_price" property="singlePrice" javaType="java.math.BigDecimal" jdbcType="DECIMAL"/>
+        <result column="express_code" property="expressCode" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="back_express_code" property="backExpressCode" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="booleanProperty">
+        (CASE WHEN COUNT(*)=1 THEN 1 ELSE 0 END) AS cnt
+    </sql>
+
+    <insert id="insertInnerOrder">
+        INSERT INTO inner_order(id, order_id, state, inner_item_id, number, single_price, express_code, back_express_code) 
+        VALUES
+        <foreach collection="insertInnerOrderList" item="innerOrder" index="index" separator=",">
+            (#{innerOrder.id}, #{innerOrder.orderId}, #{innerOrder.state}, #{innerOrder.innerItemId}, #{innerOrder.number}, #{innerOrder.singlePrice}, #{innerOrder.expressCode}, #{innerOrder.backExpressCode})
+        </foreach>
+    </insert>
+
+    <select id="getOrderById" resultMap="orderDTO">
+        SELECT <include refid="orderDTOProperty"/>
+        FROM `order` o
+        WHERE o.id = #{orderId}
+    </select>
+
+    <select id="getInnerOrderById" resultMap="innerOrderDTO">
+        SELECT <include refid="innerOrderDTOProperty"/>
+        FROM inner_order io
+        WHERE io.id = #{innerOrderId}
+    </select>
+
+    <select id="getInnerOrderByOrderId" resultMap="innerOrderDTO">
+        SELECT <include refid="innerOrderDTOProperty"/>
+        FROM inner_order io
+        WHERE io.order_id = #{orderId}
+    </select>
+
+    <update id="updateInnerOrderState" parameterType="java.lang.Long">
+        UPDATE inner_order
+        SET inner_order.state = #{to}
+        WHERE inner_order.id = #{innerOrderId} AND inner_order.state = #{from}
+    </update>
+
+    <update id="existInnerOrderNotFinish">
+        SELECT <include refid="booleanProperty"/>
+        FROM inner_order io
+        WHERE io.inner_item_id IN (x
+            SELECT ii.id
+            FROM inner_item ii
+            WHERE ii.item_id = #{itemId}
+        )
+    </update>
+</mapper>

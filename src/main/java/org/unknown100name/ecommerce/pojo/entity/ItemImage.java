@@ -2,6 +2,8 @@ package org.unknown100name.ecommerce.pojo.entity;
 
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,22 +16,26 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@TableName("item_image")
 public class ItemImage implements Serializable {
 
     private static final long serialVersionUID = 3090544149941738936L;
 
+    @TableField(value = "id")
     private Long id;
 
     /**
      * 图片 base64
      */
-    private String ImageBase64;
+    @TableField(value = "image_base64")
+    private String imageBase64;
 
     /**
      * {@link Item#id} 商品图
      * {@link InnerItem#id} 细分商品图
      */
-    private Long ItemId;
+    @TableField(value = "item_id")
+    private Long itemId;
 
     /**
      * 类别
@@ -37,10 +43,12 @@ public class ItemImage implements Serializable {
      * 1: 商品图册
      * 2: InnerItem 主图
      */
+    @TableField(value = "type")
     private Integer type;
 
     /**
      * 图册 order
      */
+    @TableField(value = "order")
     private Integer order;
 }

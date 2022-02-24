@@ -3,6 +3,8 @@ package org.unknown100name.ecommerce.pojo.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import org.unknown100name.ecommerce.pojo.dto.InnerShoppingCarDTO;
 import org.unknown100name.ecommerce.util.IdUtil;
 
@@ -18,6 +20,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@TableName("inner_order")
 public class InnerOrder implements Serializable {
 
     public InnerOrder(Order insertOrder, InnerShoppingCarDTO existInnerShoppingCar) {
@@ -31,11 +34,13 @@ public class InnerOrder implements Serializable {
 
     private static final long serialVersionUID = 289732166911578852L;
 
+    @TableField(value = "id")
     private Long id;
 
     /**
      * 大订单 Id {@link Order#id}
      */
+    @TableField(value = "order_id")
     private Long orderId;
 
     /**
@@ -49,31 +54,37 @@ public class InnerOrder implements Serializable {
     //  * 7: 已发货 (商家待确认)
     //  * 8: 已确认 (商家已确认)
      */
+    @TableField(value = "state")
     private Integer state;
 
     /**
      * 细分商品 Id {@link InnerItem#id}
      */
+    @TableField(value = "inner_item_id")
     private Long innerItemId;
 
     /**
      * 购买数量
      */
+    @TableField(value = "number")
     private Integer number;
 
     /**
      * 购买单价
      */
+    @TableField(value = "single_price")
     private BigDecimal singlePrice;
 
     /**
      * 商家快递号
      */
+    @TableField(value = "express_code")
     private String expressCode;
 
     /**
      * 退货快递号
      */
+    @TableField(value = "back_express_code")
     private String backExpressCode;
 
 }

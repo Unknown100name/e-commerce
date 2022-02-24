@@ -2,7 +2,9 @@ package org.unknown100name.ecommerce.dao;
 
 import java.util.List;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.unknown100name.ecommerce.pojo.dto.InnerItemDTO;
 import org.unknown100name.ecommerce.pojo.dto.ItemBaseDTO;
 import org.unknown100name.ecommerce.pojo.dto.ItemDetailDTO;
 import org.unknown100name.ecommerce.pojo.entity.InnerItem;
@@ -14,7 +16,9 @@ import org.unknown100name.ecommerce.pojo.entity.Item;
  * @since 2022/1/3
  */
 @Mapper
-public interface ItemMapper {
+public interface ItemMapper extends BaseMapper<Item> {
+
+    //-------------------- ITEM --------------------
 
     /**
      * 根据关键词查询
@@ -45,18 +49,6 @@ public interface ItemMapper {
     ItemDetailDTO getItemDetailById(Long itemId);
 
     /**
-     * 插入内部商品
-     * @param innerItemList
-     */
-    void insertInnerItem(List<InnerItem> innerItemList);
-
-    /**
-     * 插入商品
-     * @param insertItem
-     */
-    void insertItem(Item insertItem);
-
-    /**
      * 更新商品状态
      * @param itemId
      * @param from
@@ -69,5 +61,20 @@ public interface ItemMapper {
      * @param innerItemId
      */
     void increaseSell(Long innerItemId);
-    
+
+    //-------------------- INNER ITEM --------------------
+
+    /**
+     * 获取内部商品
+     * @param itemId
+     * @return
+     */
+    List<InnerItemDTO> getInnerItemByItemId(Long itemId);
+
+    /**
+     * 插入内部商品
+     * @param innerItemList
+     */
+    void insertInnerItem(List<InnerItem> innerItemList);
+
 }

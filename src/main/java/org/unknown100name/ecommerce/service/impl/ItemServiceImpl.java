@@ -59,7 +59,7 @@ public class ItemServiceImpl implements ItemService {
         itemCreateParam.getInnerItemCreateParam().forEach(
             innerItemCreateParam -> innerItemList.add(new InnerItem(insertItem, innerItemCreateParam))
         );
-        itemMapper.insertItem(insertItem);
+        itemMapper.insert(insertItem);
         itemMapper.insertInnerItem(innerItemList);
         return BaseResult.successResult(null, null);
     }
@@ -83,7 +83,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public BaseResult<?> down(Long itemId) {
-        Boolean exist = orderMapper.existInnerOrderNotFinish(itemId);
+        boolean exist = orderMapper.existInnerOrderNotFinish(itemId);
         if(exist){
             itemMapper.updateItemState(itemId, 3, 5);
         }else{

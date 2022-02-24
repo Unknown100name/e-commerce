@@ -2,6 +2,8 @@ package org.unknown100name.ecommerce.pojo.entity;
 
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,24 +16,35 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@TableName("contact")
 public class Contact implements Serializable {
 
     private static final long serialVersionUID = -6501129330167468579L;
 
+    @TableField(value = "id")
     private Long id;
+
+    /**
+     * 所属人 ID
+     */
+    @TableField(value = "user_id")
+    private Long userId;
 
     /**
      * 联系地址
      */
+    @TableField(value = "address")
     private String address;
 
     /**
      * 联系人
      */
+    @TableField(value = "name")
     private String name;
 
     /**
      * 联系电话
      */
+    @TableField(value = "phone")
     private String phone;
 }

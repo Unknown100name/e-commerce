@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.unknown100name.ecommerce.dao.UserMapper">
+
+    <sql id="userBaseDTOProperty">
+        id, nick, type, gender
+    </sql>
+
+    <sql id="userDetailDTOProperty">
+        id, nick, type, gender
+    </sql>
+
+    <resultMap id="userBaseDTO" type="org.unknown100name.ecommerce.pojo.dto.UserBaseDTO">
+        <id column="id" property="id" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <result column="nick" property="nick" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="type" property="type" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <result column="gender" property="gender" javaType="java.lang.Long" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="userDetailDTO" type="org.unknown100name.ecommerce.pojo.dto.UserDetailDTO">
+        <id column="id" property="id" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <result column="nick" property="nick" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="password" property="password" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="type" property="type" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <result column="gender" property="gender" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <result column="real_name" property="realName" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="id_card" property="idCard" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getUserByNick" resultMap="userBaseDTO">
+        SELECT <include refid="userBaseDTOProperty"/>
+        FROM user u
+        WHERE u.nick = #{nick}
+    </select>
+
+    <select id="getUserDetailByNick" resultType="org.unknown100name.ecommerce.pojo.dto.UserDetailDTO">
+        SELECT <include refid="userDetailDTOProperty"/>
+        FROM user u
+        WHERE u.nick = #{nick}
+    </select>
+
+    <select id="getUserById" resultMap="userBaseDTO">
+        SELECT <include refid="userBaseDTOProperty"/>
+        FROM user u
+        WHERE u.id = #{userId}
+    </select>
+
+    <select id="getUserDetailById" resultType="org.unknown100name.ecommerce.pojo.dto.UserDetailDTO">
+        SELECT <include refid="userDetailDTOProperty"/>
+        FROM user u
+        WHERE u.id = #{userId}
+    </select>
+
+    <update id="resetPassword">
+        UPDATE user
+        SET user.password = #{newPassword}
+        WHERE user.id = #{userId}
+    </update>
+
+</mapper>

@@ -34,7 +34,7 @@ public class InnerItemDTO implements Serializable {
     /**
      * 细分商品主图
      */
-    private String ImageBase64;
+    private String imageBase64;
 
     /**
      * 库存

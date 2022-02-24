@@ -35,5 +35,5 @@ public class OrderDTO implements Serializable {
     /**
      * 细分商品列表
      */
-    private List<InnerOrder> innerOrderList;
+    private List<InnerOrderDTO> innerOrderList;
 }

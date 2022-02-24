@@ -37,4 +37,14 @@ public class ItemCreateParam {
      * 内部商品
      */
     private List<InnerItemCreateParam> innerItemCreateParam;
+
+    /**
+     * 大目录分类
+     */
+    private Long categoryOneId;
+
+    /**
+     * 小目录分类
+     */
+    private Long categoryTwoId;
 }

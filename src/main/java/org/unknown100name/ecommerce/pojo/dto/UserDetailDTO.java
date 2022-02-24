@@ -14,7 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UserDTO implements Serializable {
+public class UserDetailDTO implements Serializable {
 
     private static final long serialVersionUID = 6091986662827621269L;
 
@@ -26,7 +26,7 @@ public class UserDTO implements Serializable {
     private String nick;
 
     /**
-     * 密码 SHA1
+     * 密码
      */
     private String password;
 
@@ -59,10 +59,5 @@ public class UserDTO implements Serializable {
      * 身份证号
      */
     private String idCard;
-
-    /**
-     * 是否注销
-     */
-    private Boolean delete;
     
 }

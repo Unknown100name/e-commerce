@@ -67,7 +67,7 @@ public class OrderServiceImpl implements OrderService{
             }
             
             // 验证联系人 Id
-            List<ContactDTO> existContactList = contactMapper.getByUserId(Long.parseLong(shoppingCarTurnOrderParam.getUserId()));
+            List<ContactDTO> existContactList = contactMapper.getContactByUserId(Long.parseLong(shoppingCarTurnOrderParam.getUserId()));
             Set<Long> existContactIdList = new HashSet<>();
             existContactList.forEach(
                 contactDTO -> existContactIdList.add(contactDTO.getId()));
@@ -93,7 +93,7 @@ public class OrderServiceImpl implements OrderService{
                     insertInnerOrderList.add(insertInnerOrder);
                 }
             );
-            orderMapper.insertOrder(insertOrder);
+            orderMapper.insert(insertOrder);
             orderMapper.insertInnerOrder(insertInnerOrderList);
 
             // 删除 ShoppingCar

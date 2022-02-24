@@ -3,6 +3,8 @@ package org.unknown100name.ecommerce.pojo.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import org.unknown100name.ecommerce.pojo.vo.InnerItemCreateParam;
 import org.unknown100name.ecommerce.util.IdUtil;
 
@@ -18,6 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@TableName("inner_item")
 public class InnerItem implements Serializable {
 
     public InnerItem(Item insertItem, InnerItemCreateParam innerItemCreateParam) {
@@ -30,26 +33,31 @@ public class InnerItem implements Serializable {
 
     private static final long serialVersionUID = 9022119600667721349L;
 
+    @TableField(value = "id")
     private Long id;
+
+    /**
+     * 商品 id
+     */
+    @TableField(value = "item_id")
+    private Long itemId;
 
     /**
      * 种类名称
      */
+    @TableField(value = "type_name")
     private String typeName;
 
     /**
      * 单价
      */
+    @TableField(value = "price")
     private BigDecimal price;
 
     /**
      * 库存
      * -1 为无限量
      */
+    @TableField(value = "inventory")
     private Integer inventory;
-
-    /**
-     * 商品 id
-     */
-    private Long itemId;
 }

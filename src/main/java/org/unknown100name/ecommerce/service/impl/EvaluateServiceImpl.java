@@ -24,7 +24,7 @@ public class EvaluateServiceImpl implements EvaluateService{
     @Override
     public BaseResult<String> insertEvaluate(EvaluateGiveParam evaluateGiveParam) {
         Evaluate insertEvaluate = new Evaluate(evaluateGiveParam);
-        evaluateMapper.insertEvaluate(insertEvaluate);
+        evaluateMapper.insert(insertEvaluate);
         return BaseResult.successResult(null, null);
     }
 }

@@ -1,7 +1,9 @@
 package org.unknown100name.ecommerce.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-import org.unknown100name.ecommerce.pojo.dto.UserDTO;
+import org.unknown100name.ecommerce.pojo.dto.UserBaseDTO;
+import org.unknown100name.ecommerce.pojo.dto.UserDetailDTO;
 import org.unknown100name.ecommerce.pojo.entity.User;
 
 /**
@@ -10,43 +12,40 @@ import org.unknown100name.ecommerce.pojo.entity.User;
  * @since 2022/1/3
  */
 @Mapper
-public interface UserMapper{
+public interface UserMapper extends BaseMapper<User> {
 
     /**
      * 通过昵称获取用户
      * @param nick
      * @return
      */
-    UserDTO getUserByNick(String nick);
+    UserBaseDTO getUserByNick(String nick);
+
+    /**
+     * 通过昵称获取用户全部信息
+     * @param nick
+     * @return
+     */
+    UserDetailDTO getUserDetailByNick(String nick);
 
     /**
      * 通过 userId 获取用户
      * @param userId
      * @return
      */
-    UserDTO getUserById(Long userId);
+    UserBaseDTO getUserById(Long userId);
 
     /**
-     * 新增用户
-     * @param user
+     * 通过昵称获取用户全部信息
+     * @param id
+     * @return
      */
-    void insertUser(User user);
-
-    /**
-     * 更新用户
-     * @param user
-     */
-    void updateUserById(User user);
-
-    /**
-     * 删除用户（假删除）
-     * @param userId
-     */
-    void deleteUser(Long userId);
+    UserDetailDTO getUserDetailById(Long id);
 
     /**
      * 重置用户密码
      * @param userId
+     * @param newPassword
      */
     void resetPassword(Long userId, String newPassword);
 }

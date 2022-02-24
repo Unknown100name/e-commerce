@@ -2,6 +2,7 @@ package org.unknown100name.ecommerce.dao;
 
 import java.util.List;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.unknown100name.ecommerce.pojo.dto.InnerOrderDTO;
 import org.unknown100name.ecommerce.pojo.dto.OrderDTO;
@@ -14,13 +15,7 @@ import org.unknown100name.ecommerce.pojo.entity.Order;
  * @since 2022/1/3
  */
 @Mapper
-public interface OrderMapper {
-
-    /**
-     * 插入大订单
-     * @param insertOrder
-     */
-    void insertOrder(Order insertOrder);
+public interface OrderMapper extends BaseMapper<Order> {
 
     /**
      * 插入子订单
@@ -34,17 +29,24 @@ public interface OrderMapper {
      * @return
      */
     OrderDTO getOrderById(Long orderId);
-    
+
     /**
      * 查询小订单
-     * @param InnerOrderId
+     * @param innerOrderId
      * @return
      */
-    InnerOrderDTO getInnerOrderById(Long InnerOrderId);
+    InnerOrderDTO getInnerOrderById(Long innerOrderId);
+
+    /**
+     * 查询小订单
+     * @param orderId
+     * @return
+     */
+    InnerOrderDTO getInnerOrderByOrderId(Long orderId);
 
     /**
      * 更新 InnerOrder 状态
-     * @param id innerOrderId
+     * @param innerOrderId innerOrderId
      * @param from
      * @param to
      */

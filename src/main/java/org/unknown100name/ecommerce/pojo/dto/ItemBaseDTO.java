@@ -44,7 +44,7 @@ public class ItemBaseDTO implements Serializable {
     /**
      * 商家
      */
-    private UserDTO shop;
+    private UserBaseDTO shop;
 
     /**
      * 销量

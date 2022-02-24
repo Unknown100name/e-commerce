@@ -1,7 +1,11 @@
 package org.unknown100name.ecommerce.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.unknown100name.ecommerce.pojo.dto.EvaluateDTO;
 import org.unknown100name.ecommerce.pojo.entity.Evaluate;
+
+import java.util.List;
 
 /**
  * @author unknown100name
@@ -9,11 +13,12 @@ import org.unknown100name.ecommerce.pojo.entity.Evaluate;
  * @since 2022/1/3
  */
 @Mapper
-public interface EvaluateMapper {
+public interface EvaluateMapper extends BaseMapper<Evaluate> {
 
     /**
-     * 查询评论
+     * 根据 itemId 获取评价
+     * @param itemId
+     * @return
      */
-    void insertEvaluate(Evaluate insertEvaluate);
-    
+    List<EvaluateDTO> getEvaluateByItemId(String itemId);
 }

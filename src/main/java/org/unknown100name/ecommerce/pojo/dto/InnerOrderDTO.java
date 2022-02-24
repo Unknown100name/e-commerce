@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * @author unknown100name
- * @description 子订单 用于一个大订单{@link Order}中包含每个商品的子订单
+ * @description 子订单 用于一个大订单{@link org.unknown100name.ecommerce.pojo.entity.Order}中包含每个商品的子订单
  * @since 2022/1/2
  */
 @Data
@@ -19,7 +19,7 @@ public class InnerOrderDTO {
     private Long id;
 
     /**
-     * 大订单 Id {@link Order#id}
+     * 大订单 Id {@link org.unknown100name.ecommerce.pojo.entity.Order#id}
      */
     private Long orderId;
 
@@ -37,7 +37,7 @@ public class InnerOrderDTO {
     private Integer state;
 
     /**
-     * 细分商品 Id {@link InnerItem#id}
+     * 细分商品 Id {@link org.unknown100name.ecommerce.pojo.entity.InnerItem#id}
      */
     private Long innerItemId;
 
