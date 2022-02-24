@@ -11,11 +11,11 @@ public class BaseResultMsg {
         throw new IllegalAccessError("Utility class");
     }
 
-    public static final String ERROR_VERTIFYCODE = "验证码错误";
-    public static final String ERROR_VERTIFYCODE_TOO_QUICK = "请不要过快刷新验证码";
+    public static final String ERROR_VERTIFY_CODE = "验证码错误";
+    public static final String ERROR_VERTIFY_CODE_TOO_QUICK = "请不要过快刷新验证码";
     
     public static final String ERROR_NICK_OR_PASSWORD = "用户不存在或密码不正确";
-    public static final String ERROR_NICK_OR_IDCARD = "用户名不存在或身份证错误";
+    public static final String ERROR_NICK_OR_ID_CARD = "用户名不存在或身份证错误";
 
     public static final String SUCCESS_FORGET_PASSWORD = "重置密码成功，默认密码为身份证后六位";
     public static final String SUCCESS_RESET_PASSWORD = "重置密码成功";
