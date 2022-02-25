@@ -66,6 +66,13 @@ public interface ItemMapper extends BaseMapper<Item> {
 
     /**
      * 获取内部商品
+     * @param id
+     * @return
+     */
+    List<InnerItemDTO> getInnerItemById(Long id);
+
+    /**
+     * 获取内部商品
      * @param itemId
      * @return
      */

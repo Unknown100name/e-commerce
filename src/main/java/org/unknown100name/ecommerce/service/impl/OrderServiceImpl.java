@@ -56,7 +56,7 @@ public class OrderServiceImpl implements OrderService{
     public BaseResult<?> prePay(ShoppingCarTurnOrderParam shoppingCarTurnOrderParam) {
         try{
             // 验证 ShoopingCarId
-            ShoppingCarDTO existShoppingCarDTO = shoppingCarMapper.getByUserId(Long.parseLong(shoppingCarTurnOrderParam.getUserId()));
+            ShoppingCarDTO existShoppingCarDTO = shoppingCarMapper.getShoppingCarByUserId(Long.parseLong(shoppingCarTurnOrderParam.getUserId()));
             Set<Long> existInnerShoppingCarIdList = new HashSet<>();
             existShoppingCarDTO.getInnerShoppingCarList().forEach(
                 innerShoppingCarDTO -> existInnerShoppingCarIdList.add(innerShoppingCarDTO.getId()));

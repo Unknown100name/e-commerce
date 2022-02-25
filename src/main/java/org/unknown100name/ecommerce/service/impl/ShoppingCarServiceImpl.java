@@ -4,10 +4,14 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.unknown100name.ecommerce.dao.ShoppingCarMapper;
+import org.unknown100name.ecommerce.pojo.dto.InnerShoppingCarDTO;
 import org.unknown100name.ecommerce.pojo.dto.ShoppingCarDTO;
 import org.unknown100name.ecommerce.service.ShoppingCarService;
 import org.unknown100name.ecommerce.util.BaseResult;
 import org.unknown100name.ecommerce.util.BaseResultMsg;
+import org.unknown100name.ecommerce.util.IdUtil;
+
+import java.util.HashMap;
 
 /**
  * @author unknown100name
@@ -22,8 +26,8 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
 
     @Override
     public BaseResult<?> increase(Long userId, Long innerItemId) {
-        if(shoppingCarMapper.getByUserIdAndInnerItemId(userId, innerItemId) == null){
-            shoppingCarMapper.create(userId, innerItemId);
+        if(shoppingCarMapper.getInnerShoppingCarByUserIdAndInnerItemId(userId, innerItemId) == null){
+            shoppingCarMapper.create(IdUtil.getId(), userId, innerItemId);
         }else{
             shoppingCarMapper.increase(userId, innerItemId);
         }
@@ -32,12 +36,15 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
 
     @Override
     public BaseResult<?> decrease(Long userId, Long innerItemId) {
-        if(shoppingCarMapper.getByUserIdAndInnerItemId(userId, innerItemId) == null){
+        InnerShoppingCarDTO innerShoppingCar = shoppingCarMapper.getInnerShoppingCarByUserIdAndInnerItemId(userId, innerItemId);
+        if(innerShoppingCar == null){
             return BaseResult.failResult(BaseResultMsg.ERROR_PARAM);
-        }else{
+        }else if (innerShoppingCar.getCount() == 1) {
+            delete(userId, innerItemId);
+        }else {
             shoppingCarMapper.decrease(userId, innerItemId);
-            return BaseResult.successResult(null, null);
         }
+        return BaseResult.successResult(null, null);
     }
 
     @Override
@@ -48,7 +55,7 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
 
     @Override
     public BaseResult<ShoppingCarDTO> get(Long userId) {
-        ShoppingCarDTO shoppingCarDTO = shoppingCarMapper.getByUserId(userId);
+        ShoppingCarDTO shoppingCarDTO = shoppingCarMapper.getShoppingCarByUserId(userId);
         return BaseResult.successResult(null, shoppingCarDTO);
     }
     

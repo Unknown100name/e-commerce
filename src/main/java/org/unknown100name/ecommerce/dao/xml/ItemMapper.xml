@@ -92,6 +92,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- INNERITEM -->
 
+    <select id="getInnerItemById" resultMap="innerItemDTO">
+        SELECT <include refid="innerItemDTOProperty"/>
+        FROM inner_item ii LEFT JOIN item_image iimage on iimage.item_id = ii.item_id AND iimage.type = 2
+        WHERE ii.id = #{id}
+    </select>
+
     <select id="getInnerItemByItemId" resultMap="innerItemDTO">
         SELECT <include refid="innerItemDTOProperty"/>
         FROM inner_item ii LEFT JOIN item_image iimage on iimage.item_id = ii.item_id AND iimage.type = 2

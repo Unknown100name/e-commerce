@@ -17,7 +17,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class ShoppingCarDTO implements Serializable{
 
-    private Integer userId;
+    private static final long serialVersionUID = -4975714059880996359L;
+
+    private Long userId;
 
     private List<InnerShoppingCarDTO> innerShoppingCarList;
     
