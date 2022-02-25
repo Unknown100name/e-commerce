@@ -18,7 +18,7 @@ public class SHA1Util {
      * @param preStr 待转义字符串
      * @return SHA1 字符串
      */
-    public static final String encodeToMD5(String preStr){
+    public static String encodeToSha1(String preStr){
          return DigestUtils.sha1DigestAsHex(preStr);
     }
 }

@@ -12,6 +12,7 @@ import org.unknown100name.ecommerce.pojo.vo.UserRegisterParam;
 import org.unknown100name.ecommerce.service.UserService;
 import org.unknown100name.ecommerce.util.BaseResult;
 import org.unknown100name.ecommerce.util.BaseResultMsg;
+import org.unknown100name.ecommerce.util.SHA1Util;
 
 /**
  * @author unknown100name
@@ -64,7 +65,7 @@ public class UserServiceImpl implements UserService {
             return BaseResult.failResult(BaseResultMsg.ERROR_NICK_OR_ID_CARD);
         }
         // 重置密码, 默认为身份证后六位
-        userMapper.resetPassword(existUser.getId(), idCard.substring(12));
+        userMapper.resetPassword(existUser.getId(), SHA1Util.encodeToSha1(idCard.substring(12)));
         return BaseResult.successResult(BaseResultMsg.SUCCESS_FORGET_PASSWORD, null);
     }
 
@@ -72,11 +73,11 @@ public class UserServiceImpl implements UserService {
     public BaseResult<?> resetPassword(Long userId, String oldPassword, String newPassword) {
         // 验证身份证
         UserDetailDTO existUser = userMapper.getUserDetailById(userId);
-        if(!oldPassword.equals(existUser.getPassword())){
+        if(!SHA1Util.encodeToSha1(oldPassword).equals(existUser.getPassword())){
             return BaseResult.failResult(BaseResultMsg.ERROR_NICK_OR_PASSWORD);
         }
         // 重置密码
-        userMapper.resetPassword(userId, newPassword);
+        userMapper.resetPassword(userId, SHA1Util.encodeToSha1(newPassword));
         return BaseResult.successResult(BaseResultMsg.SUCCESS_RESET_PASSWORD, null);
     }
 

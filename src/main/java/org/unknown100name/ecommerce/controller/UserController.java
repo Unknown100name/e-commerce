@@ -50,7 +50,7 @@ public class UserController {
             return BaseResult.failResult(BaseResultMsg.ERROR_VERTIFY_CODE);
         }
         // password 转 sha1
-        userLoginParam.setPassword(SHA1Util.encodeToMD5(userLoginParam.getPassword()));
+        userLoginParam.setPassword(SHA1Util.encodeToSha1(userLoginParam.getPassword()));
         return userService.login(userLoginParam);
     }
     
@@ -67,7 +67,7 @@ public class UserController {
             return BaseResult.failResult(BaseResultMsg.ERROR_VERTIFY_CODE);
         }
         //password 转 sha1
-        userRegisterParam.setPassword(SHA1Util.encodeToMD5(userRegisterParam.getPassword()));
+        userRegisterParam.setPassword(SHA1Util.encodeToSha1(userRegisterParam.getPassword()));
         return userService.register(userRegisterParam);
     }
 
