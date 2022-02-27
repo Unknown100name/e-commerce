@@ -21,11 +21,11 @@ public class BaseResult<T> {
 
     private T data;
 
-    public static final <T> BaseResult<T> failResult(String msg){
+    public static <T> BaseResult<T> failResult(String msg){
         return new BaseResult<>(msg, false, null);
     }
 
-    public static final <T> BaseResult<T> successResult(String msg, T data){
+    public static <T> BaseResult<T> successResult(String msg, T data){
         return new BaseResult<>(msg, true, data);
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.unknown100name.ecommerce.aspect.TokenAuth;
 import org.unknown100name.ecommerce.pojo.dto.ItemBaseDTO;
 import org.unknown100name.ecommerce.pojo.dto.ItemDetailDTO;
 import org.unknown100name.ecommerce.pojo.vo.EvaluateGiveParam;
@@ -78,12 +79,14 @@ public class ItemController {
 
     /**
      * 根据 orderId 获取商品并评论
-     * @param orderId
+     * @param userId
+     * @param evaluateGiveParam
      * @return
      */
     @PostMapping("evaluate")
     @ResponseBody
-    public BaseResult<String> evaluate(@RequestBody EvaluateGiveParam evaluateGiveParam){
+    @TokenAuth
+    public BaseResult<String> evaluate(String userId, @RequestBody EvaluateGiveParam evaluateGiveParam){
         return evaluateService.insertEvaluate(evaluateGiveParam);
     }
 }
