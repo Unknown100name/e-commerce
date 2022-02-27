@@ -54,25 +54,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- ITEM -->
 
-    <select id="getItemBaseByKeyword" resultType="org.unknown100name.ecommerce.pojo.dto.ItemBaseDTO">
+    <select id="getItemBaseByKeyword" resultMap="itemBaseDTO">
         SELECT <include refid="itemBaseDTOProperty"/>
         FROM item i LEFT JOIN item_image ii ON i.id = ii.item_id AND ii.type = 1
         WHERE (i.title LIKE CONCAT('%',#{keyword},'%') OR i.sub_title LIKE CONCAT('%',#{keyword},'%'))
     </select>
 
-    <select id="getItemBaseByShopId" resultType="org.unknown100name.ecommerce.pojo.dto.ItemBaseDTO">
+    <select id="getItemBaseByShopId" resultMap="itemBaseDTO">
         SELECT <include refid="itemBaseDTOProperty"/>
         FROM item i LEFT JOIN item_image ii on i.id = ii.item_id AND ii.type = 1
         WHERE i.shop_id = #{shopId}
     </select>
 
-    <select id="getItemBaseById" resultType="org.unknown100name.ecommerce.pojo.dto.ItemBaseDTO">
+    <select id="getItemBaseById" resultMap="itemBaseDTO">
         SELECT <include refid="itemBaseDTOProperty"/>
         FROM item i LEFT JOIN item_image ii on i.id = ii.item_id AND ii.type = 1
         AND i.id = #{itemId}
     </select>
 
-    <select id="getItemDetailById" resultType="org.unknown100name.ecommerce.pojo.dto.ItemDetailDTO">
+    <select id="getItemDetailById" resultMap="itemBaseDTO">
         SELECT <include refid="itemDetailDTOProperty"/>
         FROM item i LEFT JOIN item_image ii on i.id = ii.item_id AND ii.type = 1
         AND i.id = #{itemId}
@@ -89,6 +89,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SET item.sell_count = item.sell_count + 1
         WHERE item.id = #{itemId}
     </update>
+
+    <select id="getItemByCategoryTwoId" resultMap="itemBaseDTO">
+        SELECT <include refid="itemBaseDTOProperty"/>
+        FROM item i LEFT JOIN item_image ii on i.id = ii.item_id AND ii.type = 1
+        WHERE i.category_two_id = #{categoryTwoId}
+    </select>
 
     <!-- INNERITEM -->
 

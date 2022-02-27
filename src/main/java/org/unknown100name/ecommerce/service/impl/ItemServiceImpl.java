@@ -100,5 +100,10 @@ public class ItemServiceImpl implements ItemService {
         itemMapper.updateItemState(itemId, 5, 6);
         return BaseResult.successResult(null, null);
     }
-    
+
+    @Override
+    public List<ItemBaseDTO> getItemByCategoryTwoId(Long categoryTwoId) {
+        return itemMapper.getItemByCategoryTwoId(categoryTwoId);
+    }
+
 }

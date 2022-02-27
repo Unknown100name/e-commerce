@@ -36,4 +36,6 @@ public interface ItemService {
     BaseResult<?> down(Long itemId);
 
     BaseResult<?> delete(Long itemId);
+
+    List<ItemBaseDTO> getItemByCategoryTwoId(Long categoryTwoId);
 }

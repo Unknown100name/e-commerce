@@ -62,6 +62,13 @@ public interface ItemMapper extends BaseMapper<Item> {
      */
     void increaseSell(Long innerItemId);
 
+    /**
+     * 通过二级目录查找商品
+     * @param categoryTwoId
+     * @return
+     */
+    List<ItemBaseDTO> getItemByCategoryTwoId(Long categoryTwoId);
+
     //-------------------- INNER ITEM --------------------
 
     /**
@@ -83,5 +90,4 @@ public interface ItemMapper extends BaseMapper<Item> {
      * @param innerItemList
      */
     void insertInnerItem(List<InnerItem> innerItemList);
-
 }
