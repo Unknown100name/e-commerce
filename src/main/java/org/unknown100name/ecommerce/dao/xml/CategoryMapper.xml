@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </sql>
 
     <resultMap id="categoryDTO" type="org.unknown100name.ecommerce.pojo.dto.CategoryDTO">
-        <id column="category_one_id" property="categoryOneId" javaType="java.lang.Long" jdbcType="INT"/>
+        <id column="category_one_id" property="categoryOneId" javaType="java.lang.Long" jdbcType="INTEGER"/>
         <result column="category_one_name" property="categoryOneName" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <collection property="categoryTwoList" select="org.unknown100name.ecommerce.dao.CategoryMapper.getCategoryTwoList" column="category_one_id"/>
     </resultMap>

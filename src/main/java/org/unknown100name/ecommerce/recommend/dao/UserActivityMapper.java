@@ -1,5 +1,6 @@
 package org.unknown100name.ecommerce.recommend.dao;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.unknown100name.ecommerce.recommend.pojo.entity.UserActivity;
 
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
  * @author unknown100name
  * @since 2022.02.27
  */
+@Mapper
 public interface UserActivityMapper {
 	
 	/**
