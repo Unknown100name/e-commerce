@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.unknown100name.ecommerce.aspect.TokenAuth;
+import org.unknown100name.ecommerce.aspect.activity.ActivityFiled;
+import org.unknown100name.ecommerce.aspect.activity.ActivityRecord;
+import org.unknown100name.ecommerce.aspect.activity.ActivitySource;
+import org.unknown100name.ecommerce.aspect.token.TokenAuth;
+import org.unknown100name.ecommerce.pojo.dto.CategoryDTO;
 import org.unknown100name.ecommerce.pojo.dto.ItemBaseDTO;
 import org.unknown100name.ecommerce.pojo.dto.ItemDetailDTO;
 import org.unknown100name.ecommerce.pojo.vo.EvaluateGiveParam;
@@ -32,6 +36,25 @@ public class ItemController {
 
     @Resource
     private EvaluateService evaluateService;
+
+    @GetMapping("getCategory")
+    @ResponseBody
+    public BaseResult<List<CategoryDTO>> getCategory(){
+        return itemService.getCategory();
+    }
+
+    @GetMapping("getByCategoryOne")
+    @ResponseBody
+    public BaseResult<List<ItemBaseDTO>> getByCategoryOne(String userId, String categoryOneId){
+        return itemService.getByCategoryOne(Long.parseLong(categoryOneId));
+    }
+
+    @GetMapping("getByCategoryTwo")
+    @ResponseBody
+    @ActivityRecord
+    public BaseResult<List<ItemBaseDTO>> getByCategoryTwo(String userId, @ActivityFiled(source = ActivitySource.CATEGORY_TWO_ID) String categoryTwoId){
+        return itemService.getByCategoryTwo(Long.parseLong(categoryTwoId));
+    }
 
     /**
      * 查询列表商品
@@ -62,7 +85,7 @@ public class ItemController {
      */
     @GetMapping("base")
     @ResponseBody
-    public BaseResult<ItemBaseDTO> base(String itemId){
+    public BaseResult<ItemBaseDTO> base(String userId, @ActivityFiled(source = ActivitySource.ITEM_ID)String itemId){
         return itemService.base(Long.parseLong(itemId));
     }
 
@@ -73,7 +96,7 @@ public class ItemController {
      */
     @GetMapping("detail")
     @ResponseBody
-    public BaseResult<ItemDetailDTO> detail(String itemId){
+    public BaseResult<ItemDetailDTO> detail(String userId, @ActivityFiled(source = ActivitySource.ITEM_ID)String itemId){
         return itemService.detail(Long.parseLong(itemId));
     }
 

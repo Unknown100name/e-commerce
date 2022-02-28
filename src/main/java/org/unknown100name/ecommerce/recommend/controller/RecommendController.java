@@ -25,7 +25,6 @@ public class RecommendController {
     @Resource
     private RecommendService recommendService;
 
-
     @PostMapping("/item")
     public BaseResult<List<ItemBaseDTO>> getRecommendItem(String userId){
         if (StringUtils.isBlank(userId)){

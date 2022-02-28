@@ -21,6 +21,20 @@ public interface ItemMapper extends BaseMapper<Item> {
     //-------------------- ITEM --------------------
 
     /**
+     * 根据一级目录查询
+     * @param categoryOneId
+     * @return
+     */
+    List<ItemBaseDTO> getItemBaseByCategoryOne(Long categoryOneId);
+
+    /**
+     * 根据二级目录查询
+     * @param categoryTwoId
+     * @return
+     */
+    List<ItemBaseDTO> getItemBaseByCategoryTwo(Long categoryTwoId);
+
+    /**
      * 根据关键词查询
      * @param keyword
      * @return
@@ -63,12 +77,17 @@ public interface ItemMapper extends BaseMapper<Item> {
     void increaseSell(Long innerItemId);
 
     /**
-     * 通过二级目录查找商品
+     * 通过二级目录查找销量最高的商品
      * @param categoryTwoId
      * @return
      */
-    List<ItemBaseDTO> getItemByCategoryTwoId(Long categoryTwoId);
+    ItemBaseDTO getMaxSellItemByCategoryTwoId(Long categoryTwoId);
 
+    /**
+     * 随机获取商品 (10个)
+     * @return
+     */
+    List<ItemBaseDTO> getItemByRandom();
     //-------------------- INNER ITEM --------------------
 
     /**
@@ -76,7 +95,7 @@ public interface ItemMapper extends BaseMapper<Item> {
      * @param id
      * @return
      */
-    List<InnerItemDTO> getInnerItemById(Long id);
+    InnerItemDTO getInnerItemById(Long id);
 
     /**
      * 获取内部商品

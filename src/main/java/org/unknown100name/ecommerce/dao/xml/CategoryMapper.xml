@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.unknown100name.ecommerce.dao.CategoryMapper">
+
+    <sql id="categoryDTOProperty">
+        category_one_id, category_one_name
+    </sql>
+
+    <resultMap id="categoryDTO" type="org.unknown100name.ecommerce.pojo.dto.CategoryDTO">
+        <id column="category_one_id" property="categoryOneId" javaType="java.lang.Long" jdbcType="INT"/>
+        <result column="category_one_name" property="categoryOneName" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <collection property="categoryTwoList" select="org.unknown100name.ecommerce.dao.CategoryMapper.getCategoryTwoList" column="category_one_id"/>
+    </resultMap>
+
+    <select id="getCategoryList" resultMap="categoryDTO">
+        SELECT <include refid="categoryDTOProperty"/>
+        FROM category_one co
+    </select>
+
+    <select id="getCategoryTwoList" parameterType="java.lang.Long" resultType="org.unknown100name.ecommerce.pojo.entity.CategoryTwo">
+        SELECT category_two_id, category_two_name, category_two_record, category_one_id
+        FROM category_two ct WHERE category_one_id = #{category_one_id}
+    </select>
+</mapper>

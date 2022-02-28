@@ -9,6 +9,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface RedisService {
- 
-    
+
+    /**
+     * 确认 Token 真实性
+     * @param userId
+     * @param token
+     * @return false 表示不匹配, true 表示匹配
+     */
+    boolean checkToken(Long userId, String token);
 }

@@ -77,4 +77,14 @@ public class ItemDetailDTO implements Serializable {
      */
     private List<EvaluateDTO> evaluateList;
 
+    /**
+     * 大目录分类
+     */
+    private Long categoryOneId;
+
+    /**
+     * 小目录分类
+     */
+    private Long categoryTwoId;
+
 }

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.unknown100name.ecommerce.aspect.TokenAuth;
+import org.unknown100name.ecommerce.aspect.token.TokenAuth;
 import org.unknown100name.ecommerce.pojo.vo.UserLoginParam;
 import org.unknown100name.ecommerce.pojo.vo.UserRegisterParam;
 import org.unknown100name.ecommerce.service.RedisService;

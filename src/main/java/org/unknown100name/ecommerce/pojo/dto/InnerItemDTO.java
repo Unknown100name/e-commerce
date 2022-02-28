@@ -42,4 +42,9 @@ public class InnerItemDTO implements Serializable {
      */
     private Integer inventory;
 
+    /**
+     * 主商品 ID
+     */
+    private Long itemId;
+
 }

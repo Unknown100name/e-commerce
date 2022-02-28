@@ -33,7 +33,7 @@ public class RecommendServiceImpl implements RecommendService {
 
     @Override
     public List<ItemBaseDTO> getRandomItem() {
-        return null;
+         return itemService.getItemByRandom();
     }
 
     @Override
@@ -44,18 +44,15 @@ public class RecommendServiceImpl implements RecommendService {
         // 找到与当前用户相似度最高的topN个用户
         List<Long> userIds = RecommendUtils.getSimilarityBetweenUsers(userId, userSimilarityList);
 
-        // 从这N个用户中先找到应该推荐给用户的二级类目的id
+        // 找到应该推荐给用户的二级类目的id
         List<UserActivity> userActivityList = userActivityService.listAllUserActive();
         List<Long> categoryTwoList = RecommendUtils.getRecommendCategoryTwo(userId, userIds, userActivityList);
 
         // 找到这些二级类目下销量最大的商品
         List<ItemBaseDTO> recommendProducts = new ArrayList<>();
-        for (Long categoryTwoId : categoryTwoList) {
-            List<ItemBaseDTO> itemList = itemService.getItemByCategoryTwoId(categoryTwoId);
-            // 找出当前二级类目中点击量最大的商品
-            ItemBaseDTO maxSellItem = itemList.stream().max(Comparator.comparing(ItemBaseDTO::getSellCount)).orElse(null);
-            recommendProducts.add(maxSellItem);
-        }
+        categoryTwoList.forEach(
+                categoryTwoId -> recommendProducts.add(itemService.getMaxSellItemByCategoryTwoId(categoryTwoId))
+        );
 
         return recommendProducts;
     }

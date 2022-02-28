@@ -1,5 +1,6 @@
 package org.unknown100name.ecommerce.pojo.dto;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -55,5 +56,15 @@ public class ItemBaseDTO implements Serializable {
      * 主图
      */
     private String mainImageBase64;
+
+    /**
+     * 大目录分类
+     */
+    private Long categoryOneId;
+
+    /**
+     * 小目录分类
+     */
+    private Long categoryTwoId;
 
 }

@@ -3,6 +3,7 @@ package org.unknown100name.ecommerce.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.unknown100name.ecommerce.pojo.dto.CategoryDTO;
 import org.unknown100name.ecommerce.pojo.dto.ItemBaseDTO;
 import org.unknown100name.ecommerce.pojo.dto.ItemDetailDTO;
 import org.unknown100name.ecommerce.pojo.vo.ItemCreateParam;
@@ -16,6 +17,12 @@ import org.unknown100name.ecommerce.util.BaseResult;
  */
 @Service
 public interface ItemService {
+
+    BaseResult<List<CategoryDTO>> getCategory();
+
+    BaseResult<List<ItemBaseDTO>> getByCategoryOne(Long categoryOneId);
+
+    BaseResult<List<ItemBaseDTO>> getByCategoryTwo(Long categoryTwoId);
 
     BaseResult<List<ItemBaseDTO>> searchList(String keyword);
 
@@ -37,5 +44,7 @@ public interface ItemService {
 
     BaseResult<?> delete(Long itemId);
 
-    List<ItemBaseDTO> getItemByCategoryTwoId(Long categoryTwoId);
+    ItemBaseDTO getMaxSellItemByCategoryTwoId(Long categoryTwoId);
+
+    List<ItemBaseDTO> getItemByRandom();
 }

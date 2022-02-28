@@ -6,8 +6,10 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.unknown100name.ecommerce.dao.CategoryMapper;
 import org.unknown100name.ecommerce.dao.ItemMapper;
 import org.unknown100name.ecommerce.dao.OrderMapper;
+import org.unknown100name.ecommerce.pojo.dto.CategoryDTO;
 import org.unknown100name.ecommerce.pojo.dto.ItemBaseDTO;
 import org.unknown100name.ecommerce.pojo.dto.ItemDetailDTO;
 import org.unknown100name.ecommerce.pojo.entity.InnerItem;
@@ -29,6 +31,27 @@ public class ItemServiceImpl implements ItemService {
 
     @Resource
     private OrderMapper orderMapper;
+
+    @Resource
+    private CategoryMapper categoryMapper;
+
+    @Override
+    public BaseResult<List<CategoryDTO>> getCategory() {
+        List<CategoryDTO> category = categoryMapper.getCategoryList();
+        return BaseResult.successResult(null, category);
+    }
+
+    @Override
+    public BaseResult<List<ItemBaseDTO>> getByCategoryOne(Long categoryOneId) {
+        List<ItemBaseDTO> itemBaseList = itemMapper.getItemBaseByCategoryOne(categoryOneId);
+        return BaseResult.successResult(null, itemBaseList);
+    }
+
+    @Override
+    public BaseResult<List<ItemBaseDTO>> getByCategoryTwo(Long categoryTwoId) {
+        List<ItemBaseDTO> itemBaseList = itemMapper.getItemBaseByCategoryTwo(categoryTwoId);
+        return BaseResult.successResult(null, itemBaseList);
+    }
 
     @Override
     public BaseResult<List<ItemBaseDTO>> searchList(String keyword) {
@@ -102,8 +125,13 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemBaseDTO> getItemByCategoryTwoId(Long categoryTwoId) {
-        return itemMapper.getItemByCategoryTwoId(categoryTwoId);
+    public ItemBaseDTO getMaxSellItemByCategoryTwoId(Long categoryTwoId) {
+        return itemMapper.getMaxSellItemByCategoryTwoId(categoryTwoId);
+    }
+
+    @Override
+    public List<ItemBaseDTO> getItemByRandom() {
+        return itemMapper.getItemByRandom();
     }
 
 }

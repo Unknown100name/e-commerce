@@ -10,6 +10,10 @@ import org.unknown100name.ecommerce.service.RedisService;
  */
 @Service
 public class RedisServiceImpl implements RedisService{
-    
-    
+
+
+    @Override
+    public boolean checkToken(Long userId, String token) {
+        return false;
+    }
 }

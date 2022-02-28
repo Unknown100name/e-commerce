@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.unknown100name.ecommerce.aspect.TokenAuth;
+import org.unknown100name.ecommerce.aspect.token.TokenAuth;
 import org.unknown100name.ecommerce.pojo.vo.ItemCreateParam;
 import org.unknown100name.ecommerce.service.ItemService;
 import org.unknown100name.ecommerce.service.OrderService;

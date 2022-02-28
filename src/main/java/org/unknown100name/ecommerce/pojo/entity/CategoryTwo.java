@@ -20,6 +20,7 @@ import java.io.Serializable;
 public class CategoryTwo implements Serializable {
 
     private static final long serialVersionUID = -6835386399011050200L;
+
     /**
      * 目录 ID
      */
@@ -37,4 +38,10 @@ public class CategoryTwo implements Serializable {
      */
     @TableField(value = "category_two_record")
     private String categoryTwoRecord;
+
+    /**
+     * 一级目录 ID
+     */
+    @TableField(value = "category_one_id")
+    private Long categoryOneId;
 }
