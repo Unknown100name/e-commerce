@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </sql>
 
     <resultMap id="orderDTO" type="org.unknown100name.ecommerce.pojo.dto.OrderDTO">
-        <id column="id" property="id" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <id column="id" property="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
         <result column="time" property="time" javaType="java.lang.Long" jdbcType="INTEGER"/>
 
         <association property="contactDTO" javaType="org.unknown100name.ecommerce.pojo.dto.ContactDTO" select="org.unknown100name.ecommerce.dao.ContactMapper.getContactById" column="contact_id"/>
@@ -22,10 +22,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <resultMap id="innerOrderDTO" type="org.unknown100name.ecommerce.pojo.dto.InnerOrderDTO">
-        <id column="id" property="id" javaType="java.lang.Long" jdbcType="INTEGER"/>
-        <result column="order_id" property="orderId" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <id column="id" property="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+        <result column="order_id" property="orderId" javaType="java.lang.Long" jdbcType="BIGINT"/>
         <result column="state" property="state" javaType="java.lang.Long" jdbcType="INTEGER"/>
-        <result column="inner_item_id" property="innerItemId" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <result column="inner_item_id" property="innerItemId" javaType="java.lang.Long" jdbcType="BIGINT"/>
         <result column="number" property="number" javaType="java.lang.Long" jdbcType="INTEGER"/>
         <result column="single_price" property="singlePrice" javaType="java.math.BigDecimal" jdbcType="DECIMAL"/>
         <result column="express_code" property="expressCode" javaType="java.lang.String" jdbcType="VARCHAR"/>

@@ -32,17 +32,17 @@ public interface ItemService {
 
     BaseResult<ItemDetailDTO> detail(Long itemId);
 
-    BaseResult<?> create(ItemCreateParam itemCreateParam);
+    BaseResult<String> create(ItemCreateParam itemCreateParam);
 
-    // BaseResult<?> update(ItemCreateParam itemCreateParam);
+    // BaseResult<String> update(ItemCreateParam itemCreateParam);
 
-    BaseResult<?> upload(Long parseLong);
+    BaseResult<String> upload(Long parseLong);
 
-    BaseResult<?> up(Long itemId);
+    BaseResult<String> up(Long itemId);
 
-    BaseResult<?> down(Long itemId);
+    BaseResult<String> down(Long itemId);
 
-    BaseResult<?> delete(Long itemId);
+    BaseResult<String> delete(Long itemId);
 
     ItemBaseDTO getMaxSellItemByCategoryTwoId(Long categoryTwoId);
 

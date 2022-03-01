@@ -25,17 +25,17 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
     private ShoppingCarMapper shoppingCarMapper;
 
     @Override
-    public BaseResult<?> increase(Long userId, Long innerItemId) {
+    public BaseResult<String> increase(Long userId, Long innerItemId) {
         if(shoppingCarMapper.getInnerShoppingCarByUserIdAndInnerItemId(userId, innerItemId) == null){
             shoppingCarMapper.create(IdUtil.getId(), userId, innerItemId);
         }else{
             shoppingCarMapper.increase(userId, innerItemId);
         }
-        return BaseResult.successResult(null, null);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 
     @Override
-    public BaseResult<?> decrease(Long userId, Long innerItemId) {
+    public BaseResult<String> decrease(Long userId, Long innerItemId) {
         InnerShoppingCarDTO innerShoppingCar = shoppingCarMapper.getInnerShoppingCarByUserIdAndInnerItemId(userId, innerItemId);
         if(innerShoppingCar == null){
             return BaseResult.failResult(BaseResultMsg.ERROR_PARAM);
@@ -44,19 +44,19 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
         }else {
             shoppingCarMapper.decrease(userId, innerItemId);
         }
-        return BaseResult.successResult(null, null);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 
     @Override
-    public BaseResult<?> delete(Long userId, Long innerItemId) {
+    public BaseResult<String> delete(Long userId, Long innerItemId) {
         shoppingCarMapper.delete(userId, innerItemId);
-        return BaseResult.successResult(null, null);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 
     @Override
     public BaseResult<ShoppingCarDTO> get(Long userId) {
         ShoppingCarDTO shoppingCarDTO = shoppingCarMapper.getShoppingCarByUserId(userId);
-        return BaseResult.successResult(null, shoppingCarDTO);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, shoppingCarDTO);
     }
     
 }

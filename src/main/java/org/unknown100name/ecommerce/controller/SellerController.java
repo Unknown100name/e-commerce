@@ -33,7 +33,7 @@ public class SellerController {
     @PostMapping("/item/create")
     @ResponseBody
     @TokenAuth
-    public BaseResult<?> itemCreate(ItemCreateParam itemCreateParam){
+    public BaseResult<String> itemCreate(ItemCreateParam itemCreateParam){
         return itemService.create(itemCreateParam);
     }
 
@@ -43,7 +43,7 @@ public class SellerController {
     // @PostMapping("/item/update")
     // @ResponseBody
     // @TokenAuth
-    // public BaseResult<?> itemUpdate(ItemCreateParam itemCreateParam){
+    // public BaseResult<String> itemUpdate(ItemCreateParam itemCreateParam){
     //     return itemService.update(itemCreateParam);
     // }
     
@@ -53,7 +53,7 @@ public class SellerController {
     @PostMapping("/item/upload")
     @ResponseBody
     @TokenAuth
-    public BaseResult<?> itemUpload(String itemId){
+    public BaseResult<String> itemUpload(String itemId){
         return itemService.upload(Long.parseLong(itemId));
     }
 
@@ -63,7 +63,7 @@ public class SellerController {
     @PostMapping("/item/up")
     @ResponseBody
     @TokenAuth
-    public BaseResult<?> itemUp(String itemId){
+    public BaseResult<String> itemUp(String itemId){
         return itemService.up(Long.parseLong(itemId));
     }
 
@@ -73,7 +73,7 @@ public class SellerController {
     @PostMapping("/item/down")
     @ResponseBody
     @TokenAuth
-    public BaseResult<?> itemDown(String itemId){
+    public BaseResult<String> itemDown(String itemId){
         return itemService.down(Long.parseLong(itemId));
     }
 
@@ -83,7 +83,7 @@ public class SellerController {
     @PostMapping("/item/delete")
     @ResponseBody
     @TokenAuth
-    public BaseResult<?> itemDelete(String itemId){
+    public BaseResult<String> itemDelete(String itemId){
         return itemService.delete(Long.parseLong(itemId));
     }
 
@@ -95,7 +95,7 @@ public class SellerController {
     @PostMapping("/order/send")
     @ResponseBody
     @TokenAuth
-    public BaseResult<?> orderSend(String userId, String innerOrderId){
+    public BaseResult<String> orderSend(String userId, String innerOrderId){
         return orderService.send(Long.parseLong(innerOrderId));
     }
 
@@ -107,7 +107,7 @@ public class SellerController {
     @PostMapping("/order/cancel")
     @ResponseBody
     @TokenAuth
-    public BaseResult<?> orderCancel(String userId, String innerOrderId){
+    public BaseResult<String> orderCancel(String userId, String innerOrderId){
         return orderService.sellerCancel(Long.parseLong(innerOrderId));
     }
 

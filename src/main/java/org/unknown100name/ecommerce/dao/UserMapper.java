@@ -48,4 +48,10 @@ public interface UserMapper extends BaseMapper<User> {
      * @param newPassword
      */
     void resetPassword(Long userId, String newPassword);
+
+    /**
+     * 假删除账号
+     * @param userId
+     */
+    void fakeDeleteByUserId(Long userId);
 }

@@ -16,7 +16,7 @@ import org.unknown100name.ecommerce.util.SHA1Util;
 
 /**
  * @author unknown100name
- * @description
+ * @description 用户服务类
  * @since 2022/1/2
  */
 @Service
@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public BaseResult<?> login(UserLoginParam userLoginParam) {
+    public BaseResult<UserBaseDTO> login(UserLoginParam userLoginParam) {
         // 比较数据库
         UserDetailDTO existUser = userMapper.getUserDetailByNick(userLoginParam.getNick());
         if (existUser == null || !userLoginParam.getPassword().equals(existUser.getPassword())) {
@@ -34,31 +34,37 @@ public class UserServiceImpl implements UserService {
         }else{
             // TODO: token 签发
             String token = null;
-            return BaseResult.successResult(null, token);
+            return BaseResult.successResult(token, new UserBaseDTO(
+                    existUser.getId(), existUser.getNick(), existUser.getType(), existUser.getGender()
+            ));
         }
     }
 
     @Override
-    public BaseResult<?> register(UserRegisterParam userRegisterParam) {
+    public BaseResult<String> register(UserRegisterParam userRegisterParam) {
+        UserBaseDTO existUser = userMapper.getUserByNick(userRegisterParam.getNick());
+        if (existUser != null){
+            return BaseResult.failResult(BaseResultMsg.ERROR_EXISTED_USERNAME);
+        }
         User insertUser = new User(userRegisterParam);
         userMapper.insert(insertUser);
-        return BaseResult.successResult(null, null);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 
     @Override
-    public BaseResult<?> logout(Long userId) {
+    public BaseResult<String> logout(Long userId) {
         // TODO: token 销毁
-        return BaseResult.successResult(null, null);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 
     @Override
-    public BaseResult<?> delete(Long userId) {
-        userMapper.deleteById(userId);
-        return BaseResult.successResult(null, null);
+    public BaseResult<String> delete(Long userId) {
+        userMapper.fakeDeleteByUserId(userId);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 
     @Override
-    public BaseResult<?> forgetPassword(String nick, String idCard) {
+    public BaseResult<String> forgetPassword(String nick, String idCard) {
         // 验证身份证
         UserDetailDTO existUser = userMapper.getUserDetailByNick(nick);
         if(idCard.equals(existUser.getIdCard())){
@@ -70,7 +76,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public BaseResult<?> resetPassword(Long userId, String oldPassword, String newPassword) {
+    public BaseResult<String> resetPassword(Long userId, String oldPassword, String newPassword) {
         // 验证身份证
         UserDetailDTO existUser = userMapper.getUserDetailById(userId);
         if(!SHA1Util.encodeToSha1(oldPassword).equals(existUser.getPassword())){

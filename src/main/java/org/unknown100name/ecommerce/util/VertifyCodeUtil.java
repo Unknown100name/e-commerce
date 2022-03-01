@@ -24,9 +24,9 @@ public class VertifyCodeUtil {
      * 对比验证码
      * @param ip
      * @param inputResult
-     * @return
+     * @return 返回 true 表示审核通过
      */
     public final boolean compareWithVertifyCode(String ip, String inputResult){
-        return false;
+        return true;
     }
 }

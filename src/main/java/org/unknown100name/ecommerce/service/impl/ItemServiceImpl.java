@@ -17,6 +17,7 @@ import org.unknown100name.ecommerce.pojo.entity.Item;
 import org.unknown100name.ecommerce.pojo.vo.ItemCreateParam;
 import org.unknown100name.ecommerce.service.ItemService;
 import org.unknown100name.ecommerce.util.BaseResult;
+import org.unknown100name.ecommerce.util.BaseResultMsg;
 
 /**
  * @author unknown100name
@@ -38,45 +39,45 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public BaseResult<List<CategoryDTO>> getCategory() {
         List<CategoryDTO> category = categoryMapper.getCategoryList();
-        return BaseResult.successResult(null, category);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, category);
     }
 
     @Override
     public BaseResult<List<ItemBaseDTO>> getByCategoryOne(Long categoryOneId) {
         List<ItemBaseDTO> itemBaseList = itemMapper.getItemBaseByCategoryOne(categoryOneId);
-        return BaseResult.successResult(null, itemBaseList);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, itemBaseList);
     }
 
     @Override
     public BaseResult<List<ItemBaseDTO>> getByCategoryTwo(Long categoryTwoId) {
         List<ItemBaseDTO> itemBaseList = itemMapper.getItemBaseByCategoryTwo(categoryTwoId);
-        return BaseResult.successResult(null, itemBaseList);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, itemBaseList);
     }
 
     @Override
     public BaseResult<List<ItemBaseDTO>> searchList(String keyword) {
         List<ItemBaseDTO> itemBaseList = itemMapper.getItemBaseByKeyword(keyword);
-        return BaseResult.successResult(null, itemBaseList);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, itemBaseList);
     }
 
     @Override
     public BaseResult<List<ItemBaseDTO>> shopList(Long shopId) {
         List<ItemBaseDTO> itemBaseList = itemMapper.getItemBaseByShopId(shopId);
-        return BaseResult.successResult(null, itemBaseList);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, itemBaseList);
     }
 
     @Override
     public BaseResult<ItemBaseDTO> base(Long itemId) {
-        return BaseResult.successResult(null, itemMapper.getItemBaseById(itemId));
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, itemMapper.getItemBaseById(itemId));
     }
 
     @Override
     public BaseResult<ItemDetailDTO> detail(Long itemId) {
-        return BaseResult.successResult(null, itemMapper.getItemDetailById(itemId));
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, itemMapper.getItemDetailById(itemId));
     }
 
     @Override
-    public BaseResult<?> create(ItemCreateParam itemCreateParam) {
+    public BaseResult<String> create(ItemCreateParam itemCreateParam) {
         Item insertItem = new Item(itemCreateParam);
         List<InnerItem> innerItemList = new ArrayList<>();
         itemCreateParam.getInnerItemCreateParam().forEach(
@@ -84,44 +85,44 @@ public class ItemServiceImpl implements ItemService {
         );
         itemMapper.insert(insertItem);
         itemMapper.insertInnerItem(innerItemList);
-        return BaseResult.successResult(null, null);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 
     // @Override
-    // public BaseResult<?> update(ItemCreateParam itemCreateParam) {
+    // public BaseResult<String> update(ItemCreateParam itemCreateParam) {
     //     return null;
     // }
 
     @Override
-    public BaseResult<?> upload(Long itemId) {
+    public BaseResult<String> upload(Long itemId) {
         itemMapper.updateItemState(itemId, 0, 1);
-        return BaseResult.successResult(null, null); 
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null); 
     }
 
     @Override
-    public BaseResult<?> up(Long itemId) {
+    public BaseResult<String> up(Long itemId) {
         itemMapper.updateItemState(itemId, 2, 3);
-        return BaseResult.successResult(null, null);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 
     @Override
-    public BaseResult<?> down(Long itemId) {
+    public BaseResult<String> down(Long itemId) {
         boolean exist = orderMapper.existInnerOrderNotFinish(itemId);
         if(exist){
             itemMapper.updateItemState(itemId, 3, 5);
         }else{
             itemMapper.updateItemState(itemId, 3, 4);
         }
-        return BaseResult.successResult(null, null);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 
     @Override
-    public BaseResult<?> delete(Long itemId) {
+    public BaseResult<String> delete(Long itemId) {
         itemMapper.updateItemState(itemId, 0, 6);
         itemMapper.updateItemState(itemId, 1, 6);
         itemMapper.updateItemState(itemId, 2, 6);
         itemMapper.updateItemState(itemId, 5, 6);
-        return BaseResult.successResult(null, null);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 
     @Override

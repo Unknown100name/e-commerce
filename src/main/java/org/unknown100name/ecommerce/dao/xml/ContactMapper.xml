@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="org.unknown100name.ecommerce.dao.ContactMapper">
 
     <resultMap id="contactDTO" type="org.unknown100name.ecommerce.pojo.dto.ContactDTO">
-        <id column="id" property="id" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <id column="id" property="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
         <result column="address" property="address" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="name" property="name" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="phone" property="phone" javaType="java.lang.String" jdbcType="VARCHAR"/>

@@ -31,10 +31,4 @@ public class CategoryOne implements Serializable {
      */
     @TableField(value = "category_one_name")
     private Long categoryOneName;
-
-    /**
-     * TODO:
-     */
-    @TableField(value = "category_one_record")
-    private String categoryOneRecord;
 }

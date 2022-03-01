@@ -79,8 +79,8 @@ public class User implements Serializable {
      * 是否注销
      * false = 未删除
      */
-    @TableField(value = "delete")
-    private Boolean delete;
+    @TableField(value = "deleted")
+    private Boolean deleted;
 
     public User(UserRegisterParam userRegisterParam){
         this.id = IdUtil.getId();
@@ -91,6 +91,6 @@ public class User implements Serializable {
         this.gender = userRegisterParam.getGender();
         this.realName = userRegisterParam.getRealName();
         this.idCard = userRegisterParam.getIdCard();
-        this.delete = false;
+        this.deleted = false;
     }
 }

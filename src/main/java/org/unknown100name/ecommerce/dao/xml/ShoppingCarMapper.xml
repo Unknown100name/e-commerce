@@ -14,13 +14,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </sql>
 
     <resultMap id="shoppingCarDTO" type="org.unknown100name.ecommerce.pojo.dto.ShoppingCarDTO">
-        <result column="user_id" property="userId" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" javaType="java.lang.Long" jdbcType="BIGINT"/>
 
         <collection property="innerShoppingCarList" javaType="org.unknown100name.ecommerce.pojo.dto.InnerShoppingCarDTO" select="org.unknown100name.ecommerce.dao.ShoppingCarMapper.getInnerShoppingCarByUserId" column="user_id"/>
     </resultMap>
 
     <resultMap id="innerShoppingCarDTO" type="org.unknown100name.ecommerce.pojo.dto.InnerShoppingCarDTO">
-        <id column="id" property="id" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <id column="id" property="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
         <result column="count" property="count" javaType="java.lang.Integer" jdbcType="INTEGER"/>
 
         <association property="innerItemDTO" javaType="org.unknown100name.ecommerce.pojo.dto.InnerItemDTO" select="org.unknown100name.ecommerce.dao.ItemMapper.getInnerItemById" column="inner_item_id"/>

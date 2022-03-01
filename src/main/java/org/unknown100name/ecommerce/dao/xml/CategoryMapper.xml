@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </sql>
 
     <resultMap id="categoryDTO" type="org.unknown100name.ecommerce.pojo.dto.CategoryDTO">
-        <id column="category_one_id" property="categoryOneId" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <id column="category_one_id" property="categoryOneId" javaType="java.lang.Long" jdbcType="BIGINT"/>
         <result column="category_one_name" property="categoryOneName" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <collection property="categoryTwoList" select="org.unknown100name.ecommerce.dao.CategoryMapper.getCategoryTwoList" column="category_one_id"/>
     </resultMap>
@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <select id="getCategoryTwoList" parameterType="java.lang.Long" resultType="org.unknown100name.ecommerce.pojo.entity.CategoryTwo">
-        SELECT category_two_id, category_two_name, category_two_record, category_one_id
+        SELECT category_two_id, category_two_name, category_one_id
         FROM category_two ct WHERE category_one_id = #{category_one_id}
     </select>
 </mapper>

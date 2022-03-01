@@ -12,18 +12,18 @@ import org.unknown100name.ecommerce.util.BaseResult;
 @Service
 public interface OrderService {
 
-    BaseResult<?> prePay(ShoppingCarTurnOrderParam shoppingCarTurnOrderParam);
+    BaseResult<String> prePay(ShoppingCarTurnOrderParam shoppingCarTurnOrderParam);
 
-    BaseResult<?> pay(Long orderId);
+    BaseResult<String> pay(Long orderId);
 
-    BaseResult<?> send(Long innerOrderId);
+    BaseResult<String> send(Long innerOrderId);
 
-    BaseResult<?> accept(Long innerOrderId);
+    BaseResult<String> accept(Long innerOrderId);
 
-    BaseResult<?> buyerCancel(Long innerOrderId);
+    BaseResult<String> buyerCancel(Long innerOrderId);
 
-    BaseResult<?> sellerCancel(Long innerOrderId);
+    BaseResult<String> sellerCancel(Long innerOrderId);
     
-    // BaseResult<?> reject(Long innerOrderId);
+    // BaseResult<String> reject(Long innerOrderId);
     
 }

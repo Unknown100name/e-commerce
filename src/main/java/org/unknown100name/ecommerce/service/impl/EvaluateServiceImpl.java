@@ -8,6 +8,7 @@ import org.unknown100name.ecommerce.pojo.entity.Evaluate;
 import org.unknown100name.ecommerce.pojo.vo.EvaluateGiveParam;
 import org.unknown100name.ecommerce.service.EvaluateService;
 import org.unknown100name.ecommerce.util.BaseResult;
+import org.unknown100name.ecommerce.util.BaseResultMsg;
 
 
 /**
@@ -25,6 +26,6 @@ public class EvaluateServiceImpl implements EvaluateService{
     public BaseResult<String> insertEvaluate(EvaluateGiveParam evaluateGiveParam) {
         Evaluate insertEvaluate = new Evaluate(evaluateGiveParam);
         evaluateMapper.insert(insertEvaluate);
-        return BaseResult.successResult(null, null);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 }

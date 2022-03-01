@@ -53,7 +53,7 @@ public class OrderServiceImpl implements OrderService{
      */
     @Override
     @Transactional
-    public BaseResult<?> prePay(ShoppingCarTurnOrderParam shoppingCarTurnOrderParam) {
+    public BaseResult<String> prePay(ShoppingCarTurnOrderParam shoppingCarTurnOrderParam) {
         try{
             // 验证 ShoopingCarId
             ShoppingCarDTO existShoppingCarDTO = shoppingCarMapper.getShoppingCarByUserId(Long.parseLong(shoppingCarTurnOrderParam.getUserId()));
@@ -104,52 +104,52 @@ public class OrderServiceImpl implements OrderService{
                         Long.parseLong(insertShoppingCarId))
             );
         
-            return BaseResult.successResult(null, null);
+            return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
         }catch(Throwable t){
             return BaseResult.failResult(BaseResultMsg.ERROR_UNKNOWN);
         }
     }
 
     @Override
-    public BaseResult<?> pay(Long orderId) {
+    public BaseResult<String> pay(Long orderId) {
         OrderDTO existOrder = orderMapper.getOrderById(orderId);
         existOrder.getInnerOrderList().forEach(
             innerOrder -> orderMapper.updateInnerOrderState(innerOrder.getId(), 0, 1)
         );
-        return BaseResult.successResult(null, null);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 
     @Override
-    public BaseResult<?> send(Long innerOrderId) {
+    public BaseResult<String> send(Long innerOrderId) {
         orderMapper.updateInnerOrderState(innerOrderId, 1, 2);
-        return BaseResult.successResult(null, null);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }    
     
     @Override
-    public BaseResult<?> accept(Long innerOrderId) {
+    public BaseResult<String> accept(Long innerOrderId) {
         orderMapper.updateInnerOrderState(innerOrderId, 2, 3);
         InnerOrderDTO innerOrderDTO = orderMapper.getInnerOrderById(innerOrderId);
         itemMapper.increaseSell(innerOrderDTO.getInnerItemId());
-        return BaseResult.successResult(null, null);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 
     @Override
-    public BaseResult<?> buyerCancel(Long innerOrderId) {
+    public BaseResult<String> buyerCancel(Long innerOrderId) {
         orderMapper.updateInnerOrderState(innerOrderId, 0, -1);
-        return BaseResult.successResult(null, null);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 
     @Override
-    public BaseResult<?> sellerCancel(Long innerOrderId) {
+    public BaseResult<String> sellerCancel(Long innerOrderId) {
         orderMapper.updateInnerOrderState(innerOrderId, 1, -1);
-        return BaseResult.successResult(null, null);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
     
     
     // @Override
-    // public BaseResult<?> reject(Long innerOrderId) {
+    // public BaseResult<String> reject(Long innerOrderId) {
     //     orderMapper.updateInnerOrderState(innerOrderId, 3, 5);
-    //     return BaseResult.successResult(null, null);
+    //     return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     // }
 
 }

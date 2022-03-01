@@ -2,6 +2,7 @@ package org.unknown100name.ecommerce.controller;
 
 import javax.annotation.Resource;
 
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.unknown100name.ecommerce.aspect.token.TokenAuth;
+import org.unknown100name.ecommerce.pojo.dto.UserBaseDTO;
 import org.unknown100name.ecommerce.pojo.vo.UserLoginParam;
 import org.unknown100name.ecommerce.pojo.vo.UserRegisterParam;
 import org.unknown100name.ecommerce.service.RedisService;
@@ -44,7 +46,7 @@ public class UserController {
      */
     @PostMapping("login")
     @ResponseBody
-    public BaseResult<?> login(@RequestBody UserLoginParam userLoginParam){
+    public BaseResult<UserBaseDTO> login(@RequestBody UserLoginParam userLoginParam){
         // TODO: IP 获取
         if(!vertifyCodeUtil.compareWithVertifyCode(null, userLoginParam.getVertifyCode())){
             return BaseResult.failResult(BaseResultMsg.ERROR_VERTIFY_CODE);
@@ -61,7 +63,7 @@ public class UserController {
      */
     @PostMapping("register")
     @ResponseBody
-    public BaseResult<?> register(@RequestBody UserRegisterParam userRegisterParam){
+    public BaseResult<String> register(@RequestBody UserRegisterParam userRegisterParam){
         // TODO: IP 获取
         if(!vertifyCodeUtil.compareWithVertifyCode(null, userRegisterParam.getVertifyCode())){
             return BaseResult.failResult(BaseResultMsg.ERROR_VERTIFY_CODE);
@@ -79,7 +81,7 @@ public class UserController {
     @PostMapping("logout")
     @ResponseBody
     @TokenAuth
-    public BaseResult<?> logout(String userId){
+    public BaseResult<String> logout(String userId){
         return userService.logout(Long.parseLong(userId));
     }
 
@@ -91,7 +93,7 @@ public class UserController {
     @PostMapping("delete")
     @ResponseBody
     @TokenAuth
-    public BaseResult<?> delete(String userId){
+    public BaseResult<String> delete(String userId){
         return userService.delete(Long.parseLong(userId));
     }
 
@@ -103,7 +105,7 @@ public class UserController {
      */
     @PostMapping("forgetPassword")
     @ResponseBody
-    public BaseResult<?> forgetPassword(String nick, String idCard){
+    public BaseResult<String> forgetPassword(String nick, String idCard){
         return userService.forgetPassword(nick, idCard);
     }
 
@@ -117,7 +119,7 @@ public class UserController {
     @PostMapping("resetPassword")
     @ResponseBody
     @TokenAuth
-    public BaseResult<?> resetPassword(String userId, String oldPassword, String newPassword){
+    public BaseResult<String> resetPassword(String userId, String oldPassword, String newPassword){
         return userService.resetPassword(Long.parseLong(userId), oldPassword, newPassword);
     }   
 
@@ -127,14 +129,14 @@ public class UserController {
      */
     @GetMapping("vertifyCodeImage")
     @ResponseBody
-    public BaseResult<?> vertifyCodeImage(){
+    public BaseResult<String> vertifyCodeImage(){
         // TODO: IP 获取
         String newImageBase64 = vertifyCodeUtil.getNewVertifyCode(null);
         // Redis 存储
         if(newImageBase64 == null){
             return BaseResult.failResult(BaseResultMsg.ERROR_VERTIFY_CODE_TOO_QUICK);
         }else{
-            return BaseResult.successResult(null, newImageBase64);
+            return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, newImageBase64);
         }
     }
 }

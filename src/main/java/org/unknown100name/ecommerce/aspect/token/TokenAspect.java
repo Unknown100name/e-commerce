@@ -64,10 +64,10 @@ public class TokenAspect {
                 }
             }
 
-            // 拒绝访问
-            if (userId == null || token == null || !redisService.checkToken(userId, token)){
-                return null;
-            }
+            // TODO: 拒绝访问 token 写好之后重新覆盖
+//            if (userId == null || token == null || !redisService.checkToken(userId, token)){
+//                return null;
+//            }
 
         } catch (Throwable e) {
             e.printStackTrace();

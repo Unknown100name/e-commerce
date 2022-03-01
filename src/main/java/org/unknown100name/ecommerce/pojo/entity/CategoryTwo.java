@@ -34,12 +34,6 @@ public class CategoryTwo implements Serializable {
     private Long categoryTwoName;
 
     /**
-     * TODO:
-     */
-    @TableField(value = "category_two_record")
-    private String categoryTwoRecord;
-
-    /**
      * 一级目录 ID
      */
     @TableField(value = "category_one_id")

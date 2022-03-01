@@ -38,7 +38,7 @@ public class BuyerController{
     @PostMapping("/shoppingCar/increase")
     @ResponseBody
     @TokenAuth
-    public BaseResult<?> shoppingCarIncrease(String userId, String innerItemId){
+    public BaseResult<String> shoppingCarIncrease(String userId, String innerItemId){
         return shoppingCarService.increase(Long.parseLong(userId), Long.parseLong(innerItemId));
     }
 
@@ -51,7 +51,7 @@ public class BuyerController{
     @PostMapping("/shoppingCar/decrease")
     @ResponseBody
     @TokenAuth
-    public BaseResult<?> shoppingCarDecrease(String userId, String innerItemId){
+    public BaseResult<String> shoppingCarDecrease(String userId, String innerItemId){
         return shoppingCarService.decrease(Long.parseLong(userId), Long.parseLong(innerItemId));
     }
 
@@ -64,7 +64,7 @@ public class BuyerController{
     @PostMapping("/shoppingCar/delete")
     @ResponseBody
     @TokenAuth
-    public BaseResult<?> shoppingCarDelete(String userId, String innerItemId){
+    public BaseResult<String> shoppingCarDelete(String userId, String innerItemId){
         return shoppingCarService.delete(Long.parseLong(userId), Long.parseLong(innerItemId));
     }
 
@@ -88,7 +88,7 @@ public class BuyerController{
     @PostMapping("/order/prepay")
     @ResponseBody
     @TokenAuth
-    public BaseResult<?> orderPrePay(@RequestBody ShoppingCarTurnOrderParam shoppingCarTurnOrderParam){
+    public BaseResult<String> orderPrePay(@RequestBody ShoppingCarTurnOrderParam shoppingCarTurnOrderParam){
         return orderService.prePay(shoppingCarTurnOrderParam);
     }
 
@@ -101,7 +101,7 @@ public class BuyerController{
     @PostMapping("/order/pay")
     @ResponseBody
     @TokenAuth
-    public BaseResult<?> orderPay(String userId, String orderId){
+    public BaseResult<String> orderPay(String userId, String orderId){
         return orderService.pay(Long.parseLong(orderId));
     }
 
@@ -113,7 +113,7 @@ public class BuyerController{
     @PostMapping("/order/accept")
     @ResponseBody
     @TokenAuth
-    public BaseResult<?> orderAccept(String userId, String innerOrderId){
+    public BaseResult<String> orderAccept(String userId, String innerOrderId){
         return orderService.accept(Long.parseLong(innerOrderId));
     }
 
@@ -125,7 +125,7 @@ public class BuyerController{
     @PostMapping("/order/cancel")
     @ResponseBody
     @TokenAuth
-    public BaseResult<?> orderCancel(String userId, String orderId){
+    public BaseResult<String> orderCancel(String userId, String orderId){
         return orderService.buyerCancel(Long.parseLong(orderId));
     }
 
@@ -137,7 +137,7 @@ public class BuyerController{
     // @PostMapping("/order/reject")
     // @ResponseBody
     // @TokenAuth
-    // public BaseResult<?> orderReject(String userId, String innerOrderId){
+    // public BaseResult<String> orderReject(String userId, String innerOrderId){
     //     return orderService.reject(Long.parseLong(innerOrderId));
     // }
 
@@ -149,7 +149,7 @@ public class BuyerController{
     @PostMapping("/item/recommendList")
     @ResponseBody
     @TokenAuth
-    public BaseResult<?> orderReject(String userId){
+    public BaseResult<String> orderReject(String userId){
         return null;
     }
 }

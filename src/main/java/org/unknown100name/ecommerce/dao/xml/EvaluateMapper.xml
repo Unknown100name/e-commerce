@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </sql>
 
     <resultMap id="evaluateDTO" type="org.unknown100name.ecommerce.pojo.dto.EvaluateDTO">
-        <id column="id" property="id" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <id column="id" property="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
         <result column="time" property="time" javaType="java.lang.Long" jdbcType="INTEGER"/>
         <result column="type" property="type" javaType="java.lang.Integer" jdbcType="INTEGER"/>
         <result column="content" property="content" javaType="java.lang.String" jdbcType="VARCHAR"/>

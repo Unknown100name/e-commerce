@@ -12,11 +12,11 @@ import org.unknown100name.ecommerce.util.BaseResult;
 @Service
 public interface ShoppingCarService{
 
-    BaseResult<?> increase(Long userId, Long innerItemId);
+    BaseResult<String> increase(Long userId, Long innerItemId);
 
-    BaseResult<?> decrease(Long userId, Long innerItemId);
+    BaseResult<String> decrease(Long userId, Long innerItemId);
 
-    BaseResult<?> delete(Long userId, Long innerItemId);
+    BaseResult<String> delete(Long userId, Long innerItemId);
 
     BaseResult<ShoppingCarDTO> get(Long userId);
 
