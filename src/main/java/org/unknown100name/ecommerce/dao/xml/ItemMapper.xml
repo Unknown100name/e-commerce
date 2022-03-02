@@ -6,22 +6,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="org.unknown100name.ecommerce.dao.ItemMapper">
 
     <sql id="itemBaseDTOProperty">
-        id, title, sub_title, state, sell_count, image_base64, category_one_id, category_two_id
+        i.id, title, sub_title, state, sell_count, image_base64, category_one_id, category_two_id, shop_id
     </sql>
 
     <sql id="itemDetailDTOProperty">
-        id, title, sub_title, h5_base64, state, sell_count, image_base64, category_one_id, category_two_id
+        i.id, title, sub_title, h5_base64, state, sell_count, image_base64, category_one_id, category_two_id, shop_id
     </sql>
     
     <sql id="innerItemDTOProperty">
-        id, type_name, price, image_base64, iventory, item_id
+        ii.id, type_name, price, image_base64, inventory, ii.item_id
     </sql>
 
     <resultMap id="itemBaseDTO" type="org.unknown100name.ecommerce.pojo.dto.ItemBaseDTO">
         <id column="id" property="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
         <result column="title" property="title" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="sub_title" property="subTitle" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result column="state" property="state" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <result column="state" property="state" javaType="java.lang.Integer" jdbcType="INTEGER"/>
         <result column="sell_count" property="sellCount" javaType="java.lang.Long" jdbcType="INTEGER"/>
         <result column="image_base64" property="mainImageBase64" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="category_one_id" property="categoryOneId" javaType="java.lang.Long" jdbcType="BIGINT"/>
@@ -35,17 +35,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result column="title" property="title" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="sub_title" property="subTitle" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="h5_base64" property="h5Base64" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result column="state" property="state" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <result column="state" property="state" javaType="java.lang.Integer" jdbcType="INTEGER"/>
         <result column="sell_count" property="sellCount" javaType="java.lang.Long" jdbcType="INTEGER"/>
         <result column="image_base64" property="mainImageBase64" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="category_one_id" property="categoryOneId" javaType="java.lang.Long" jdbcType="BIGINT"/>
         <result column="category_two_id" property="categoryTwoId" javaType="java.lang.Long" jdbcType="BIGINT"/>
 
-        <association property="shop" javaType="org.unknown100name.ecommerce.pojo.dto.UserBaseDTO" select="org.unknown100name.ecommerce.dao.UserMapper.getUserById" column="shopId"/>
+        <association property="shop" javaType="org.unknown100name.ecommerce.pojo.dto.UserBaseDTO" select="org.unknown100name.ecommerce.dao.UserMapper.getUserById" column="shop_id"/>
 
-        <collection property="imageListBase64" javaType="java.lang.String" select="org.unknown100name.ecommerce.dao.ItemImageMapper.getItemImagesByItemId" column="id"/>
-        <collection property="innerItemList" javaType="org.unknown100name.ecommerce.pojo.dto.InnerItemDTO" select="org.unknown100name.ecommerce.dao.ItemMapper.getInnerItemByItemId" column="id"/>
-        <collection property="evaluateList" javaType="org.unknown100name.ecommerce.pojo.dto.EvaluateDTO" select="org.unknown100name.ecommerce.dao.EvaluateMapper.getEvaluateByItemId" column="id"/>
+        <collection property="imageListBase64" ofType="java.lang.String" select="org.unknown100name.ecommerce.dao.ItemImageMapper.getItemImagesByItemId" column="id"/>
+        <collection property="innerItemList" ofType="org.unknown100name.ecommerce.pojo.dto.InnerItemDTO" select="org.unknown100name.ecommerce.dao.ItemMapper.getInnerItemByItemId" column="id"/>
+        <collection property="evaluateList" ofType="org.unknown100name.ecommerce.pojo.dto.EvaluateDTO" select="org.unknown100name.ecommerce.dao.EvaluateMapper.getEvaluateByItemId" column="id"/>
     </resultMap>
     
     <resultMap id="innerItemDTO" type="org.unknown100name.ecommerce.pojo.dto.InnerItemDTO">
@@ -86,13 +86,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="getItemBaseById" resultMap="itemBaseDTO">
         SELECT <include refid="itemBaseDTOProperty"/>
         FROM item i LEFT JOIN item_image ii on i.id = ii.item_id AND ii.type = 1
-        AND i.id = #{itemId}
+        WHERE i.id = #{itemId}
     </select>
 
-    <select id="getItemDetailById" resultMap="itemBaseDTO">
+    <select id="getItemDetailById" resultMap="itemDetailDTO">
         SELECT <include refid="itemDetailDTOProperty"/>
         FROM item i LEFT JOIN item_image ii on i.id = ii.item_id AND ii.type = 1
-        AND i.id = #{itemId}
+        WHERE i.id = #{itemId}
     </select>
 
     <update id="updateItemState" parameterType="java.lang.Long">
@@ -140,7 +140,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         inner_item(id, item_id, type_name, price, inventory)
         VALUES
         <foreach collection="innerItemList" item="innerItem" index="index" separator=",">
-            (#{innerItem.id}, #{innerItem.itemId}, #{innerItem.typeName}, #{innerItem.price}, #{innerItem.inventory},)
+            (#{innerItem.id}, #{innerItem.itemId}, #{innerItem.typeName}, #{innerItem.price}, #{innerItem.inventory})
         </foreach>
     </insert>
 

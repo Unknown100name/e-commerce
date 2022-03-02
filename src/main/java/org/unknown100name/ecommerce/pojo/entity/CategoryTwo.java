@@ -31,7 +31,7 @@ public class CategoryTwo implements Serializable {
      * 目录名称
      */
     @TableField(value = "category_two_name")
-    private Long categoryTwoName;
+    private String categoryTwoName;
 
     /**
      * 一级目录 ID

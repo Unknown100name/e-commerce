@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result column="time" property="time" javaType="java.lang.Long" jdbcType="INTEGER"/>
 
         <association property="contactDTO" javaType="org.unknown100name.ecommerce.pojo.dto.ContactDTO" select="org.unknown100name.ecommerce.dao.ContactMapper.getContactById" column="contact_id"/>
-        <collection property="innerOrderList" javaType="org.unknown100name.ecommerce.pojo.dto.InnerOrderDTO" select="org.unknown100name.ecommerce.dao.OrderMapper.getInnerOrderByOrderId" column="id"/>
+        <collection property="innerOrderList" ofType="org.unknown100name.ecommerce.pojo.dto.InnerOrderDTO" select="org.unknown100name.ecommerce.dao.OrderMapper.getInnerOrderByOrderId" column="id"/>
     </resultMap>
 
     <resultMap id="innerOrderDTO" type="org.unknown100name.ecommerce.pojo.dto.InnerOrderDTO">

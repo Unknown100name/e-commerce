@@ -35,8 +35,8 @@ spring:
 #  params: count=countSql
 
 mybatis-plus:
-  mapper-locations: classpath:org/unknown100name/ecommerce/dao/xml/*Mapper.xml
-  type-aliases-package: org.unknown100name.ecommerce.pojo.entity
+  mapper-locations: classpath:org/unknown100name/ecommerce/dao/xml/*Mapper.xml, classpath:org/unknown100name/ecommerce/recommend/dao/xml/*Mapper.xml
+  type-aliases-package: org.unknown100name.ecommerce.pojo.entity.org.unknown100name.ecommerce.recommend.pojo.entity
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -46,4 +46,4 @@ mybatis-plus:
       db-type: mysql
 
 mybatis:
-  mapper-locations: classpath:org/unknown100name/ecommerce/dao/xml/*Mapper.xml
+  mapper-locations: classpath:org/unknown100name/ecommerce/dao/xml/*Mapper.xml, classpath:org/unknown100name/ecommerce/recommend/dao/xml/*Mapper.xml

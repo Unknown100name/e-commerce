@@ -89,11 +89,13 @@ public class Item implements Serializable {
     private Long hits;
 
     public Item(ItemCreateParam itemCreateParam) {
+        this.id = IdUtil.getId();
         this.title = itemCreateParam.getTitle();
         this.subTitle = itemCreateParam.getSubTitle();
         this.H5Base64 = itemCreateParam.getH5Base64();
         this.state = 0;
         this.sellCount = 0L;
+        this.shopId = itemCreateParam.getUserId();
         this.categoryOneId = itemCreateParam.getCategoryOneId();
         this.categoryTwoId = itemCreateParam.getCategoryTwoId();
     }

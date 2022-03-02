@@ -140,16 +140,4 @@ public class BuyerController{
     // public BaseResult<String> orderReject(String userId, String innerOrderId){
     //     return orderService.reject(Long.parseLong(innerOrderId));
     // }
-
-    /**
-     * TODO：获得推荐列表
-     * @param userId
-     * @return
-     */
-    @PostMapping("/item/recommendList")
-    @ResponseBody
-    @TokenAuth
-    public BaseResult<String> orderReject(String userId){
-        return null;
-    }
 }

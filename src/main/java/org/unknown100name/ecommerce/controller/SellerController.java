@@ -2,10 +2,7 @@ package org.unknown100name.ecommerce.controller;
 
 import javax.annotation.Resource;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.unknown100name.ecommerce.aspect.token.TokenAuth;
 import org.unknown100name.ecommerce.pojo.vo.ItemCreateParam;
 import org.unknown100name.ecommerce.service.ItemService;
@@ -33,7 +30,8 @@ public class SellerController {
     @PostMapping("/item/create")
     @ResponseBody
     @TokenAuth
-    public BaseResult<String> itemCreate(ItemCreateParam itemCreateParam){
+    public BaseResult<String> itemCreate(String userId, @RequestBody ItemCreateParam itemCreateParam){
+        itemCreateParam.setUserId(Long.parseLong(userId));
         return itemService.create(itemCreateParam);
     }
 
@@ -53,7 +51,7 @@ public class SellerController {
     @PostMapping("/item/upload")
     @ResponseBody
     @TokenAuth
-    public BaseResult<String> itemUpload(String itemId){
+    public BaseResult<String> itemUpload(String userId, String itemId){
         return itemService.upload(Long.parseLong(itemId));
     }
 
@@ -63,7 +61,7 @@ public class SellerController {
     @PostMapping("/item/up")
     @ResponseBody
     @TokenAuth
-    public BaseResult<String> itemUp(String itemId){
+    public BaseResult<String> itemUp(String userId, String itemId){
         return itemService.up(Long.parseLong(itemId));
     }
 
@@ -73,7 +71,7 @@ public class SellerController {
     @PostMapping("/item/down")
     @ResponseBody
     @TokenAuth
-    public BaseResult<String> itemDown(String itemId){
+    public BaseResult<String> itemDown(String userId, String itemId){
         return itemService.down(Long.parseLong(itemId));
     }
 
@@ -83,7 +81,7 @@ public class SellerController {
     @PostMapping("/item/delete")
     @ResponseBody
     @TokenAuth
-    public BaseResult<String> itemDelete(String itemId){
+    public BaseResult<String> itemDelete(String userId, String itemId){
         return itemService.delete(Long.parseLong(itemId));
     }
 

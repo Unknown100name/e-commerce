@@ -85,6 +85,7 @@ public class ItemController {
      */
     @GetMapping("base")
     @ResponseBody
+    @ActivityRecord
     public BaseResult<ItemBaseDTO> base(String userId, @ActivityFiled(source = ActivitySource.ITEM_ID)String itemId){
         return itemService.base(Long.parseLong(itemId));
     }
@@ -96,6 +97,7 @@ public class ItemController {
      */
     @GetMapping("detail")
     @ResponseBody
+    @ActivityRecord
     public BaseResult<ItemDetailDTO> detail(String userId, @ActivityFiled(source = ActivitySource.ITEM_ID)String itemId){
         return itemService.detail(Long.parseLong(itemId));
     }

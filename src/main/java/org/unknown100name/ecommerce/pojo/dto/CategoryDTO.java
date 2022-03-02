@@ -25,7 +25,7 @@ public class CategoryDTO {
     /**
      *  一层目录名
      */
-    private Long categoryOneName;
+    private String categoryOneName;
 
     /**
      * 二层目录详情

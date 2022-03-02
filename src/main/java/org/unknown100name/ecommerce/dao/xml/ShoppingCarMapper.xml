@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap id="shoppingCarDTO" type="org.unknown100name.ecommerce.pojo.dto.ShoppingCarDTO">
         <result column="user_id" property="userId" javaType="java.lang.Long" jdbcType="BIGINT"/>
 
-        <collection property="innerShoppingCarList" javaType="org.unknown100name.ecommerce.pojo.dto.InnerShoppingCarDTO" select="org.unknown100name.ecommerce.dao.ShoppingCarMapper.getInnerShoppingCarByUserId" column="user_id"/>
+        <collection property="innerShoppingCarList" ofType="org.unknown100name.ecommerce.pojo.dto.InnerShoppingCarDTO" select="org.unknown100name.ecommerce.dao.ShoppingCarMapper.getInnerShoppingCarByUserId" column="user_id"/>
     </resultMap>
 
     <resultMap id="innerShoppingCarDTO" type="org.unknown100name.ecommerce.pojo.dto.InnerShoppingCarDTO">

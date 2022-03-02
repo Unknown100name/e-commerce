@@ -16,7 +16,10 @@ import lombok.NoArgsConstructor;
 @Data
 public class ItemCreateParam {
 
-    private String userId;
+    /**
+     * 不需要传, 在 params 里面会复制
+     */
+    private Long userId;
     
     /**
      * 标题
