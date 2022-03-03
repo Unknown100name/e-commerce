@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </sql>
 
     <sql id="innerShoppingCarDTOProperty">
-        id, count
+        id, number, inner_item_id
     </sql>
 
     <resultMap id="shoppingCarDTO" type="org.unknown100name.ecommerce.pojo.dto.ShoppingCarDTO">
@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <resultMap id="innerShoppingCarDTO" type="org.unknown100name.ecommerce.pojo.dto.InnerShoppingCarDTO">
         <id column="id" property="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
-        <result column="count" property="count" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result column="number" property="number" javaType="java.lang.Integer" jdbcType="INTEGER"/>
 
         <association property="innerItemDTO" javaType="org.unknown100name.ecommerce.pojo.dto.InnerItemDTO" select="org.unknown100name.ecommerce.dao.ItemMapper.getInnerItemById" column="inner_item_id"/>
     </resultMap>
@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <update id="decrease" parameterType="long">
         UPDATE shopping_car
-        SET shopping_car.number = shopping_car.number + 1
+        SET shopping_car.number = shopping_car.number - 1
         WHERE user_id = #{userId} AND inner_item_id = #{innerItemId}
     </update>
 
@@ -52,6 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT <include refid="shoppingCarDTOProperty"/>
         FROM shopping_car sc
         WHERE sc.user_id = #{userId}
+        GROUP BY sc.user_id
     </select>
 
     <select id="getInnerShoppingCarByUserId" resultMap="innerShoppingCarDTO">
@@ -63,7 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="getInnerShoppingCarByUserIdAndInnerItemId" resultMap="innerShoppingCarDTO">
         SELECT <include refid="innerShoppingCarDTOProperty"/>
         FROM shopping_car sc
-        WHERE sc.user_id = #{userId} AND sc.inner_item_id = #{inner_item_id}
+        WHERE sc.user_id = #{userId} AND sc.inner_item_id = #{innerItemId}
     </select>
 
 </mapper>

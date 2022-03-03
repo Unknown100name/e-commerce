@@ -17,6 +17,16 @@ import org.unknown100name.ecommerce.pojo.entity.Order;
 @Mapper
 public interface OrderMapper extends BaseMapper<Order> {
 
+
+    /**
+     * 插入订单
+     * order 为关键字 自动使用 BaseMapper 会导致错误
+     * @param order
+     * @return
+     */
+    @Override
+    int insert(Order order);
+
     /**
      * 插入子订单
      * @param insertInnerOrderList

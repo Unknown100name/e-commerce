@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <resultMap id="orderDTO" type="org.unknown100name.ecommerce.pojo.dto.OrderDTO">
         <id column="id" property="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
-        <result column="time" property="time" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <result column="time" property="time" javaType="java.lang.Long" jdbcType="BIGINT"/>
 
         <association property="contactDTO" javaType="org.unknown100name.ecommerce.pojo.dto.ContactDTO" select="org.unknown100name.ecommerce.dao.ContactMapper.getContactById" column="contact_id"/>
         <collection property="innerOrderList" ofType="org.unknown100name.ecommerce.pojo.dto.InnerOrderDTO" select="org.unknown100name.ecommerce.dao.OrderMapper.getInnerOrderByOrderId" column="id"/>
@@ -24,9 +24,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap id="innerOrderDTO" type="org.unknown100name.ecommerce.pojo.dto.InnerOrderDTO">
         <id column="id" property="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
         <result column="order_id" property="orderId" javaType="java.lang.Long" jdbcType="BIGINT"/>
-        <result column="state" property="state" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <result column="state" property="state" javaType="java.lang.Integer" jdbcType="INTEGER"/>
         <result column="inner_item_id" property="innerItemId" javaType="java.lang.Long" jdbcType="BIGINT"/>
-        <result column="number" property="number" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <result column="number" property="number" javaType="java.lang.Integer" jdbcType="INTEGER"/>
         <result column="single_price" property="singlePrice" javaType="java.math.BigDecimal" jdbcType="DECIMAL"/>
         <result column="express_code" property="expressCode" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="back_express_code" property="backExpressCode" javaType="java.lang.String" jdbcType="VARCHAR"/>
@@ -35,6 +35,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <sql id="booleanProperty">
         (CASE WHEN COUNT(*)=1 THEN 1 ELSE 0 END) AS cnt
     </sql>
+
+    <insert id="insert" parameterType="org.unknown100name.ecommerce.pojo.entity.Order">
+        INSERT INTO `order`(id, time, contact_id)
+        VALUES (#{id}, #{time}, #{contactId})
+    </insert>
 
     <insert id="insertInnerOrder">
         INSERT INTO inner_order(id, order_id, state, inner_item_id, number, single_price, express_code, back_express_code) 
@@ -62,7 +67,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE io.order_id = #{orderId}
     </select>
 
-    <update id="updateInnerOrderState" parameterType="java.lang.Long">
+    <update id="updateInnerOrderState">
         UPDATE inner_order
         SET inner_order.state = #{to}
         WHERE inner_order.id = #{innerOrderId} AND inner_order.state = #{from}

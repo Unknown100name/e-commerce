@@ -28,5 +28,5 @@ public class InnerShoppingCarDTO implements Serializable{
     /**
      * 个数
      */
-    private Integer count;
+    private Integer number;
 }

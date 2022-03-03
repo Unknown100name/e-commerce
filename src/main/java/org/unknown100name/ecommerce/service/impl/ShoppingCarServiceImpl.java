@@ -39,7 +39,7 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
         InnerShoppingCarDTO innerShoppingCar = shoppingCarMapper.getInnerShoppingCarByUserIdAndInnerItemId(userId, innerItemId);
         if(innerShoppingCar == null){
             return BaseResult.failResult(BaseResultMsg.ERROR_PARAM);
-        }else if (innerShoppingCar.getCount() == 1) {
+        }else if (innerShoppingCar.getNumber() == 1) {
             delete(userId, innerItemId);
         }else {
             shoppingCarMapper.decrease(userId, innerItemId);

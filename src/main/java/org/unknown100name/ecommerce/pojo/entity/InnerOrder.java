@@ -28,7 +28,7 @@ public class InnerOrder implements Serializable {
         this.orderId = insertOrder.getId();
         this.state = 0;
         this.innerItemId = existInnerShoppingCar.getInnerItemDTO().getId();
-        this.number = existInnerShoppingCar.getCount();
+        this.number = existInnerShoppingCar.getNumber();
         this.singlePrice = existInnerShoppingCar.getInnerItemDTO().getPrice();
     }
 

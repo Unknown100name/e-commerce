@@ -55,7 +55,7 @@ public class OrderServiceImpl implements OrderService{
     @Transactional
     public BaseResult<String> prePay(ShoppingCarTurnOrderParam shoppingCarTurnOrderParam) {
         try{
-            // 验证 ShoopingCarId
+            // 验证 ShoppingCarId
             ShoppingCarDTO existShoppingCarDTO = shoppingCarMapper.getShoppingCarByUserId(Long.parseLong(shoppingCarTurnOrderParam.getUserId()));
             Set<Long> existInnerShoppingCarIdList = new HashSet<>();
             existShoppingCarDTO.getInnerShoppingCarList().forEach(
@@ -75,16 +75,19 @@ public class OrderServiceImpl implements OrderService{
                 return BaseResult.failResult(BaseResultMsg.ERROR_PARAM);
             }
 
+            // TODO: 验证库存
+
             // 创建 Order 并 insert
             // 待插入的 Order
             Order insertOrder = new Order(shoppingCarTurnOrderParam);
+            orderMapper.insert(insertOrder);
             // 待插入的 InnerOrder
             List<InnerOrder> insertInnerOrderList = new ArrayList<>();
             // 目前购物车的 List 与 Map
             List<InnerShoppingCarDTO> existInnerShoppingCarList = existShoppingCarDTO.getInnerShoppingCarList();
             Map<Long, InnerShoppingCarDTO> existInnerShoppingCarMap = new HashMap<>();
             existInnerShoppingCarList.forEach(
-                innerShoopingCarDTO -> existInnerShoppingCarMap.put(innerShoopingCarDTO.getId(), innerShoopingCarDTO));
+                innerShoppingCarDTO -> existInnerShoppingCarMap.put(innerShoppingCarDTO.getId(), innerShoppingCarDTO));
             // 构造待插入的 InnerOrder
             shoppingCarTurnOrderParam.getInnerShoppingCarId().forEach(
                 insertShoppingCarId -> {
@@ -93,19 +96,17 @@ public class OrderServiceImpl implements OrderService{
                     insertInnerOrderList.add(insertInnerOrder);
                 }
             );
-            orderMapper.insert(insertOrder);
             orderMapper.insertInnerOrder(insertInnerOrderList);
 
             // 删除 ShoppingCar
             shoppingCarTurnOrderParam.getInnerShoppingCarId().forEach(
-                insertShoppingCarId -> 
-                    shoppingCarMapper.delete(
-                        Long.parseLong(shoppingCarTurnOrderParam.getUserId()),
-                        Long.parseLong(insertShoppingCarId))
+                insertShoppingCarId ->
+                        shoppingCarMapper.deleteById(insertShoppingCarId)
             );
         
             return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
         }catch(Throwable t){
+            t.printStackTrace();
             return BaseResult.failResult(BaseResultMsg.ERROR_UNKNOWN);
         }
     }

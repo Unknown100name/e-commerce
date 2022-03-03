@@ -2,11 +2,7 @@ package org.unknown100name.ecommerce.controller;
 
 import javax.annotation.Resource;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.unknown100name.ecommerce.aspect.token.TokenAuth;
 import org.unknown100name.ecommerce.pojo.dto.ShoppingCarDTO;
 import org.unknown100name.ecommerce.pojo.vo.ShoppingCarTurnOrderParam;
@@ -73,7 +69,7 @@ public class BuyerController{
      * @param userId
      * @return
      */
-    @PostMapping("/shoppingCar/get")
+    @GetMapping("/shoppingCar/get")
     @ResponseBody
     @TokenAuth
     public BaseResult<ShoppingCarDTO> shoppingCarGet(String userId){
@@ -92,6 +88,7 @@ public class BuyerController{
         return orderService.prePay(shoppingCarTurnOrderParam);
     }
 
+    // TODO: 查看订单
 
     /**
      * 支付
