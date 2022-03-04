@@ -121,8 +121,10 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public BaseResult<String> send(Long innerOrderId) {
+    @Transactional(rollbackFor = Exception.class)
+    public BaseResult<String> send(Long innerOrderId, String expressCode) {
         orderMapper.updateInnerOrderState(innerOrderId, 1, 2);
+        orderMapper.updateExpressCode(innerOrderId, expressCode);
         return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }    
     

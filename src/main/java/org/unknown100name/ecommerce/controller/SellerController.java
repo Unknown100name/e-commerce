@@ -93,8 +93,8 @@ public class SellerController {
     @PostMapping("/order/send")
     @ResponseBody
     @TokenAuth
-    public BaseResult<String> orderSend(String userId, String innerOrderId){
-        return orderService.send(Long.parseLong(innerOrderId));
+    public BaseResult<String> orderSend(String userId, String innerOrderId, String expressCode){
+        return orderService.send(Long.parseLong(innerOrderId), expressCode);
     }
 
     /**

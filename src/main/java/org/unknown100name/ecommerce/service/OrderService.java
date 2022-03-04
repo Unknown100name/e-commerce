@@ -16,7 +16,7 @@ public interface OrderService {
 
     BaseResult<String> pay(Long orderId);
 
-    BaseResult<String> send(Long innerOrderId);
+    BaseResult<String> send(Long innerOrderId, String expressCode);
 
     BaseResult<String> accept(Long innerOrderId);
 

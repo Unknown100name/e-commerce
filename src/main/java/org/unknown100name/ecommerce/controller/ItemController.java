@@ -34,9 +34,6 @@ public class ItemController {
     @Resource
     private ItemService itemService;
 
-    @Resource
-    private EvaluateService evaluateService;
-
     @GetMapping("getCategory")
     @ResponseBody
     public BaseResult<List<CategoryDTO>> getCategory(){
@@ -100,18 +97,5 @@ public class ItemController {
     @ActivityRecord
     public BaseResult<ItemDetailDTO> detail(String userId, @ActivityFiled(source = ActivitySource.ITEM_ID)String itemId){
         return itemService.detail(Long.parseLong(itemId));
-    }
-
-    /**
-     * 根据 orderId 获取商品并评论
-     * @param userId
-     * @param evaluateGiveParam
-     * @return
-     */
-    @PostMapping("evaluate")
-    @ResponseBody
-    @TokenAuth
-    public BaseResult<String> evaluate(String userId, @RequestBody EvaluateGiveParam evaluateGiveParam){
-        return evaluateService.insertEvaluate(evaluateGiveParam);
     }
 }

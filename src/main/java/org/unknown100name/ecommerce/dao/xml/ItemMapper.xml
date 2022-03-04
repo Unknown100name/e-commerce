@@ -95,7 +95,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE i.id = #{itemId}
     </select>
 
-    <update id="updateItemState" parameterType="java.lang.Long">
+    <update id="updateItemState">
         UPDATE item
         SET item.state = #{to}
         WHERE item.id = #{itemId} AND item.state = #{from}

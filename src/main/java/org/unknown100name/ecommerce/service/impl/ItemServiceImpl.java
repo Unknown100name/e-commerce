@@ -108,10 +108,11 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public BaseResult<String> down(Long itemId) {
         boolean exist = orderMapper.existInnerOrderNotFinish(itemId);
+        // 存在订单 则为 true 则到达待下架状态, 等待 order 控制
         if(exist){
-            itemMapper.updateItemState(itemId, 3, 5);
-        }else{
             itemMapper.updateItemState(itemId, 3, 4);
+        }else{
+            itemMapper.updateItemState(itemId, 3, 5);
         }
         return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }

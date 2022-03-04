@@ -32,10 +32,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result column="back_express_code" property="backExpressCode" javaType="java.lang.String" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <sql id="booleanProperty">
-        (CASE WHEN COUNT(*)=1 THEN 1 ELSE 0 END) AS cnt
-    </sql>
-
     <insert id="insert" parameterType="org.unknown100name.ecommerce.pojo.entity.Order">
         INSERT INTO `order`(id, time, contact_id)
         VALUES (#{id}, #{time}, #{contactId})
@@ -73,13 +69,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE inner_order.id = #{innerOrderId} AND inner_order.state = #{from}
     </update>
 
-    <update id="existInnerOrderNotFinish">
-        SELECT <include refid="booleanProperty"/>
+    <update id="updateExpressCode">
+        UPDATE inner_order
+        SET inner_order.express_code = #{expressCode}
+        WHERE inner_order.id = #{innerOrderId}
+    </update>
+
+    <select id="existInnerOrderNotFinish" resultType="java.lang.Boolean">
+        SELECT COUNT(*)
         FROM inner_order io
-        WHERE io.inner_item_id IN (x
+        WHERE io.inner_item_id IN (
             SELECT ii.id
             FROM inner_item ii
             WHERE ii.item_id = #{itemId}
         )
-    </update>
+    </select>
 </mapper>

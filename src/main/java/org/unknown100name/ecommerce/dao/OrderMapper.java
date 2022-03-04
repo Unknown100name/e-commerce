@@ -61,6 +61,13 @@ public interface OrderMapper extends BaseMapper<Order> {
      * @param to
      */
     void updateInnerOrderState(Long innerOrderId, int from, int to);
+
+    /**
+     * 添加发货信息
+     * @param innerOrderId
+     * @param expressCode
+     */
+    void updateExpressCode(Long innerOrderId, String expressCode);
     
     /**
      * 检查时候有存在未结束的 订单
@@ -68,5 +75,4 @@ public interface OrderMapper extends BaseMapper<Order> {
      * @return
      */
     boolean existInnerOrderNotFinish(Long itemId);
-    
 }
