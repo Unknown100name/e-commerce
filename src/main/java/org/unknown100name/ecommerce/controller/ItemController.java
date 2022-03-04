@@ -5,20 +5,15 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.unknown100name.ecommerce.aspect.activity.ActivityFiled;
 import org.unknown100name.ecommerce.aspect.activity.ActivityRecord;
 import org.unknown100name.ecommerce.aspect.activity.ActivitySource;
-import org.unknown100name.ecommerce.aspect.token.TokenAuth;
 import org.unknown100name.ecommerce.pojo.dto.CategoryDTO;
 import org.unknown100name.ecommerce.pojo.dto.ItemBaseDTO;
 import org.unknown100name.ecommerce.pojo.dto.ItemDetailDTO;
-import org.unknown100name.ecommerce.pojo.vo.EvaluateGiveParam;
-import org.unknown100name.ecommerce.service.EvaluateService;
 import org.unknown100name.ecommerce.service.ItemService;
 import org.unknown100name.ecommerce.util.BaseResult;
 

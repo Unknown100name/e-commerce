@@ -19,12 +19,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="getContactById" resultMap="contactDTO">
         SELECT <include refid="contactDTOProperty"/>
         FROM contact c
-        WHERE c.id = #{contactId}
+        WHERE c.id = #{contactId} AND c.deleted = 0
     </select>
 
     <select id="getContactByUserId" resultMap="contactDTO">
         SELECT <include refid="contactDTOProperty"/>
         FROM contact c
-        WHERE c.user_id = #{userId}
+        WHERE c.user_id = #{userId} AND c.deleted = 0
     </select>
+
+    <update id="fakeDelete">
+        UPDATE contact
+        SET contact.deleted = 1
+        WHERE contact.id = #{contactId} AND contact.deleted = 0
+    </update>
 </mapper>

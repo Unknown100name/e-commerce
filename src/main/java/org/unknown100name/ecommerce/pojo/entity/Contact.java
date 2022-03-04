@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.unknown100name.ecommerce.pojo.vo.ContactCreateParam;
+import org.unknown100name.ecommerce.util.IdUtil;
 
 /**
  * @author unknown100name
@@ -47,4 +49,12 @@ public class Contact implements Serializable {
      */
     @TableField(value = "phone")
     private String phone;
+
+    public Contact(Long userId, ContactCreateParam contactCreateParam) {
+        this.id = IdUtil.getId();
+        this.userId = userId;
+        this.address = contactCreateParam.getAddress();
+        this.phone = contactCreateParam.getPhone();
+        this.name = contactCreateParam.getName();
+    }
 }

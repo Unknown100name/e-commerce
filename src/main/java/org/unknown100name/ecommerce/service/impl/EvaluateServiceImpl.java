@@ -7,7 +7,7 @@ import org.unknown100name.ecommerce.dao.EvaluateMapper;
 import org.unknown100name.ecommerce.dao.OrderMapper;
 import org.unknown100name.ecommerce.pojo.dto.InnerOrderDTO;
 import org.unknown100name.ecommerce.pojo.entity.Evaluate;
-import org.unknown100name.ecommerce.pojo.vo.EvaluateGiveParam;
+import org.unknown100name.ecommerce.pojo.vo.EvaluateCreateParam;
 import org.unknown100name.ecommerce.service.EvaluateService;
 import org.unknown100name.ecommerce.util.BaseResult;
 import org.unknown100name.ecommerce.util.BaseResultMsg;
@@ -28,7 +28,7 @@ public class EvaluateServiceImpl implements EvaluateService{
     private OrderMapper orderMapper;
 
     @Override
-    public BaseResult<String> insertEvaluate(EvaluateGiveParam evaluateGiveParam) {
+    public BaseResult<String> insertEvaluate(EvaluateCreateParam evaluateGiveParam) {
         InnerOrderDTO existOrder = orderMapper.getInnerOrderById(Long.parseLong(evaluateGiveParam.getInnerOrderId()));
         if (existOrder == null){
             return BaseResult.failResult(BaseResultMsg.ERROR_PARAM);

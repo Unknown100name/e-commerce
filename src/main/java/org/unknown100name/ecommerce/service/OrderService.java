@@ -1,8 +1,11 @@
 package org.unknown100name.ecommerce.service;
 
 import org.springframework.stereotype.Service;
+import org.unknown100name.ecommerce.pojo.dto.OrderDTO;
 import org.unknown100name.ecommerce.pojo.vo.ShoppingCarTurnOrderParam;
 import org.unknown100name.ecommerce.util.BaseResult;
+
+import java.util.List;
 
 /**
  * @author unknown100name
@@ -23,7 +26,9 @@ public interface OrderService {
     BaseResult<String> buyerCancel(Long innerOrderId);
 
     BaseResult<String> sellerCancel(Long innerOrderId);
-    
+
+    BaseResult<List<OrderDTO>> check(String userId);
+
     // BaseResult<String> reject(Long innerOrderId);
     
 }

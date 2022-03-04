@@ -1,6 +1,6 @@
 package org.unknown100name.ecommerce.service;
 
-import org.unknown100name.ecommerce.pojo.vo.EvaluateGiveParam;
+import org.unknown100name.ecommerce.pojo.vo.EvaluateCreateParam;
 import org.unknown100name.ecommerce.util.BaseResult;
 
 /**
@@ -11,6 +11,6 @@ import org.unknown100name.ecommerce.util.BaseResult;
  */
 public interface EvaluateService {
 
-    BaseResult<String> insertEvaluate(EvaluateGiveParam evaluateGiveParam);
+    BaseResult<String> insertEvaluate(EvaluateCreateParam evaluateGiveParam);
     
 }

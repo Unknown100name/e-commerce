@@ -41,6 +41,13 @@ public interface OrderMapper extends BaseMapper<Order> {
     OrderDTO getOrderById(Long orderId);
 
     /**
+     * 根据用户名查询大订单
+     * @param userId
+     * @return
+     */
+    List<OrderDTO> getOrderByUserId(String userId);
+
+    /**
      * 查询小订单
      * @param innerOrderId
      * @return

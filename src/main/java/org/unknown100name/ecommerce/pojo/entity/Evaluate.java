@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import org.unknown100name.ecommerce.pojo.vo.EvaluateGiveParam;
+import org.unknown100name.ecommerce.pojo.vo.EvaluateCreateParam;
 import org.unknown100name.ecommerce.util.IdUtil;
 
 import lombok.AllArgsConstructor;
@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @TableName("evaluate")
 public class Evaluate implements Serializable {
 
-    public Evaluate(EvaluateGiveParam evaluateGiveParam) {
+    public Evaluate(EvaluateCreateParam evaluateGiveParam) {
         this.id = IdUtil.getId();
         this.content = evaluateGiveParam.getContent();
         this.type = evaluateGiveParam.getType();

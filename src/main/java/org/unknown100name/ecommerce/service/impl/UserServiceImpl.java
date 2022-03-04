@@ -3,16 +3,22 @@ package org.unknown100name.ecommerce.service.impl;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.unknown100name.ecommerce.dao.ContactMapper;
 import org.unknown100name.ecommerce.dao.UserMapper;
+import org.unknown100name.ecommerce.pojo.dto.ContactDTO;
 import org.unknown100name.ecommerce.pojo.dto.UserBaseDTO;
 import org.unknown100name.ecommerce.pojo.dto.UserDetailDTO;
+import org.unknown100name.ecommerce.pojo.entity.Contact;
 import org.unknown100name.ecommerce.pojo.entity.User;
+import org.unknown100name.ecommerce.pojo.vo.ContactCreateParam;
 import org.unknown100name.ecommerce.pojo.vo.UserLoginParam;
 import org.unknown100name.ecommerce.pojo.vo.UserRegisterParam;
 import org.unknown100name.ecommerce.service.UserService;
 import org.unknown100name.ecommerce.util.BaseResult;
 import org.unknown100name.ecommerce.util.BaseResultMsg;
 import org.unknown100name.ecommerce.util.SHA1Util;
+
+import java.util.List;
 
 /**
  * @author unknown100name
@@ -24,6 +30,9 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private UserMapper userMapper;
+
+    @Resource
+    private ContactMapper contactMapper;
 
     @Override
     public BaseResult<UserBaseDTO> login(UserLoginParam userLoginParam) {
@@ -85,6 +94,24 @@ public class UserServiceImpl implements UserService {
         // 重置密码
         userMapper.resetPassword(userId, SHA1Util.encodeToSha1(newPassword));
         return BaseResult.successResult(BaseResultMsg.SUCCESS_RESET_PASSWORD, null);
+    }
+
+    @Override
+    public BaseResult<List<ContactDTO>> contactGet(Long userId) {
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, contactMapper.getContactByUserId(userId));
+    }
+
+    @Override
+    public BaseResult<String> contactAdd(Long userId, ContactCreateParam contactCreateParam) {
+        Contact contact = new Contact(userId, contactCreateParam);
+        contactMapper.insert(contact);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
+    }
+
+    @Override
+    public BaseResult<String> contactDelete(Long contactId) {
+        contactMapper.fakeDelete(contactId);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 
 }

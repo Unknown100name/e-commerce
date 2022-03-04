@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class EvaluateGiveParam {
+public class EvaluateCreateParam {
     
     /**
      * 子订单 ID

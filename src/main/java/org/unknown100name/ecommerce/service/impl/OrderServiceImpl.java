@@ -48,9 +48,6 @@ public class OrderServiceImpl implements OrderService{
     @Resource
     private ItemMapper itemMapper;
 
-    /**
-     * TODO: 待测试
-     */
     @Override
     @Transactional
     public BaseResult<String> prePay(ShoppingCarTurnOrderParam shoppingCarTurnOrderParam) {
@@ -147,8 +144,14 @@ public class OrderServiceImpl implements OrderService{
         orderMapper.updateInnerOrderState(innerOrderId, 1, -1);
         return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
-    
-    
+
+    @Override
+    public BaseResult<List<OrderDTO>> check(String userId) {
+        List<OrderDTO> orderList = orderMapper.getOrderByUserId(userId);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, orderList);
+    }
+
+
     // @Override
     // public BaseResult<String> reject(Long innerOrderId) {
     //     orderMapper.updateInnerOrderState(innerOrderId, 3, 5);

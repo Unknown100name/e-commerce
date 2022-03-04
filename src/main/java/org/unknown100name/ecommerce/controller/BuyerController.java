@@ -4,13 +4,16 @@ import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.*;
 import org.unknown100name.ecommerce.aspect.token.TokenAuth;
+import org.unknown100name.ecommerce.pojo.dto.OrderDTO;
 import org.unknown100name.ecommerce.pojo.dto.ShoppingCarDTO;
-import org.unknown100name.ecommerce.pojo.vo.EvaluateGiveParam;
+import org.unknown100name.ecommerce.pojo.vo.EvaluateCreateParam;
 import org.unknown100name.ecommerce.pojo.vo.ShoppingCarTurnOrderParam;
 import org.unknown100name.ecommerce.service.EvaluateService;
 import org.unknown100name.ecommerce.service.OrderService;
 import org.unknown100name.ecommerce.service.ShoppingCarService;
 import org.unknown100name.ecommerce.util.BaseResult;
+
+import java.util.List;
 
 /**
  * @author unknown100name
@@ -32,10 +35,8 @@ public class BuyerController {
 
     /**
      * 添加到购物车 + 添加个数
-     *
      * @param userId
      * @param innerItemId
-     *
      * @return
      */
     @PostMapping("/shoppingCar/increase")
@@ -47,10 +48,8 @@ public class BuyerController {
 
     /**
      * 减少个数
-     *
      * @param userId
      * @param innerItemId
-     *
      * @return
      */
     @PostMapping("/shoppingCar/decrease")
@@ -62,10 +61,8 @@ public class BuyerController {
 
     /**
      * 从购物车中删除
-     *
      * @param userId
      * @param innerItemId
-     *
      * @return
      */
     @PostMapping("/shoppingCar/delete")
@@ -77,9 +74,7 @@ public class BuyerController {
 
     /**
      * 获取购物车详情
-     *
      * @param userId
-     *
      * @return
      */
     @GetMapping("/shoppingCar/get")
@@ -91,9 +86,7 @@ public class BuyerController {
 
     /**
      * 提交订单准备支付
-     *
      * @param shoppingCarTurnOrderParam
-     *
      * @return
      */
     @PostMapping("/order/prepay")
@@ -103,13 +96,21 @@ public class BuyerController {
         return orderService.prePay(shoppingCarTurnOrderParam);
     }
 
-    // TODO: 查看订单
+    /**
+     * 查看个人订单
+     * @param userId
+     * @return
+     */
+    @GetMapping("/order/check")
+    @ResponseBody
+    @TokenAuth
+    public BaseResult<List<OrderDTO>> orderCheck(String userId){
+        return orderService.check(userId);
+    }
 
     /**
      * 支付
-     *
      * @param orderId
-     *
      * @return
      */
     @PostMapping("/order/pay")
@@ -121,9 +122,7 @@ public class BuyerController {
 
     /**
      * 确认收货
-     *
      * @param innerOrderId
-     *
      * @return
      */
     @PostMapping("/order/accept")
@@ -135,9 +134,7 @@ public class BuyerController {
 
     /**
      * 取消订单
-     *
      * @param innerOrderId
-     *
      * @return
      */
     @PostMapping("/order/cancel")
@@ -161,16 +158,14 @@ public class BuyerController {
 
     /**
      * 根据 orderId 获取商品并评论
-     *
      * @param userId
      * @param evaluateGiveParam
-     *
      * @return
      */
     @PostMapping("/order/evaluate")
     @ResponseBody
     @TokenAuth
-    public BaseResult<String> evaluate(String userId, @RequestBody EvaluateGiveParam evaluateGiveParam) {
+    public BaseResult<String> evaluate(String userId, @RequestBody EvaluateCreateParam evaluateGiveParam) {
         return evaluateService.insertEvaluate(evaluateGiveParam);
     }
 }

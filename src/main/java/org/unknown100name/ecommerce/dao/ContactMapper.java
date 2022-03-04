@@ -8,7 +8,6 @@ import org.unknown100name.ecommerce.pojo.dto.ContactDTO;
 import org.unknown100name.ecommerce.pojo.entity.Contact;
 
 /**
- * // TODO: 增删改查没有增加
  * @author unknown100name
  * @description 联系人数据库接口
  * @since 2022/1/3
@@ -30,6 +29,9 @@ public interface ContactMapper extends BaseMapper<Contact> {
      */
     List<ContactDTO> getContactByUserId(long userId);
 
-    
-    
+    /**
+     * 删除联系人(假删除)
+     * @param contactId
+     */
+    void fakeDelete(Long contactId);
 }
