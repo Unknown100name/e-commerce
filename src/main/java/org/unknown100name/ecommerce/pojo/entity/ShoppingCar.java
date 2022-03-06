@@ -20,7 +20,6 @@ import java.math.BigDecimal;
 @TableName("shopping_car")
 public class ShoppingCar {
 
-    @TableField(value = "id")
     private Long id;
 
     /**

@@ -3,7 +3,6 @@ package org.unknown100name.ecommerce.service.impl;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.unknown100name.ecommerce.dao.ContactMapper;
 import org.unknown100name.ecommerce.dao.UserMapper;
 import org.unknown100name.ecommerce.pojo.dto.ContactDTO;

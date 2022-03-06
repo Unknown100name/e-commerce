@@ -33,7 +33,6 @@ public class InnerItem implements Serializable {
 
     private static final long serialVersionUID = 9022119600667721349L;
 
-    @TableField(value = "id")
     private Long id;
 
     /**

@@ -30,7 +30,6 @@ public class Order implements Serializable {
 
     private static final long serialVersionUID = -3882218761828782921L;
 
-    @TableField(value = "id")
     private Long id;
 
     /**

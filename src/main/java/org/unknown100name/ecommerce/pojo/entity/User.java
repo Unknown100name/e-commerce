@@ -25,7 +25,6 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 2777754074075530985L;
 
-    @TableField(value = "id")
     private Long id;
 
     /**

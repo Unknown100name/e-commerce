@@ -3,7 +3,6 @@ package org.unknown100name.ecommerce.controller;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +15,6 @@ import org.unknown100name.ecommerce.pojo.dto.UserBaseDTO;
 import org.unknown100name.ecommerce.pojo.vo.ContactCreateParam;
 import org.unknown100name.ecommerce.pojo.vo.UserLoginParam;
 import org.unknown100name.ecommerce.pojo.vo.UserRegisterParam;
-import org.unknown100name.ecommerce.service.RedisService;
 import org.unknown100name.ecommerce.service.UserService;
 import org.unknown100name.ecommerce.util.*;
 

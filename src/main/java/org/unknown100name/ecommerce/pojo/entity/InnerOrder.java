@@ -34,7 +34,6 @@ public class InnerOrder implements Serializable {
 
     private static final long serialVersionUID = 289732166911578852L;
 
-    @TableField(value = "id")
     private Long id;
 
     /**

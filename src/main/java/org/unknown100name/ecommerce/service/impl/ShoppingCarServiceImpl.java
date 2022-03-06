@@ -11,8 +11,6 @@ import org.unknown100name.ecommerce.util.BaseResult;
 import org.unknown100name.ecommerce.util.BaseResultMsg;
 import org.unknown100name.ecommerce.util.IdUtil;
 
-import java.util.HashMap;
-
 /**
  * @author unknown100name
  * @description 

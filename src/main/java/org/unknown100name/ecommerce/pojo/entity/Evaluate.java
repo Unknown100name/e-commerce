@@ -31,7 +31,6 @@ public class Evaluate implements Serializable {
 
     private static final long serialVersionUID = -4514631523163089574L;
 
-    @TableField(value = "id")
     private Long id;
 
     /**

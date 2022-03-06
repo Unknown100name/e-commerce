@@ -21,7 +21,6 @@ public class ItemImage implements Serializable {
 
     private static final long serialVersionUID = 3090544149941738936L;
 
-    @TableField(value = "id")
     private Long id;
 
     /**

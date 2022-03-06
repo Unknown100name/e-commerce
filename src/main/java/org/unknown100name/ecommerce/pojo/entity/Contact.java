@@ -23,7 +23,6 @@ public class Contact implements Serializable {
 
     private static final long serialVersionUID = -6501129330167468579L;
 
-    @TableField(value = "id")
     private Long id;
 
     /**

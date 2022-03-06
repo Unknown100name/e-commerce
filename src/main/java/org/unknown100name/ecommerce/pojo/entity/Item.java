@@ -24,7 +24,6 @@ public class Item implements Serializable {
 
     private static final long serialVersionUID = -4206571300185568603L;
 
-    @TableField(value = "id")
     private Long id;
 
     /**

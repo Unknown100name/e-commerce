@@ -21,7 +21,6 @@ public class Dictionary implements Serializable {
 
     private static final long serialVersionUID = 4487752385312578927L;
 
-    @TableField(value = "id")
     private Long id;
 
     @TableField(value = "code")

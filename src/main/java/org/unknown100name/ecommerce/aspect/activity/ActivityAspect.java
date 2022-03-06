@@ -1,21 +1,19 @@
 package org.unknown100name.ecommerce.aspect.activity;
 
-import org.apache.catalina.User;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.aspectj.lang.reflect.CodeSignature;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 import org.unknown100name.ecommerce.aspect.AopUtils;
 import org.unknown100name.ecommerce.dao.ItemMapper;
 import org.unknown100name.ecommerce.pojo.dto.InnerItemDTO;
 import org.unknown100name.ecommerce.pojo.dto.ItemBaseDTO;
-import org.unknown100name.ecommerce.pojo.dto.ItemDetailDTO;
 import org.unknown100name.ecommerce.recommend.pojo.entity.UserActivity;
 import org.unknown100name.ecommerce.recommend.service.UserActivityService;
-import org.unknown100name.ecommerce.service.ItemService;
+import org.unknown100name.ecommerce.util.BaseResult;
+import org.unknown100name.ecommerce.util.BaseResultMsg;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Method;
@@ -101,6 +99,7 @@ public class ActivityAspect {
 
         } catch (Throwable e) {
             e.printStackTrace();
+            return BaseResult.failResult(BaseResultMsg.ERROR_UNKNOWN);
         }
         return point.proceed();
     }
