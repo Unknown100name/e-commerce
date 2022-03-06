@@ -1,6 +1,7 @@
 package org.unknown100name.ecommerce.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,15 +18,11 @@ import org.unknown100name.ecommerce.pojo.vo.UserLoginParam;
 import org.unknown100name.ecommerce.pojo.vo.UserRegisterParam;
 import org.unknown100name.ecommerce.service.RedisService;
 import org.unknown100name.ecommerce.service.UserService;
-import org.unknown100name.ecommerce.util.BaseResult;
-import org.unknown100name.ecommerce.util.BaseResultMsg;
-import org.unknown100name.ecommerce.util.SHA1Util;
-import org.unknown100name.ecommerce.util.VertifyCodeUtil;
+import org.unknown100name.ecommerce.util.*;
 
 import java.util.List;
 
 /**
- * TODO: 联系人相关接口
  * TODO: 部分接口需要 IP 获取权限 (关于验证码)
  * @author unknown100name
  * @since 2022/1/2
@@ -51,8 +48,8 @@ public class UserController {
      */
     @PostMapping("login")
     @ResponseBody
-    public BaseResult<UserBaseDTO> login(@RequestBody UserLoginParam userLoginParam){
-        if(!vertifyCodeUtil.compareWithVertifyCode(null, userLoginParam.getVertifyCode())){
+    public BaseResult<UserBaseDTO> login(@RequestBody UserLoginParam userLoginParam, HttpServletRequest request){
+        if(!vertifyCodeUtil.compareWithVertifyCode(IpUtil.getIpAddress(request), userLoginParam.getVertifyCode())){
             return BaseResult.failResult(BaseResultMsg.ERROR_VERTIFY_CODE);
         }
         // password 转 sha1
@@ -67,8 +64,8 @@ public class UserController {
      */
     @PostMapping("register")
     @ResponseBody
-    public BaseResult<String> register(@RequestBody UserRegisterParam userRegisterParam){
-        if(!vertifyCodeUtil.compareWithVertifyCode(null, userRegisterParam.getVertifyCode())){
+    public BaseResult<String> register(@RequestBody UserRegisterParam userRegisterParam, HttpServletRequest request){
+        if(!vertifyCodeUtil.compareWithVertifyCode(IpUtil.getIpAddress(request), userRegisterParam.getVertifyCode())){
             return BaseResult.failResult(BaseResultMsg.ERROR_VERTIFY_CODE);
         }
         //password 转 sha1
@@ -132,8 +129,8 @@ public class UserController {
      */
     @GetMapping("vertifyCodeImage")
     @ResponseBody
-    public BaseResult<String> vertifyCodeImage(){
-        String newImageBase64 = vertifyCodeUtil.getNewVertifyCode(null);
+    public BaseResult<String> vertifyCodeImage(HttpServletRequest request){
+        String newImageBase64 = vertifyCodeUtil.getNewVertifyCode(IpUtil.getIpAddress(request));
         // Redis 存储
         if(newImageBase64 == null){
             return BaseResult.failResult(BaseResultMsg.ERROR_VERTIFY_CODE_TOO_QUICK);
