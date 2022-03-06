@@ -10,4 +10,5 @@ import org.unknown100name.ecommerce.service.SellerService;
  */
 @Service
 public class SellerServiceImpl implements SellerService {
+
 }

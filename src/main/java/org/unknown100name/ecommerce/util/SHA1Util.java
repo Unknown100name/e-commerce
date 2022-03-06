@@ -7,7 +7,8 @@ import org.springframework.data.redis.core.script.DigestUtils;
  * @description SHA1 转换自动生成类
  * @since 2022/1/3
  */
-public class SHA1Util {
+@SuppressWarnings("AlibabaClassNamingShouldBeCamel")
+public final class SHA1Util {
 
     private SHA1Util(){
         throw new IllegalAccessError("Utility class");

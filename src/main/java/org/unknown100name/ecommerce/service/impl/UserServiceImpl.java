@@ -3,6 +3,7 @@ package org.unknown100name.ecommerce.service.impl;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.unknown100name.ecommerce.dao.ContactMapper;
 import org.unknown100name.ecommerce.dao.UserMapper;
 import org.unknown100name.ecommerce.pojo.dto.ContactDTO;
@@ -13,9 +14,11 @@ import org.unknown100name.ecommerce.pojo.entity.User;
 import org.unknown100name.ecommerce.pojo.vo.ContactCreateParam;
 import org.unknown100name.ecommerce.pojo.vo.UserLoginParam;
 import org.unknown100name.ecommerce.pojo.vo.UserRegisterParam;
+import org.unknown100name.ecommerce.service.RedisService;
 import org.unknown100name.ecommerce.service.UserService;
 import org.unknown100name.ecommerce.util.BaseResult;
 import org.unknown100name.ecommerce.util.BaseResultMsg;
+import org.unknown100name.ecommerce.util.JwtUtil;
 import org.unknown100name.ecommerce.util.SHA1Util;
 
 import java.util.List;
@@ -34,6 +37,9 @@ public class UserServiceImpl implements UserService {
     @Resource
     private ContactMapper contactMapper;
 
+    @Resource
+    private RedisService redisService;
+
     @Override
     public BaseResult<UserBaseDTO> login(UserLoginParam userLoginParam) {
         // 比较数据库
@@ -41,12 +47,25 @@ public class UserServiceImpl implements UserService {
         if (existUser == null || !userLoginParam.getPassword().equals(existUser.getPassword())) {
             return BaseResult.failResult(BaseResultMsg.ERROR_NICK_OR_PASSWORD);
         }else{
-            // TODO: token 签发
-            String token = null;
+            String token = signTokenWithRedis(String.valueOf(existUser.getId()));
             return BaseResult.successResult(token, new UserBaseDTO(
                     existUser.getId(), existUser.getNick(), existUser.getType(), existUser.getGender()
             ));
         }
+    }
+
+    /**
+     * 通过 userId 颁发 token 并保存入 redis
+     * @param userId userId
+     * @return token
+     */
+    private String signTokenWithRedis(String userId){
+        // 颁发 token
+        String token = JwtUtil.sign(userId, null);
+        // redis 处理
+        redisService.set(userId, token);
+        redisService.expire(userId, JwtUtil.EXPIRE_TIME);
+        return token;
     }
 
     @Override
@@ -62,7 +81,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public BaseResult<String> logout(Long userId) {
-        // TODO: token 销毁
+        redisService.remove(String.valueOf(userId));
         return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 

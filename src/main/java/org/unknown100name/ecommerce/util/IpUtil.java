@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @description IP 获取
  */
-public class IpUtil {
+public final class IpUtil {
 
     private static final String UNKNOWN = "unknown";
 

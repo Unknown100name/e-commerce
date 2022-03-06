@@ -17,6 +17,9 @@ import org.unknown100name.ecommerce.pojo.dto.ItemBaseDTO;
 import org.unknown100name.ecommerce.recommend.pojo.entity.UserActivity;
 import org.unknown100name.ecommerce.service.RedisService;
 import org.unknown100name.ecommerce.service.impl.RedisServiceImpl;
+import org.unknown100name.ecommerce.util.BaseResult;
+import org.unknown100name.ecommerce.util.BaseResultMsg;
+import org.unknown100name.ecommerce.util.JwtUtil;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +45,7 @@ public class TokenAspect {
     }
 
     @Around("pointCut()")
-    public Object around(ProceedingJoinPoint point) throws Throwable {
+    public Object around(ProceedingJoinPoint point) {
         try {
             HashMap<String, Object> paramMap = AopUtils.getParameterMap(point);
 
@@ -52,26 +55,26 @@ public class TokenAspect {
             //获取RequestAttributes
             RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
             //从获取RequestAttributes中获取HttpServletRequest的信息
-            HttpServletRequest request = (HttpServletRequest) requestAttributes.resolveReference(RequestAttributes.REFERENCE_REQUEST);
-
-            String token = null;
-
-            // 获取 userId
-            Long userId = null;
-            for (Parameter parameter : parameters) {
-                if ("userId".equals(parameter.getName())){
-                    userId = Long.parseLong((String)paramMap.get(parameter.getName()));
-                }
+            if (requestAttributes != null){
+                HttpServletRequest request = (HttpServletRequest) requestAttributes.resolveReference(RequestAttributes.REFERENCE_REQUEST);
+            }else {
+                return BaseResult.failResult(BaseResultMsg.ERROR_UNKNOWN);
             }
 
+
             // TODO: 拒绝访问 token 写好之后重新覆盖
-//            if (userId == null || token == null || !redisService.checkToken(userId, token)){
+            String token = null;
+            // 从 token 中获取 userId
+//            Long userId = JwtUtil.getUserId(token);
+//            if (userId == null || token == null || !token.equals(redisService.get(String.valueOf(userId)))){
 //                return null;
 //            }
 
+            return point.proceed();
         } catch (Throwable e) {
             e.printStackTrace();
+            return BaseResult.failResult(BaseResultMsg.ERROR_UNKNOWN);
         }
-        return point.proceed();
+
     }
 }

@@ -23,7 +23,7 @@ import org.unknown100name.ecommerce.util.*;
 import java.util.List;
 
 /**
- * TODO: 部分接口需要 IP 获取权限 (关于验证码)
+ * TODO: 关于验证码
  * @author unknown100name
  * @since 2022/1/2
  * @description
@@ -37,9 +37,6 @@ public class UserController {
 
     @Resource
     private VertifyCodeUtil vertifyCodeUtil;
-
-    @Resource
-    private RedisService redisService;
 
     /**
      * 登录
@@ -131,7 +128,6 @@ public class UserController {
     @ResponseBody
     public BaseResult<String> vertifyCodeImage(HttpServletRequest request){
         String newImageBase64 = vertifyCodeUtil.getNewVertifyCode(IpUtil.getIpAddress(request));
-        // Redis 存储
         if(newImageBase64 == null){
             return BaseResult.failResult(BaseResultMsg.ERROR_VERTIFY_CODE_TOO_QUICK);
         }else{
@@ -152,7 +148,7 @@ public class UserController {
     }
 
     /**
-     *
+     * 添加联系人
      * @param userId
      * @param contactCreateParam
      * @return
@@ -164,6 +160,12 @@ public class UserController {
         return userService.contactAdd(Long.parseLong(userId), contactCreateParam);
     }
 
+    /**
+     * 删除联系人
+     * @param userId
+     * @param contactId
+     * @return
+     */
     @PostMapping("/contact/delete")
     @ResponseBody
     @TokenAuth

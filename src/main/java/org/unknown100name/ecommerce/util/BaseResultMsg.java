@@ -5,7 +5,7 @@ package org.unknown100name.ecommerce.util;
  * @description 通用返回 message
  * @since 2022/1/3
  */
-public class BaseResultMsg {
+public final class BaseResultMsg {
 
     private BaseResultMsg(){
         throw new IllegalAccessError("Utility class");

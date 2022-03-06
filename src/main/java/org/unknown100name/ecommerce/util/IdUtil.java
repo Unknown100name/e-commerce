@@ -5,7 +5,7 @@ package org.unknown100name.ecommerce.util;
  * @description 雪花 ID 生成器
  * @since 2022/1/3
  */
-public class IdUtil {
+public final class IdUtil {
     
     private IdUtil(){
         throw new IllegalAccessError("Utility class");
@@ -102,14 +102,5 @@ public class IdUtil {
 
     private static long getNewStamp() {
         return System.currentTimeMillis();
-    }
-
-    public static void main(String[] args) {
-        long start = System.currentTimeMillis();
-        for (int i = 0; i < 10; i++) {
-            System.out.println(IdUtil.getId());
-        }
-
-        System.out.println(System.currentTimeMillis() - start);
     }
 }
