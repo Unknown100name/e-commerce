@@ -101,10 +101,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE item.id = #{itemId} AND item.state = #{from}
     </update>
 
-    <update id="increaseSell" parameterType="java.lang.Long">
+    <update id="increaseSell">
         UPDATE item
-        SET item.sell_count = item.sell_count + 1
-        WHERE item.id = #{itemId}
+        SET item.sell_count = item.sell_count + #{sellCount}
+        WHERE item.id = (
+            SELECT ii.item_id FROM inner_item ii WHERE ii.id = #{innerItemId} LIMIT 1
+            )
+    </update>
+
+    <update id="decreaseInventory">
+        UPDATE inner_item
+        SET inner_item.inventory = inner_item.inventory - #{deInventory}
+        WHERE inner_item.id = #{innerItemId}
     </update>
 
     <select id="getMaxSellItemByCategoryTwoId" resultMap="itemBaseDTO">
