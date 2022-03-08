@@ -77,6 +77,12 @@ public interface ItemMapper extends BaseMapper<Item> {
     void increaseSell(Long innerItemId, Integer sellCount);
 
     /**
+     * 增加商品点击量
+     * @param itemId
+     */
+    void increaseHit(Long itemId);
+
+    /**
      * 减少商品的库存
      * @param innerItemId
      * @param deInventory

@@ -1,6 +1,7 @@
 package org.unknown100name.ecommerce.recommend.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +26,7 @@ public class RecommendController {
     @Resource
     private RecommendService recommendService;
 
-    @PostMapping("/item")
+    @GetMapping("/item")
     public BaseResult<List<ItemBaseDTO>> getRecommendItem(String userId){
         if (StringUtils.isBlank(userId)){
             return BaseResult.successResult(

@@ -3,6 +3,7 @@ package org.unknown100name.ecommerce.recommend.service.impl;
 import org.springframework.stereotype.Service;
 import org.unknown100name.ecommerce.pojo.dto.ItemBaseDTO;
 import org.unknown100name.ecommerce.recommend.RecommendUtils;
+import org.unknown100name.ecommerce.recommend.dao.UserActivityMapper;
 import org.unknown100name.ecommerce.recommend.pojo.entity.UserActivity;
 import org.unknown100name.ecommerce.recommend.pojo.entity.UserSimilarity;
 import org.unknown100name.ecommerce.recommend.service.RecommendService;
@@ -12,7 +13,6 @@ import org.unknown100name.ecommerce.service.ItemService;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -21,9 +21,8 @@ import java.util.List;
  */
 @Service
 public class RecommendServiceImpl implements RecommendService {
-
     @Resource
-    private UserActivityService userActivityService;
+    private UserActivityMapper userActivityMapper;
 
     @Resource
     private UserSimilarityService userSimilarityService;
@@ -45,7 +44,7 @@ public class RecommendServiceImpl implements RecommendService {
         List<Long> userIds = RecommendUtils.getSimilarityBetweenUsers(userId, userSimilarityList);
 
         // 找到应该推荐给用户的二级类目的id
-        List<UserActivity> userActivityList = userActivityService.listAllUserActive();
+        List<UserActivity> userActivityList = userActivityMapper.listAllUserActivity();
         List<Long> categoryTwoList = RecommendUtils.getRecommendCategoryTwo(userId, userIds, userActivityList);
 
         // 找到这些二级类目下销量最大的商品

@@ -3,16 +3,21 @@ package org.unknown100name.ecommerce.service.impl;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.unknown100name.ecommerce.dao.CategoryMapper;
 import org.unknown100name.ecommerce.dao.ContactMapper;
 import org.unknown100name.ecommerce.dao.UserMapper;
 import org.unknown100name.ecommerce.pojo.dto.ContactDTO;
 import org.unknown100name.ecommerce.pojo.dto.UserBaseDTO;
 import org.unknown100name.ecommerce.pojo.dto.UserDetailDTO;
+import org.unknown100name.ecommerce.pojo.entity.CategoryTwo;
 import org.unknown100name.ecommerce.pojo.entity.Contact;
 import org.unknown100name.ecommerce.pojo.entity.User;
 import org.unknown100name.ecommerce.pojo.vo.ContactCreateParam;
 import org.unknown100name.ecommerce.pojo.vo.UserLoginParam;
 import org.unknown100name.ecommerce.pojo.vo.UserRegisterParam;
+import org.unknown100name.ecommerce.recommend.dao.UserActivityMapper;
+import org.unknown100name.ecommerce.recommend.service.UserActivityService;
 import org.unknown100name.ecommerce.service.RedisService;
 import org.unknown100name.ecommerce.service.UserService;
 import org.unknown100name.ecommerce.util.BaseResult;
@@ -35,6 +40,12 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private ContactMapper contactMapper;
+
+    @Resource
+    private UserActivityMapper userActivityMapper;
+
+    @Resource
+    private CategoryMapper categoryMapper;
 
     @Resource
     private RedisService redisService;
@@ -68,13 +79,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public BaseResult<String> register(UserRegisterParam userRegisterParam) {
         UserBaseDTO existUser = userMapper.getUserByNick(userRegisterParam.getNick());
         if (existUser != null){
             return BaseResult.failResult(BaseResultMsg.ERROR_EXISTED_USERNAME);
         }
         User insertUser = new User(userRegisterParam);
+        // 用户注册
         userMapper.insert(insertUser);
+        // 目录注册
+        userActivityMapper.registerNewUser(insertUser.getId(), categoryMapper.getCategoryTwoList());
         return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 

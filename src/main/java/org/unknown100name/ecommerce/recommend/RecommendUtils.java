@@ -1,7 +1,5 @@
 package org.unknown100name.ecommerce.recommend;
 
-import org.unknown100name.ecommerce.pojo.dto.ItemBaseDTO;
-import org.unknown100name.ecommerce.pojo.entity.Item;
 import org.unknown100name.ecommerce.recommend.pojo.entity.UserActivity;
 import org.unknown100name.ecommerce.recommend.pojo.entity.UserSimilarity;
 
@@ -61,7 +59,7 @@ public class RecommendUtils {
     
     /**
      * 计算用户与用户之间的相似性，返回计算出的用户与用户之间的相似度对象
-     * @param activityMap 用户对各个二级类目的购买行为的一个map集合
+     * @param activityMap 用户对各个二级类目的点击行为的一个map集合
      * @return 计算出的用户与用户之间的相似度的对象存储形式
      */
     public static List<UserSimilarity> calculateSimilarityUser(ConcurrentHashMap<Long, ConcurrentHashMap<Long, Long>> activityMap) {

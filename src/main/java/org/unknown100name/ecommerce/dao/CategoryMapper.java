@@ -20,5 +20,15 @@ public interface CategoryMapper{
      */
     List<CategoryDTO> getCategoryList();
 
+    /**
+     * 从二层获取目录结构
+     * @return
+     */
+    List<CategoryTwo> getCategoryTwoListByCategoryOneId(Long categoryOneId);
+
+    /**
+     * 从二层获取目录结构
+     * @return
+     */
     List<CategoryTwo> getCategoryTwoList();
 }

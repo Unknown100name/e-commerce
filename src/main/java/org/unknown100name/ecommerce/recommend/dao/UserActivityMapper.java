@@ -1,6 +1,8 @@
 package org.unknown100name.ecommerce.recommend.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.unknown100name.ecommerce.pojo.entity.CategoryTwo;
 import org.unknown100name.ecommerce.recommend.pojo.entity.UserActivity;
 
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.List;
  * @since 2022.02.27
  */
 @Mapper
-public interface UserActivityMapper {
+public interface UserActivityMapper extends BaseMapper<UserActivity> {
 	
 	/**
 	 * 查询出所有的用户行为
@@ -31,19 +33,10 @@ public interface UserActivityMapper {
 	 * @return 1就说明存在这个用户的行为，0说明不存在
 	 */
 	int countUserActivity(UserActivity userActivity);
-	
+
 	/**
-	 * 向用户行为表中添加一条用户的行为记录
-	 * @param userActivity
-	 * @return 受影响的行数，1表示插入成功，0表示插入失败
+	 * 注册一个新的用户
+	 * @param userId
 	 */
-	int saveUserActivity(UserActivity userActivity);
-	
-	/**
-	 * 更新用户对某个二级类目的点击量
-	 * @param userActivity
-	 * @return 1表示更新成功，0表示更新失败
-	 */
-	int updateUserActivity(UserActivity userActivity);
-	
+    void registerNewUser(Long userId, List<CategoryTwo> categoryTwoIds);
 }

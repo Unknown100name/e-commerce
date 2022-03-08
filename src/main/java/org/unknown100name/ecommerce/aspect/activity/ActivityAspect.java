@@ -51,6 +51,7 @@ public class ActivityAspect {
 
             Long userId = null;
             Long categoryTwoId = null;
+            Long itemId = null;
 
             for (Parameter parameter : parameters) {
                 // userId
@@ -72,6 +73,7 @@ public class ActivityAspect {
                                 break;
                             }
                             categoryTwoId = itemBaseDTO.getCategoryTwoId();
+                            itemId = itemBaseDTO.getId();
                             break;
                         case INNER_ITEM_ID:
                             InnerItemDTO innerItemDTO = itemMapper.getInnerItemById(Long.parseLong((String)paramMap.get(parameter.getName())));
@@ -84,6 +86,7 @@ public class ActivityAspect {
                                 break;
                             }
                             categoryTwoId = itemBaseDTO.getCategoryTwoId();
+                            itemId = itemBaseDTO.getId();
                             break;
                         case CATEGORY_TWO_ID:
                             categoryTwoId = Long.parseLong((String)paramMap.get(parameter.getName()));
@@ -95,6 +98,10 @@ public class ActivityAspect {
 
             if (userId != null && categoryTwoId != null){
                 userActivityService.saveUserActive(new UserActivity(userId, categoryTwoId, 1L));
+            }
+
+            if (itemId != null){
+                itemMapper.increaseHit(itemId);
             }
 
         } catch (Throwable e) {

@@ -12,16 +12,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap id="categoryDTO" type="org.unknown100name.ecommerce.pojo.dto.CategoryDTO">
         <id column="category_one_id" property="categoryOneId" javaType="java.lang.Long" jdbcType="BIGINT"/>
         <result column="category_one_name" property="categoryOneName" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <collection property="categoryTwoList" ofType="org.unknown100name.ecommerce.pojo.entity.CategoryTwo" select="org.unknown100name.ecommerce.dao.CategoryMapper.getCategoryTwoList" column="category_one_id"/>
+        <collection property="categoryTwoList" ofType="org.unknown100name.ecommerce.pojo.entity.CategoryTwo" select="org.unknown100name.ecommerce.dao.CategoryMapper.getCategoryTwoListByCategoryOneId" column="category_one_id"/>
     </resultMap>
 
     <select id="getCategoryList" resultMap="categoryDTO">
         SELECT <include refid="categoryDTOProperty"/>
-        FROM category_one co
+        FROM category_one
     </select>
 
-    <select id="getCategoryTwoList" parameterType="java.lang.Long" resultType="org.unknown100name.ecommerce.pojo.entity.CategoryTwo">
+    <select id="getCategoryTwoListByCategoryOneId" parameterType="java.lang.Long" resultType="org.unknown100name.ecommerce.pojo.entity.CategoryTwo">
         SELECT category_two_id, category_two_name, category_one_id
-        FROM category_two ct WHERE category_one_id = #{category_one_id}
+        FROM category_two ct WHERE ct.category_one_id = #{categoryOneId}
+    </select>
+
+    <select id="getCategoryTwoList" resultType="org.unknown100name.ecommerce.pojo.entity.CategoryTwo">
+        SELECT category_two_id, category_two_name, category_one_id
+        FROM category_two
     </select>
 </mapper>

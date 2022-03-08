@@ -27,17 +27,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        	SELECT COUNT(*) FROM user_activity
        	WHERE user_id = #{userId} AND category_two_id = #{categoryTwoId}
 	</select>
-	
-	<!-- 向用户行为表中添加一条用户的行为记录 -->
-	<insert id="saveUserActivity" parameterType="org.unknown100name.ecommerce.recommend.pojo.entity.UserActivity">
-	   INSERT INTO user_activity(user_id, category_two_id, hits)
-	   VALUES(#{userId}, #{categoryTwoId}, #{hits})
+
+	<insert id="registerNewUser">
+		INSERT INTO user_activity(user_id, category_two_id, hits)
+		<foreach collection="categoryTwoIds" item="categoryTwo" index="index" separator=",">
+			(#{userId}, #{categoryTwoIds.categoryTwoId} ,0)
+		</foreach>
 	</insert>
 
-    <!-- 更新用户对某个二级类目的点击量 -->
-    <update id="updateUserActivity" parameterType="org.unknown100name.ecommerce.recommend.pojo.entity.UserActivity">
-        UPDATE user_activity SET hits = #{hits}
-        WHERE user_id = #{userId} AND category_two_id = #{categoryTwoId}
-    </update>
+
 
 </mapper>
