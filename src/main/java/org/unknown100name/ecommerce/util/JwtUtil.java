@@ -51,21 +51,23 @@ public final class JwtUtil {
                     .withIssuedAt(new Date())
                     // 过期时间
                     .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRE_TIME));
-            map.forEach((key, value) -> {
-                if (value instanceof Integer) {
-                    builder.withClaim(key, (Integer) value);
-                } else if (value instanceof Long) {
-                    builder.withClaim(key, (Long) value);
-                } else if (value instanceof Boolean) {
-                    builder.withClaim(key, (Boolean) value);
-                } else if (value instanceof String) {
-                    builder.withClaim(key, String.valueOf(value));
-                } else if (value instanceof Double) {
-                    builder.withClaim(key, (Double) value);
-                } else if (value instanceof Date) {
-                    builder.withClaim(key, (Date) value);
-                }
-            });
+            if (map != null && !map.isEmpty()){
+                map.forEach((key, value) -> {
+                    if (value instanceof Integer) {
+                        builder.withClaim(key, (Integer) value);
+                    } else if (value instanceof Long) {
+                        builder.withClaim(key, (Long) value);
+                    } else if (value instanceof Boolean) {
+                        builder.withClaim(key, (Boolean) value);
+                    } else if (value instanceof String) {
+                        builder.withClaim(key, String.valueOf(value));
+                    } else if (value instanceof Double) {
+                        builder.withClaim(key, (Double) value);
+                    } else if (value instanceof Date) {
+                        builder.withClaim(key, (Date) value);
+                    }
+                });
+            }
             builder.withClaim("userId", userId);
             return builder.sign(algorithm);
         } catch (Exception e) {
