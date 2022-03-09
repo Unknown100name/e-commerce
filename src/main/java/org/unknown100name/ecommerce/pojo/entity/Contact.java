@@ -3,6 +3,7 @@ package org.unknown100name.ecommerce.pojo.entity;
 import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +24,7 @@ public class Contact implements Serializable {
 
     private static final long serialVersionUID = -6501129330167468579L;
 
+    @TableId
     private Long id;
 
     /**

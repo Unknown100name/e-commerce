@@ -1,5 +1,6 @@
 package org.unknown100name.ecommerce.recommend.pojo.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,16 +23,19 @@ public class UserSimilarity implements Serializable {
     /**
      * 用户 ID
      */
+    @TableField(value = "user_id")
     private Long userId;
 
     /**
      * 关联用户 ID
      */
+    @TableField(value = "user_ref_id")
     private Long userRefId;
 
     /**
      * 相似度
      */
+    @TableField(value = "similarity")
     private Double similarity;
 
 }

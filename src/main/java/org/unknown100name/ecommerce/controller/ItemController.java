@@ -37,7 +37,7 @@ public class ItemController {
 
     @GetMapping("getByCategoryOne")
     @ResponseBody
-    public BaseResult<List<ItemBaseDTO>> getByCategoryOne(String userId, String categoryOneId){
+    public BaseResult<List<ItemBaseDTO>> getByCategoryOne(String categoryOneId){
         return itemService.getByCategoryOne(Long.parseLong(categoryOneId));
     }
 

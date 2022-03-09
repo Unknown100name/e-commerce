@@ -1,5 +1,7 @@
 package org.unknown100name.ecommerce.recommend.pojo.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,15 +24,18 @@ public class UserActivity implements Serializable {
     /**
      * 用户 ID
      */
+    @TableId
     private Long userId;
 
     /**
      * 二级目录 ID
      */
+    @TableField(value = "category_two_id")
     private Long categoryTwoId;
 
     /**
      * 点击量
      */
+    @TableField(value = "hits")
     private Long hits;
 }

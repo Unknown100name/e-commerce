@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import org.unknown100name.ecommerce.pojo.dto.InnerShoppingCarDTO;
 import org.unknown100name.ecommerce.util.IdUtil;
@@ -34,6 +35,7 @@ public class InnerOrder implements Serializable {
 
     private static final long serialVersionUID = 289732166911578852L;
 
+    @TableId
     private Long id;
 
     /**

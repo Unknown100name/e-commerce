@@ -13,9 +13,15 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class RecommendUtils {
 
+    /**
+     * 最小计算用户个数
+     */
     public static final Integer MIN_SIMILARITY_USER_SIZE = 2;
 
-    public static final Integer DEFAULT_USER_FIND_WHEN_CAL_SIMILARITY = 5;
+    /**
+     * 获取相似度最高的 N 个用户
+     */
+    public static final Integer DEFAULT_USER_FIND_WHEN_CAL_SIMILARITY = 1;
     
     /**
      * 更新用户的购买行为，插入数据库中

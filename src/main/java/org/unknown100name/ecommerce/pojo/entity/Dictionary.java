@@ -1,6 +1,7 @@
 package org.unknown100name.ecommerce.pojo.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +22,7 @@ public class Dictionary implements Serializable {
 
     private static final long serialVersionUID = 4487752385312578927L;
 
+    @TableId
     private Long id;
 
     @TableField(value = "code")

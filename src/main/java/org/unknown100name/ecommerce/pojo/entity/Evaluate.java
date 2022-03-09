@@ -3,6 +3,7 @@ package org.unknown100name.ecommerce.pojo.entity;
 import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import org.unknown100name.ecommerce.pojo.vo.EvaluateCreateParam;
 import org.unknown100name.ecommerce.util.IdUtil;
@@ -31,6 +32,7 @@ public class Evaluate implements Serializable {
 
     private static final long serialVersionUID = -4514631523163089574L;
 
+    @TableId
     private Long id;
 
     /**

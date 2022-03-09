@@ -1,6 +1,7 @@
 package org.unknown100name.ecommerce.pojo.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +24,7 @@ public class CategoryOne implements Serializable {
     /**
      * 目录 ID
      */
-    @TableField(value = "category_one_id")
+    @TableId
     private Long categoryOneId;
 
     /**
