@@ -2,6 +2,9 @@ server:
   port: 8081
 
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher # 避免 swagger 报错
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://localhost:3306/ecommerce?useUnicode=true&characterEncoding=utf8
