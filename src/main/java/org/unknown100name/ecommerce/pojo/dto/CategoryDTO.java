@@ -1,5 +1,7 @@
 package org.unknown100name.ecommerce.pojo.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,20 +17,24 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@ApiModel("一级目录")
 public class CategoryDTO {
 
     /**
-     * 一层目录 ID
+     * 一级目录 ID
      */
+    @ApiModelProperty(value = "一级目录 ID", notes = "categoryOneId")
     private Long categoryOneId;
 
     /**
-     *  一层目录名
+     *  一级目录名称
      */
+    @ApiModelProperty(value = "一级目录名称")
     private String categoryOneName;
 
     /**
-     * 二层目录详情
+     * 二级目录详情
      */
+    @ApiModelProperty(value = "二级目录详情")
     private List<CategoryTwo> categoryTwoList;
 }

@@ -2,6 +2,7 @@ package org.unknown100name.ecommerce.controller;
 
 import javax.annotation.Resource;
 
+import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
 import org.unknown100name.ecommerce.aspect.token.TokenAuth;
 import org.unknown100name.ecommerce.pojo.dto.OrderDTO;
@@ -22,6 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("buyer")
+@Api(tags = "买家使用相关接口")
 public class BuyerController {
 
     @Resource
@@ -39,6 +41,7 @@ public class BuyerController {
      * @param innerItemId
      * @return
      */
+    @ApiOperation(value = "添加到购物车 + 添加个数", notes = "购物车中没有的时候会添加到购物车, 有的时候会数量 +1")
     @PostMapping("/shoppingCar/increase")
     @ResponseBody
     @TokenAuth
@@ -52,6 +55,7 @@ public class BuyerController {
      * @param innerItemId
      * @return
      */
+    @ApiOperation(value = "减少个数", notes = "购物车中的数量为 1 的时候会直接删除")
     @PostMapping("/shoppingCar/decrease")
     @ResponseBody
     @TokenAuth
@@ -65,6 +69,7 @@ public class BuyerController {
      * @param innerItemId
      * @return
      */
+    @ApiOperation(value = "从购物车中删除")
     @PostMapping("/shoppingCar/delete")
     @ResponseBody
     @TokenAuth
@@ -77,6 +82,7 @@ public class BuyerController {
      * @param userId
      * @return
      */
+    @ApiOperation(value = "获取购物车详情")
     @GetMapping("/shoppingCar/get")
     @ResponseBody
     @TokenAuth
@@ -89,6 +95,7 @@ public class BuyerController {
      * @param shoppingCarTurnOrderParam
      * @return
      */
+    @ApiOperation(value = "提交订单准备支付", notes = "从购物车中删除对应信息, 并返回订单 ID")
     @PostMapping("/order/prepay")
     @ResponseBody
     @TokenAuth
@@ -101,6 +108,7 @@ public class BuyerController {
      * @param userId
      * @return
      */
+    @ApiOperation(value = "查看个人订单")
     @GetMapping("/order/check")
     @ResponseBody
     @TokenAuth
@@ -113,6 +121,7 @@ public class BuyerController {
      * @param orderId
      * @return
      */
+    @ApiOperation(value = "支付")
     @PostMapping("/order/pay")
     @ResponseBody
     @TokenAuth
@@ -125,6 +134,7 @@ public class BuyerController {
      * @param innerOrderId
      * @return
      */
+    @ApiOperation(value = "确认收货")
     @PostMapping("/order/accept")
     @ResponseBody
     @TokenAuth
@@ -137,6 +147,7 @@ public class BuyerController {
      * @param innerOrderId
      * @return
      */
+    @ApiOperation(value = "取消订单", notes = "取消订单不会将订单退回至购物车")
     @PostMapping("/order/cancel")
     @ResponseBody
     @TokenAuth
@@ -162,6 +173,7 @@ public class BuyerController {
      * @param evaluateGiveParam
      * @return
      */
+    @ApiOperation(value = "添加评论")
     @PostMapping("/order/evaluate")
     @ResponseBody
     @TokenAuth

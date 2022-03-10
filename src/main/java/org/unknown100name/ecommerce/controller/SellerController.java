@@ -2,6 +2,8 @@ package org.unknown100name.ecommerce.controller;
 
 import javax.annotation.Resource;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import org.unknown100name.ecommerce.aspect.token.TokenAuth;
 import org.unknown100name.ecommerce.pojo.vo.ItemCreateParam;
@@ -16,6 +18,7 @@ import org.unknown100name.ecommerce.util.BaseResult;
  */
 @RestController
 @RequestMapping("seller")
+@Api(tags = "卖家使用相关接口")
 public class SellerController {
 
     @Resource
@@ -27,6 +30,7 @@ public class SellerController {
     /**
      * 创建商品
      */
+    @ApiOperation(value = "创建商品")
     @PostMapping("/item/create")
     @ResponseBody
     @TokenAuth
@@ -48,6 +52,7 @@ public class SellerController {
     /**
      * 上传审核
      */
+    @ApiOperation(value = "上传审核")
     @PostMapping("/item/upload")
     @ResponseBody
     @TokenAuth
@@ -58,6 +63,7 @@ public class SellerController {
     /**
      * 上架
      */
+    @ApiOperation(value = "上架")
     @PostMapping("/item/up")
     @ResponseBody
     @TokenAuth
@@ -68,6 +74,7 @@ public class SellerController {
     /**
      * 下架
      */
+    @ApiOperation(value = "下架")
     @PostMapping("/item/down")
     @ResponseBody
     @TokenAuth
@@ -78,6 +85,7 @@ public class SellerController {
     /**
      * 删除
      */
+    @ApiOperation(value = "删除")
     @PostMapping("/item/delete")
     @ResponseBody
     @TokenAuth
@@ -86,10 +94,11 @@ public class SellerController {
     }
 
     /**
-     * 买家发货
+     * 卖家发货
      * @param innerOrderId
      * @return
      */
+    @ApiOperation(value = "卖家发货")
     @PostMapping("/order/send")
     @ResponseBody
     @TokenAuth
@@ -102,6 +111,7 @@ public class SellerController {
      * @param innerOrderId
      * @return
      */
+    @ApiOperation(value = "卖家取消订单")
     @PostMapping("/order/cancel")
     @ResponseBody
     @TokenAuth

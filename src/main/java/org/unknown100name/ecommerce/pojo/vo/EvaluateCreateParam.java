@@ -1,5 +1,7 @@
 package org.unknown100name.ecommerce.pojo.vo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,16 +14,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@ApiModel(value = "添加评论参数")
 public class EvaluateCreateParam {
     
     /**
      * 子订单 ID
      */
+    @ApiModelProperty(value = "子订单 ID", required = true, allowEmptyValue = false)
     private String innerOrderId;
 
     /**
      * 评论内容
      */
+    @ApiModelProperty(value = "评论内容", required = true, allowEmptyValue = false)
     private String content;
 
     /**
@@ -37,6 +42,7 @@ public class EvaluateCreateParam {
      * 4-6: 中评
      * 7-10: 好评
      */
+    @ApiModelProperty(value = "评论分数", required = true, allowEmptyValue = false, notes = "从0-10的整数类型")
     private Integer type;
 
 }

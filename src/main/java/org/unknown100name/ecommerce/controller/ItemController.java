@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,23 +26,27 @@ import org.unknown100name.ecommerce.util.BaseResult;
  */
 @RestController
 @RequestMapping("item")
+@Api(tags = "商品相关接口")
 public class ItemController {
 
     @Resource
     private ItemService itemService;
 
+    @ApiOperation(value = "获取目录")
     @GetMapping("getCategory")
     @ResponseBody
     public BaseResult<List<CategoryDTO>> getCategory(){
         return itemService.getCategory();
     }
 
+    @ApiOperation(value = "根据一级目录ID获取商品")
     @GetMapping("getByCategoryOne")
     @ResponseBody
     public BaseResult<List<ItemBaseDTO>> getByCategoryOne(String categoryOneId){
         return itemService.getByCategoryOne(Long.parseLong(categoryOneId));
     }
 
+    @ApiOperation(value = "根据二级目录ID获取商品")
     @GetMapping("getByCategoryTwo")
     @ResponseBody
     @ActivityRecord
@@ -49,10 +55,11 @@ public class ItemController {
     }
 
     /**
-     * 查询列表商品
+     * 根据关键词查询商品
      * @param keyword
      * @return
      */
+    @ApiOperation(value = "根据关键词查询商品")
     @GetMapping("searchList")
     @ResponseBody
     public BaseResult<List<ItemBaseDTO>> searchList(String keyword){
@@ -64,6 +71,7 @@ public class ItemController {
      * @param shopId
      * @return
      */
+    @ApiOperation(value = "根据商店的userId商品")
     @GetMapping("shopList")
     @ResponseBody
     public BaseResult<List<ItemBaseDTO>> shopList(String shopId){
@@ -75,6 +83,7 @@ public class ItemController {
      * @param itemId
      * @return
      */
+    @ApiOperation(value = "查询商品基础信息")
     @GetMapping("base")
     @ResponseBody
     @ActivityRecord
@@ -87,6 +96,7 @@ public class ItemController {
      * @param itemId
      * @return
      */
+    @ApiOperation(value = "查询商品详细信息")
     @GetMapping("detail")
     @ResponseBody
     @ActivityRecord

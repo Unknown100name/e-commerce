@@ -1,5 +1,7 @@
 package org.unknown100name.ecommerce.pojo.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,24 +18,29 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@ApiModel(value = "订单")
 public class OrderDTO implements Serializable {
 
     private static final long serialVersionUID = 2064977188194288778L;
 
+    @ApiModelProperty(value = "订单 ID", notes = "orderId")
     private Long id;
 
     /**
      * 订单下单时间
      */
+    @ApiModelProperty(value = "订单下单时间", notes = "时间戳(ms)")
     private Long time;
 
     /**
      * 联系地址
      */
+    @ApiModelProperty(value = "联系方式")
     private ContactDTO contactDTO;
 
     /**
      * 细分商品列表
      */
+    @ApiModelProperty(value = "细分商品列表")
     private List<InnerOrderDTO> innerOrderList;
 }

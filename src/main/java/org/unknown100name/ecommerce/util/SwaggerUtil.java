@@ -11,7 +11,8 @@ import springfox.documentation.spring.web.plugins.Docket;
 /**
  * @author unknown100name
  * @since 2022.03.09
- * @description http://127.0.0.1:8081/e-commerce/swagger-ui/index.html
+ * @description swagger-ui http://127.0.0.1:8081/e-commerce/swagger-ui/index.html
+ * @description github-ui http://127.0.0.1:8081/e-commerce/doc.html#/home
  */
 @Configuration
 public class SwaggerUtil {
@@ -22,7 +23,7 @@ public class SwaggerUtil {
                 .enable(true)
                 .groupName("unknown100name")
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.unknown100name.ecommerce"))
+                .apis(RequestHandlerSelectors.basePackage("org.unknown100name.ecommerce"))
                 .paths(PathSelectors.any())
                 .build();
     }

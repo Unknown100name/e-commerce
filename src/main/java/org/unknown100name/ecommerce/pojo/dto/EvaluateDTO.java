@@ -1,5 +1,7 @@
 package org.unknown100name.ecommerce.pojo.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,15 +16,18 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@ApiModel(value = "评论")
 public class EvaluateDTO implements Serializable {
 
     private static final long serialVersionUID = -4514631523163089574L;
 
+    @ApiModelProperty(value = "评论 ID", notes = "evaluateId")
     private Long id;
 
     /**
      * 评论时间
      */
+    @ApiModelProperty(value = "评论时间", notes = "时间戳(ms)")
     private Long time;
 
     /**
@@ -38,10 +43,12 @@ public class EvaluateDTO implements Serializable {
      * 4-6: 中评
      * 7-10: 好评
      */
+    @ApiModelProperty(value = "评论分数", notes = "0-10整数")
     private Integer type;
 
     /**
      * 评论内容
      */
+    @ApiModelProperty(value = "评论内容")
     private String content;
 }

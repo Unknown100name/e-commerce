@@ -1,6 +1,8 @@
 package org.unknown100name.ecommerce.recommend.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,11 +23,13 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/recommend")
+@Api(tags = "商城推荐(商品首页)")
 public class RecommendController {
 
     @Resource
     private RecommendService recommendService;
 
+    @ApiOperation(value = "根据用户id商品推荐", notes = "不传用户则随机返回商品")
     @GetMapping("/item")
     public BaseResult<List<ItemBaseDTO>> getRecommendItem(String userId){
         if (StringUtils.isBlank(userId)){

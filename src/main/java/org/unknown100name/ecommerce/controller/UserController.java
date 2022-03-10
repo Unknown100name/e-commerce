@@ -3,6 +3,8 @@ package org.unknown100name.ecommerce.controller;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +30,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("user")
+@Api(tags = "基本用户相关接口")
 public class UserController {
 
     @Resource
@@ -41,6 +44,7 @@ public class UserController {
      * @param userLoginParam
      * @return
      */
+    @ApiOperation(value = "登录")
     @PostMapping("login")
     @ResponseBody
     public BaseResult<UserBaseDTO> login(@RequestBody UserLoginParam userLoginParam, HttpServletRequest request){
@@ -57,6 +61,7 @@ public class UserController {
      * @param userRegisterParam
      * @return
      */
+    @ApiOperation(value = "注册")
     @PostMapping("register")
     @ResponseBody
     public BaseResult<String> register(@RequestBody UserRegisterParam userRegisterParam, HttpServletRequest request){
@@ -73,6 +78,7 @@ public class UserController {
      * @param userId
      * @return
      */
+    @ApiOperation(value = "登出")
     @PostMapping("logout")
     @ResponseBody
     @TokenAuth
@@ -85,6 +91,7 @@ public class UserController {
      * @param userId
      * @return
      */
+    @ApiOperation(value = "删除用户")
     @PostMapping("delete")
     @ResponseBody
     @TokenAuth
@@ -98,6 +105,7 @@ public class UserController {
      * @param idCard
      * @return
      */
+    @ApiOperation(value = "忘记密码")
     @PostMapping("forgetPassword")
     @ResponseBody
     public BaseResult<String> forgetPassword(String nick, String idCard){
@@ -111,6 +119,7 @@ public class UserController {
      * @param newPassword
      * @return
      */
+    @ApiOperation(value = "重置密码")
     @PostMapping("resetPassword")
     @ResponseBody
     @TokenAuth
@@ -122,6 +131,7 @@ public class UserController {
      * 获取验证码
      * @return
      */
+    @ApiOperation(value = "获取验证码")
     @GetMapping("vertifyCodeImage")
     @ResponseBody
     public BaseResult<String> vertifyCodeImage(HttpServletRequest request){
@@ -138,6 +148,7 @@ public class UserController {
      * @param userId
      * @return
      */
+    @ApiOperation(value = "获取联系人")
     @GetMapping("/contact/get")
     @ResponseBody
     @TokenAuth
@@ -151,6 +162,7 @@ public class UserController {
      * @param contactCreateParam
      * @return
      */
+    @ApiOperation(value = "添加联系人")
     @PostMapping("/contact/add")
     @ResponseBody
     @TokenAuth
@@ -164,6 +176,7 @@ public class UserController {
      * @param contactId
      * @return
      */
+    @ApiOperation(value = "删除联系人")
     @PostMapping("/contact/delete")
     @ResponseBody
     @TokenAuth

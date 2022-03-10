@@ -2,6 +2,8 @@ package org.unknown100name.ecommerce.pojo.dto;
 
 import java.math.BigDecimal;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,13 +16,16 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ApiModel(value = "子订单")
 public class InnerOrderDTO {
-    
+
+    @ApiModelProperty(value = "子订单 ID", notes = "innerOrderId")
     private Long id;
 
     /**
      * 大订单 Id {@link org.unknown100name.ecommerce.pojo.entity.Order#id}
      */
+    @ApiModelProperty(value = "大订单 ID", notes = "orderId")
     private Long orderId;
 
     /**
@@ -34,30 +39,36 @@ public class InnerOrderDTO {
     //  * 7: 已发货 (商家待确认)
     //  * 8: 已确认 (商家已确认)
      */
+    @ApiModelProperty(value = "订单状态", notes = "-1: 订单已取消\n0: 待付款\n1: 已付款 (商家待确认)\n2: 已发货 (买家待确认)\n3: 已收货 (买家已确认)\n")
     private Integer state;
 
     /**
      * 细分商品 Id {@link org.unknown100name.ecommerce.pojo.entity.InnerItem#id}
      */
+    @ApiModelProperty(value = "细分商品 Id", notes = "innerItemId")
     private Long innerItemId;
 
     /**
      * 购买数量
      */
+    @ApiModelProperty(value = "购买数量")
     private Integer number;
 
     /**
      * 购买单价
      */
+    @ApiModelProperty(value = "购买单价")
     private BigDecimal singlePrice;
 
     /**
      * 商家快递号
      */
+    @ApiModelProperty(value = "商家快递号")
     private String expressCode;
 
     /**
      * 退货快递号
      */
+    @ApiModelProperty(value = "退货快递号")
     private String backExpressCode;
 }
