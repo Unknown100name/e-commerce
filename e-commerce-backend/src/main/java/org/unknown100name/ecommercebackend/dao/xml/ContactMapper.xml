@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.unknown100name.ecommercebackend.dao.ContactMapper">
+
+    <resultMap id="contactDTO" type="org.unknown100name.ecommercebackend.pojo.dto.ContactDTO">
+        <id column="id" property="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+        <result column="address" property="address" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="name" property="name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="contactDTOProperty">
+        id, address, name, phone
+    </sql>
+
+    <select id="getContactById" resultMap="contactDTO">
+        SELECT <include refid="contactDTOProperty"/>
+        FROM contact c
+        WHERE c.id = #{contactId} AND c.deleted = 0
+    </select>
+
+    <select id="getContactByUserId" resultMap="contactDTO">
+        SELECT <include refid="contactDTOProperty"/>
+        FROM contact c
+        WHERE c.user_id = #{userId} AND c.deleted = 0
+    </select>
+
+    <update id="fakeDelete">
+        UPDATE contact
+        SET contact.deleted = 1
+        WHERE contact.id = #{contactId} AND contact.deleted = 0
+    </update>
+</mapper>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.unknown100name.ecommercebackend.dao.ItemMapper">
+
+    <sql id="itemBaseDTOProperty">
+        i.id, title, sub_title, state, sell_count, image_base64, category_one_id, category_two_id, shop_id
+    </sql>
+
+    <sql id="itemDetailDTOProperty">
+        i.id, title, sub_title, h5_base64, state, sell_count, image_base64, category_one_id, category_two_id, shop_id
+    </sql>
+    
+    <sql id="innerItemDTOProperty">
+        ii.id, type_name, price, image_base64, inventory, ii.item_id
+    </sql>
+
+    <resultMap id="itemBaseDTO" type="org.unknown100name.ecommercebackend.pojo.dto.ItemBaseDTO">
+        <id column="id" property="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+        <result column="title" property="title" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="sub_title" property="subTitle" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="state" property="state" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result column="sell_count" property="sellCount" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <result column="image_base64" property="mainImageBase64" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="category_one_id" property="categoryOneId" javaType="java.lang.Long" jdbcType="BIGINT"/>
+        <result column="category_two_id" property="categoryTwoId" javaType="java.lang.Long" jdbcType="BIGINT"/>
+
+        <association property="shop" javaType="org.unknown100name.ecommercebackend.pojo.dto.UserBaseDTO" select="org.unknown100name.ecommercebackend.dao.UserMapper.getUserById" column="shop_id"/>
+    </resultMap>
+
+    <resultMap id="itemDetailDTO" type="org.unknown100name.ecommercebackend.pojo.dto.ItemDetailDTO">
+        <id column="id" property="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+        <result column="title" property="title" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="sub_title" property="subTitle" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="h5_base64" property="h5Base64" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="state" property="state" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result column="sell_count" property="sellCount" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <result column="image_base64" property="mainImageBase64" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="category_one_id" property="categoryOneId" javaType="java.lang.Long" jdbcType="BIGINT"/>
+        <result column="category_two_id" property="categoryTwoId" javaType="java.lang.Long" jdbcType="BIGINT"/>
+
+        <association property="shop" javaType="org.unknown100name.ecommercebackend.pojo.dto.UserBaseDTO" select="org.unknown100name.ecommercebackend.dao.UserMapper.getUserById" column="shop_id"/>
+
+        <collection property="imageListBase64" ofType="java.lang.String" select="org.unknown100name.ecommercebackend.dao.ItemImageMapper.getItemImagesByItemId" column="id"/>
+        <collection property="innerItemList" ofType="org.unknown100name.ecommercebackend.pojo.dto.InnerItemDTO" select="org.unknown100name.ecommercebackend.dao.ItemMapper.getInnerItemByItemId" column="id"/>
+        <collection property="evaluateList" ofType="org.unknown100name.ecommercebackend.pojo.dto.EvaluateDTO" select="org.unknown100name.ecommercebackend.dao.EvaluateMapper.getEvaluateByItemId" column="id"/>
+    </resultMap>
+    
+    <resultMap id="innerItemDTO" type="org.unknown100name.ecommercebackend.pojo.dto.InnerItemDTO">
+        <id column="id" property="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+        <result column="type_name" property="typeName" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="price" property="price" javaType="java.math.BigDecimal" jdbcType="DECIMAL"/>
+        <result column="image_base64" property="imageBase64" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="inventory" property="inventory" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result column="item_id" property="itemId" javaType="java.lang.Long" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <!-- ITEM -->
+
+    <select id="getItemBaseByCategoryOne" resultMap="itemBaseDTO">
+        SELECT <include refid="itemBaseDTOProperty"/>
+        FROM item i LEFT JOIN item_image ii ON i.id = ii.item_id AND ii.type = 1
+        WHERE i.category_one_id = #{categoryOneId}
+    </select>
+
+    <select id="getItemBaseByCategoryTwo" resultMap="itemBaseDTO">
+        SELECT <include refid="itemBaseDTOProperty"/>
+        FROM item i LEFT JOIN item_image ii ON i.id = ii.item_id AND ii.type = 1
+        WHERE i.category_two_id = #{categoryTwoId}
+    </select>
+
+    <select id="getItemBaseByKeyword" resultMap="itemBaseDTO">
+        SELECT <include refid="itemBaseDTOProperty"/>
+        FROM item i LEFT JOIN item_image ii ON i.id = ii.item_id AND ii.type = 1
+        WHERE (i.title LIKE CONCAT('%',#{keyword},'%') OR i.sub_title LIKE CONCAT('%',#{keyword},'%'))
+    </select>
+
+    <select id="getItemBaseByShopId" resultMap="itemBaseDTO">
+        SELECT <include refid="itemBaseDTOProperty"/>
+        FROM item i LEFT JOIN item_image ii on i.id = ii.item_id AND ii.type = 1
+        WHERE i.shop_id = #{shopId}
+    </select>
+
+    <select id="getItemBaseById" resultMap="itemBaseDTO">
+        SELECT <include refid="itemBaseDTOProperty"/>
+        FROM item i LEFT JOIN item_image ii on i.id = ii.item_id AND ii.type = 1
+        WHERE i.id = #{itemId}
+    </select>
+
+    <select id="getItemDetailById" resultMap="itemDetailDTO">
+        SELECT <include refid="itemDetailDTOProperty"/>
+        FROM item i LEFT JOIN item_image ii on i.id = ii.item_id AND ii.type = 1
+        WHERE i.id = #{itemId}
+    </select>
+
+    <update id="updateItemState">
+        UPDATE item
+        SET item.state = #{to}
+        WHERE item.id = #{itemId} AND item.state = #{from}
+    </update>
+
+    <update id="increaseSell">
+        UPDATE item
+        SET item.sell_count = item.sell_count + #{sellCount}
+        WHERE item.id = (
+            SELECT ii.item_id FROM inner_item ii WHERE ii.id = #{innerItemId} LIMIT 1
+            )
+    </update>
+
+    <update id="increaseHit">
+        UPDATE item
+        SET item.hits = item.hits + 1
+        WHERE item.id #{itemId}
+    </update>
+
+    <update id="decreaseInventory">
+        UPDATE inner_item
+        SET inner_item.inventory = inner_item.inventory - #{deInventory}
+        WHERE inner_item.id = #{innerItemId}
+    </update>
+
+    <select id="getMaxSellItemByCategoryTwoId" resultMap="itemBaseDTO">
+        SELECT <include refid="itemBaseDTOProperty"/>
+        FROM item i LEFT JOIN item_image ii on i.id = ii.item_id AND ii.type = 1
+        WHERE i.category_two_id = #{categoryTwoId}
+        ORDER BY i.sell_count ASC LIMIT 1
+    </select>
+
+    <select id="getItemByRandom" resultMap="itemBaseDTO">
+        SELECT <include refid="itemBaseDTOProperty"/>
+        FROM item i LEFT JOIN item_image ii on i.id = ii.item_id AND ii.type = 1
+        ORDER BY RAND()
+        LIMIT 10
+    </select>
+
+    <!-- INNERITEM -->
+
+    <select id="getInnerItemById" resultMap="innerItemDTO">
+        SELECT <include refid="innerItemDTOProperty"/>
+        FROM inner_item ii LEFT JOIN item_image iimage on iimage.item_id = ii.item_id AND iimage.type = 2
+        WHERE ii.id = #{id}
+    </select>
+
+    <select id="getInnerItemByItemId" resultMap="innerItemDTO">
+        SELECT <include refid="innerItemDTOProperty"/>
+        FROM inner_item ii LEFT JOIN item_image iimage on iimage.item_id = ii.item_id AND iimage.type = 2
+        WHERE ii.item_id = #{itemId}
+    </select>
+
+    <insert id="insertInnerItem" parameterType="java.util.List">
+        INSERT INTO
+        inner_item(id, item_id, type_name, price, inventory)
+        VALUES
+        <foreach collection="innerItemList" item="innerItem" index="index" separator=",">
+            (#{innerItem.id}, #{innerItem.itemId}, #{innerItem.typeName}, #{innerItem.price}, #{innerItem.inventory})
+        </foreach>
+    </insert>
+
+
+</mapper>

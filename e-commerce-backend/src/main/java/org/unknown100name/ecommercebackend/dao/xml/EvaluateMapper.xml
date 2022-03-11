@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.unknown100name.ecommercebackend.dao.EvaluateMapper">
+
+    <sql id="evaluateDTOProperty">
+        id, time, type, content
+    </sql>
+
+    <resultMap id="evaluateDTO" type="org.unknown100name.ecommercebackend.pojo.dto.EvaluateDTO">
+        <id column="id" property="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+        <result column="time" property="time" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <result column="type" property="type" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result column="content" property="content" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getEvaluateByItemId" resultMap="evaluateDTO">
+        SELECT <include refid="evaluateDTOProperty"/>
+        FROM evaluate e
+        WHERE e.inner_item_id IN (
+            SELECT ii.id
+            FROM inner_item ii
+            WHERE ii.item_id = #{itemId}
+        )
+    </select>
+</mapper>
