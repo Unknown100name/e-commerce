@@ -10,7 +10,7 @@ import org.unknown100name.ecommercebackend.pojo.entity.Evaluate;
 import org.unknown100name.ecommercebackend.pojo.vo.EvaluateCreateParam;
 import org.unknown100name.ecommercebackend.service.EvaluateService;
 import common.BaseResult;
-import org.unknown100name.ecommercebackend.util.BaseResultMsg;
+import common.BaseResultMsg;
 
 
 /**

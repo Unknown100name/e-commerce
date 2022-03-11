@@ -11,7 +11,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.unknown100name.ecommercebackend.aspect.AopUtils;
 import org.unknown100name.ecommercebackend.service.RedisService;
 import common.BaseResult;
-import org.unknown100name.ecommercebackend.util.BaseResultMsg;
+import common.BaseResultMsg;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;

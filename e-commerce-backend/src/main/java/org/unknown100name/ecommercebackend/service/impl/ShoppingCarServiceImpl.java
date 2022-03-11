@@ -8,7 +8,7 @@ import org.unknown100name.ecommercebackend.pojo.dto.InnerShoppingCarDTO;
 import org.unknown100name.ecommercebackend.pojo.dto.ShoppingCarDTO;
 import org.unknown100name.ecommercebackend.service.ShoppingCarService;
 import common.BaseResult;
-import org.unknown100name.ecommercebackend.util.BaseResultMsg;
+import common.BaseResultMsg;
 import util.IdUtil;
 
 /**

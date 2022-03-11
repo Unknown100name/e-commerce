@@ -25,7 +25,7 @@ import org.unknown100name.ecommercebackend.pojo.entity.Order;
 import org.unknown100name.ecommercebackend.pojo.vo.ShoppingCarTurnOrderParam;
 import org.unknown100name.ecommercebackend.service.OrderService;
 import common.BaseResult;
-import org.unknown100name.ecommercebackend.util.BaseResultMsg;
+import common.BaseResultMsg;
 
 /**
  * @author unknown100name

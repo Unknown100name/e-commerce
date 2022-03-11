@@ -1,4 +1,4 @@
-package org.unknown100name.ecommercebackend.util;
+package common;
 
 /**
  * @author unknown100name

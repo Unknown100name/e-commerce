@@ -12,7 +12,7 @@ import org.unknown100name.ecommercebackend.dao.ItemMapper;
 import org.unknown100name.ecommercebackend.pojo.dto.InnerItemDTO;
 import org.unknown100name.ecommercebackend.pojo.dto.ItemBaseDTO;
 import common.BaseResult;
-import org.unknown100name.ecommercebackend.util.BaseResultMsg;
+import common.BaseResultMsg;
 import util.HttpRequestUtil;
 
 import javax.annotation.Resource;

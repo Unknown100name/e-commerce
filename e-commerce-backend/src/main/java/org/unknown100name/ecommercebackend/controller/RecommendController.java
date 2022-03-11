@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.unknown100name.ecommercebackend.pojo.dto.ItemBaseDTO;
 import org.unknown100name.ecommercebackend.service.ItemService;
 import common.BaseResult;
-import org.unknown100name.ecommercebackend.util.BaseResultMsg;
+import common.BaseResultMsg;
 import common.ConstUtil;
 import util.HttpRequestUtil;
 

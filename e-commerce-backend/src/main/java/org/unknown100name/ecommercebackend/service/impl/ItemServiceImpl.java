@@ -17,7 +17,7 @@ import org.unknown100name.ecommercebackend.pojo.entity.Item;
 import org.unknown100name.ecommercebackend.pojo.vo.ItemCreateParam;
 import org.unknown100name.ecommercebackend.service.ItemService;
 import common.BaseResult;
-import org.unknown100name.ecommercebackend.util.BaseResultMsg;
+import common.BaseResultMsg;
 
 /**
  * @author unknown100name

@@ -3,6 +3,7 @@ package org.unknown100name.ecommercebackend.service.impl;
 import javax.annotation.Resource;
 
 import common.BaseResult;
+import common.BaseResultMsg;
 import common.ConstUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -83,7 +84,7 @@ public class UserServiceImpl implements UserService {
         // 用户注册
         userMapper.insert(insertUser);
         // 目录注册
-        HttpRequestUtil.doPost(ConstUtil.RECOMMEND_HOST + ConstUtil.REGISTER_NEW_USER, insertUser.getId(), categoryMapper.getCategoryTwoList());
+        HttpRequestUtil.doPost(ConstUtil.RECOMMEND_HOST +  ConstUtil.RECOMMEND_CONTROLLER + ConstUtil.REGISTER_NEW_USER, insertUser.getId(), categoryMapper.getCategoryTwoList());
         return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 
