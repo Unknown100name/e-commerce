@@ -1,15 +1,15 @@
 package org.unknown100name.ecommercerecommend.service.impl;
 
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
-import org.unknown100name.ecommercerecommend.RecommendUtils;
-import org.unknown100name.ecommercerecommend.dao.UserActivityMapper;
-import org.unknown100name.ecommercerecommend.pojo.entity.UserActivity;
-import org.unknown100name.ecommercerecommend.pojo.entity.UserSimilarity;
+import org.unknown100name.ecommercerecommend.util.RecommendGetTask;
 import org.unknown100name.ecommercerecommend.service.RecommendService;
-import org.unknown100name.ecommercerecommend.service.UserSimilarityService;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.*;
+
+import static common.ConstUtil.RECOMMEND_CONSUMER_RETURN_TIME;
 
 /**
  * @author unknown100name
@@ -17,22 +17,31 @@ import java.util.List;
  */
 @Service
 public class RecommendServiceImpl implements RecommendService {
-    @Resource
-    private UserActivityMapper userActivityMapper;
 
-    @Resource
-    private UserSimilarityService userSimilarityService;
+    @Resource(name = "RecommendConsumer")
+    private ThreadPoolTaskExecutor recommendConsumer;
 
     @Override
     public List<Long> getRecommendCategoryTwoId(Long userId) {
-        // 找到当前用户与其他用户的相似度列表
-        List<UserSimilarity> userSimilarityList = userSimilarityService.getUserSimilarityByUserId(userId);
 
-        // 找到与当前用户相似度最高的topN个用户
-        List<Long> userIds = RecommendUtils.getSimilarityBetweenUsers(userId, userSimilarityList);
+        // 提交任务
+        FutureTask<List<Long>> recommendGetTask = new FutureTask<>(new RecommendGetTask(userId));
+        recommendConsumer.submit(recommendGetTask);
 
-        // 找到应该推荐给用户的二级类目的id
-        List<UserActivity> userActivityList = userActivityMapper.listAllUserActivity();
-        return RecommendUtils.getRecommendCategoryTwo(userId, userIds, userActivityList);
+        // 不使用 get 是要求线程一直处理， 但我只在固定时间返回
+        long startTime = System.currentTimeMillis();
+        while(true){
+            if (recommendGetTask.isDone()){
+                try {
+                    return recommendGetTask.get();
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+            if (System.currentTimeMillis() - startTime > RECOMMEND_CONSUMER_RETURN_TIME){
+                return null;
+            }
+        }
     }
 }
