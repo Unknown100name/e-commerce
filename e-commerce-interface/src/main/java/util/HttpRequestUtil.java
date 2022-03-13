@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
 import java.util.Map;
 /**
  * @author unknown100name
@@ -63,7 +64,11 @@ public class HttpRequestUtil {
      * @return Map<String,Object>
      */
     private static Map<String,Object> toMap(Object object){
-        return (Map<String, Object>) JSON.toJSON(object);
+        if (object instanceof Map){
+            return (Map<String, Object>) object;
+        }else{
+            return (Map<String, Object>) JSON.toJSON(object);
+        }
     }
 
     /**
@@ -79,10 +84,10 @@ public class HttpRequestUtil {
             StringBuilder tempParam = new StringBuilder();
             for (Map.Entry<String, Object> entry : map.entrySet()) {
                 if (entry.getValue() != null) {
-                    tempParam.append(entry.getKey()).append("=").append(entry.getValue());
+                    tempParam.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
                 }
             }
-            return url + "?" + tempParam;
+            return url + "?" + tempParam.substring(0, tempParam.length() - 1);
         }
         return url;
     }

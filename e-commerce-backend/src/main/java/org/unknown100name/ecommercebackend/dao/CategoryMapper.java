@@ -26,10 +26,4 @@ public interface CategoryMapper{
      * @return
      */
     List<CategoryTwo> getCategoryTwoListByCategoryOneId(Long categoryOneId);
-
-    /**
-     * 从二层获取目录结构
-     * @return
-     */
-    List<CategoryTwo> getCategoryTwoList();
 }

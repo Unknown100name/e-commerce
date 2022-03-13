@@ -21,6 +21,8 @@ import java.lang.reflect.Parameter;
 import java.util.HashMap;
 import java.util.Map;
 
+import static common.ConstUtil.*;
+
 /**
  * @author unknown100name
  * @since 2022.02.28
@@ -95,10 +97,10 @@ public class ActivityAspect {
             }
 
             if (userId != null && categoryTwoId != null){
-                Map<String, String> params = new HashMap<>();
-                params.put("userId", String.valueOf(userId));
-                params.put("categoryTowId", String.valueOf(categoryTwoId));
-                HttpRequestUtil.doGet(ConstUtil.RECOMMEND_HOST + ConstUtil.RECOMMEND_CONTROLLER + ConstUtil.SAVE_ACTIVITY_USER, params);
+                Map<String, Object> param = new HashMap<>(2);
+                param.put("userId", userId);
+                param.put("categoryTwoId", categoryTwoId);
+                HttpRequestUtil.doPost(RECOMMEND_HOST + RECOMMEND_CONTROLLER + SAVE_ACTIVITY_USER, param, null);
             }
 
             if (itemId != null){

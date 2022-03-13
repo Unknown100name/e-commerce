@@ -6,6 +6,7 @@ import org.unknown100name.ecommercerecommend.dao.UserActivityMapper;
 import org.unknown100name.ecommercerecommend.pojo.entity.UserActivity;
 import org.unknown100name.ecommercerecommend.pojo.entity.UserSimilarity;
 import org.unknown100name.ecommercerecommend.service.UserSimilarityService;
+import org.unknown100name.ecommercerecommend.util.RecommendUtils;
 
 import javax.annotation.Resource;
 import java.util.List;

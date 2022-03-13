@@ -24,9 +24,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT category_two_id, category_two_name, category_one_id
         FROM category_two ct WHERE ct.category_one_id = #{categoryOneId}
     </select>
-
-    <select id="getCategoryTwoList" resultType="entity.CategoryTwo">
-        SELECT category_two_id, category_two_name, category_one_id
-        FROM category_two
-    </select>
 </mapper>

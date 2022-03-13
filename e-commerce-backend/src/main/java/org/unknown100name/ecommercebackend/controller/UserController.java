@@ -20,7 +20,9 @@ import org.unknown100name.ecommercebackend.pojo.vo.ContactCreateParam;
 import org.unknown100name.ecommercebackend.pojo.vo.UserLoginParam;
 import org.unknown100name.ecommercebackend.pojo.vo.UserRegisterParam;
 import org.unknown100name.ecommercebackend.service.UserService;
-import org.unknown100name.ecommercebackend.util.*;
+import org.unknown100name.ecommercebackend.util.VertifyCodeUtil;
+import util.IpUtil;
+import util.SHA1Util;
 
 import java.util.List;
 

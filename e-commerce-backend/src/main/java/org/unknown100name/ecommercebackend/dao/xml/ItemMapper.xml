@@ -112,7 +112,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="increaseHit">
         UPDATE item
         SET item.hits = item.hits + 1
-        WHERE item.id #{itemId}
+        WHERE item.id = #{itemId}
     </update>
 
     <update id="decreaseInventory">

@@ -1,4 +1,4 @@
-package org.unknown100name.ecommercerecommend;
+package org.unknown100name.ecommercerecommend.util;
 
 import org.unknown100name.ecommercerecommend.pojo.entity.UserActivity;
 import org.unknown100name.ecommercerecommend.pojo.entity.UserSimilarity;
@@ -6,22 +6,15 @@ import org.unknown100name.ecommercerecommend.pojo.entity.UserSimilarity;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static common.ConstUtil.DEFAULT_USER_FIND_WHEN_CAL_SIMILARITY;
+import static common.ConstUtil.MIN_SIMILARITY_USER_SIZE;
+
 /**
  * @author unknown100name
  * @description 商品推荐实现
  * @since 2022/1/2
  */
 public class RecommendUtils {
-
-    /**
-     * 最小计算用户个数
-     */
-    public static final Integer MIN_SIMILARITY_USER_SIZE = 2;
-
-    /**
-     * 获取相似度最高的 N 个用户
-     */
-    public static final Integer DEFAULT_USER_FIND_WHEN_CAL_SIMILARITY = 1;
     
     /**
      * 更新用户的购买行为，插入数据库中

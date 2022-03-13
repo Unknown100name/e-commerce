@@ -24,7 +24,7 @@ public class UserActivity implements Serializable {
     /**
      * 用户 ID
      */
-    @TableId
+    @TableField(value = "user_id")
     private Long userId;
 
     /**

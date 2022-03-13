@@ -1,5 +1,6 @@
 package org.unknown100name.ecommercerecommend.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -25,11 +26,13 @@ public class UserActivityServiceImpl implements UserActivityService {
 	public void saveUserActivity(UserActivity userActivity) {
 		int rows = userActivityMapper.countUserActivity(userActivity);
 		if (rows < 1) {
-			userActivity.setHits(1L);
+			userActivity.setHits(0L);
 			userActivityMapper.insert(userActivity);
 		} else { // 已经存在
 			userActivity.setHits(userActivityMapper.getHitsByUserActivityInfo(userActivity) + 1L);
-			userActivityMapper.updateById(userActivity);
+			userActivityMapper.update(userActivity, new UpdateWrapper<UserActivity>()
+					.eq("user_id", userActivity.getUserId())
+					.eq("category_two_id", userActivity.getCategoryTwoId()));
 		}
 	}
 	

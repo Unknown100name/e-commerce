@@ -4,7 +4,6 @@ import javax.annotation.Resource;
 
 import common.BaseResult;
 import common.BaseResultMsg;
-import common.ConstUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.unknown100name.ecommercebackend.dao.CategoryMapper;
@@ -20,10 +19,15 @@ import org.unknown100name.ecommercebackend.pojo.vo.UserLoginParam;
 import org.unknown100name.ecommercebackend.pojo.vo.UserRegisterParam;
 import org.unknown100name.ecommercebackend.service.RedisService;
 import org.unknown100name.ecommercebackend.service.UserService;
-import org.unknown100name.ecommercebackend.util.*;
 import util.HttpRequestUtil;
+import util.JwtUtil;
+import util.SHA1Util;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static common.ConstUtil.*;
 
 /**
  * @author unknown100name
@@ -84,7 +88,9 @@ public class UserServiceImpl implements UserService {
         // 用户注册
         userMapper.insert(insertUser);
         // 目录注册
-        HttpRequestUtil.doPost(ConstUtil.RECOMMEND_HOST +  ConstUtil.RECOMMEND_CONTROLLER + ConstUtil.REGISTER_NEW_USER, insertUser.getId(), categoryMapper.getCategoryTwoList());
+        Map<String, Object> param = new HashMap<>(1);
+        param.put("userId", insertUser.getId());
+        HttpRequestUtil.doPost(RECOMMEND_HOST + RECOMMEND_CONTROLLER + REGISTER_NEW_USER, param, null);
         return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 

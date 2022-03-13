@@ -1,4 +1,4 @@
-package org.unknown100name.ecommercebackend.util;
+package util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;

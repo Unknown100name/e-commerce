@@ -2,14 +2,18 @@ package org.unknown100name.ecommercerecommend.controller;
 
 import common.BaseResult;
 import common.BaseResultMsg;
+import common.ConstUtil;
 import entity.CategoryTwo;
 import org.springframework.web.bind.annotation.*;
+import org.unknown100name.ecommercerecommend.dao.CategoryMapper;
 import org.unknown100name.ecommercerecommend.pojo.entity.UserActivity;
 import org.unknown100name.ecommercerecommend.service.RecommendService;
 import org.unknown100name.ecommercerecommend.service.UserActivityService;
 
 import javax.annotation.Resource;
 import java.util.List;
+
+import static common.ConstUtil.*;
 
 /**
  * @author unknown100name
@@ -27,32 +31,31 @@ public class RecommendController {
     @Resource
     private UserActivityService userActivityService;
 
-    @GetMapping("/getRecommendCategory")
+    @Resource
+    private CategoryMapper categoryMapper;
+
+    @GetMapping(GET_RECOMMEND_CATEGORY)
     @ResponseBody
-    public BaseResult<List<Long>> getRecommendCategoryTwoId(String userId){
-        return BaseResult.successResult(
-                BaseResultMsg.SUCCESS_OTHERS,
+    public BaseResult<List<Long>> getRecommendCategoryTwoId(@RequestParam("userId") String userId){
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS,
                 recommendService.getRecommendCategoryTwoId(Long.parseLong(userId)));
     }
 
-    @PostMapping("/saveActivity")
+    @PostMapping(SAVE_ACTIVITY_USER)
     @ResponseBody
-    public BaseResult<String> saveActivity(@RequestBody String userId, @RequestBody String categoryTowId){
-        userActivityService.saveUserActivity(new UserActivity(Long.parseLong(userId), Long.parseLong(categoryTowId), null));
-        return BaseResult.successResult(
-                BaseResultMsg.SUCCESS_OTHERS,
-                null);
+    public BaseResult<String> saveActivity(@RequestParam("userId") String userId, @RequestParam("categoryTwoId")String categoryTwoId){
+        userActivityService.saveUserActivity(new UserActivity(Long.parseLong(userId), Long.parseLong(categoryTwoId), null));
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 
-    @PostMapping("/registerNewUser")
+    @PostMapping(REGISTER_NEW_USER)
     @ResponseBody
-    public BaseResult<String> registerNewUser(@RequestBody String userId, @RequestBody List<CategoryTwo> categoryTowList){
-        categoryTowList.forEach(
+    public BaseResult<String> registerNewUser(@RequestParam("userId") String userId){
+        List<CategoryTwo> categoryTwoList = categoryMapper.getCategoryTwoList();
+        categoryTwoList.forEach(
                 categoryTwo -> userActivityService.saveUserActivity(new UserActivity(Long.parseLong(userId), categoryTwo.getCategoryTwoId(), null))
         );
-        return BaseResult.successResult(
-                BaseResultMsg.SUCCESS_OTHERS,
-                null);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 
 }
