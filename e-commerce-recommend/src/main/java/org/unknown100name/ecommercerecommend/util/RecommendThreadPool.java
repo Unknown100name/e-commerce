@@ -36,9 +36,31 @@ public class RecommendThreadPool {
         // 设置拒绝策略
         executor.setRejectedExecutionHandler(RECOMMEND_CONSUMER_REJECT_POLICY);
         // 等待所有任务结束后再关闭线程池
-        executor.setWaitForTasksToCompleteOnShutdown(RECOMMEND_SHUTDOWN_POLICY);
+        executor.setWaitForTasksToCompleteOnShutdown(RECOMMEND_CONSUMER_SHUTDOWN_POLICY);
         return executor;
 
     }
 
+    @Bean(name = "SimilarityUpdater")
+    @Primary
+    public ThreadPoolTaskExecutor similarityUpdater() {
+
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        // 设置核心线程数
+        executor.setCorePoolSize(SIMILARITY_UPDATER_CORE_POOL_SIZE);
+        // 设置最大线程数
+        executor.setMaxPoolSize(SIMILARITY_UPDATER_MAX_POOL_SIZE);
+        // 设置队列容量
+        executor.setQueueCapacity(SIMILARITY_UPDATER_CAPACITY_SIZE);
+        // 设置线程活跃时间（秒）
+        executor.setKeepAliveSeconds(SIMILARITY_UPDATER_ACTIVE_TIME);
+        // 设置默认线程名称
+        executor.setThreadNamePrefix(SIMILARITY_UPDATER_NAME);
+        // 设置拒绝策略
+        executor.setRejectedExecutionHandler(SIMILARITY_UPDATER_REJECT_POLICY);
+        // 等待所有任务结束后再关闭线程池
+        executor.setWaitForTasksToCompleteOnShutdown(SIMILARITY_UPDATER_SHUTDOWN_POLICY);
+        return executor;
+
+    }
 }

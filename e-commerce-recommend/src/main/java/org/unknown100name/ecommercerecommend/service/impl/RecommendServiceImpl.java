@@ -2,7 +2,7 @@ package org.unknown100name.ecommercerecommend.service.impl;
 
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
-import org.unknown100name.ecommercerecommend.util.RecommendGetTask;
+import org.unknown100name.ecommercerecommend.task.RecommendGetTask;
 import org.unknown100name.ecommercerecommend.service.RecommendService;
 
 import javax.annotation.Resource;

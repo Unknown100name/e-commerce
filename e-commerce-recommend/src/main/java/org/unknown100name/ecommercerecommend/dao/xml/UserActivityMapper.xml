@@ -10,22 +10,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	   user_id, category_two_id, hits
 	</sql>
 
-	<!-- 查询出所有的用户行为 -->
-	<select id="listAllUserActivity" resultType="org.unknown100name.ecommercerecommend.pojo.entity.UserActivity">
-	   SELECT <include refid="userActivityProperty" />
-	   FROM user_activity
-	</select>
-	
-	<!-- 根据用户已有的行为信息获取它对某个二级类目的点击量 -->
-	<select id="getHitsByUserActivityInfo" parameterType="org.unknown100name.ecommercerecommend.pojo.entity.UserActivity" resultType="java.lang.Integer">
-	   SELECT hits FROM user_activity
-	   WHERE user_id = #{userId} AND category_two_id = #{categoryTwoId}
-	</select>
-	
-	<!-- 统计某个用户的行为记录的条数 -->
-	<select id="countUserActivity" parameterType="org.unknown100name.ecommercerecommend.pojo.entity.UserActivity" resultType="java.lang.Integer">
-       	SELECT COUNT(*) FROM user_activity
-       	WHERE user_id = #{userId} AND category_two_id = #{categoryTwoId}
+	<!-- 按照 userIdList 查询出所有的用户行为 -->
+	<select id="listUserActivityByUserIdList" resultType="org.unknown100name.ecommercerecommend.pojo.entity.UserActivity">
+		SELECT <include refid="userActivityProperty" />
+		FROM user_activity ua
+		WHERE ua.user_id IN
+		<foreach collection="userIdList" item="userId" index="index" open="(" close=")" separator=",">
+			#{userId}
+		</foreach>
 	</select>
 
 	<insert id="registerNewUser">

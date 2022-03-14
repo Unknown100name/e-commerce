@@ -12,12 +12,15 @@ import org.unknown100name.ecommercebackend.aspect.AopUtils;
 import org.unknown100name.ecommercebackend.service.RedisService;
 import common.BaseResult;
 import common.BaseResultMsg;
+import util.JwtUtil;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.HashMap;
+
+import static common.ConstUtil.REDIS_PREFIX_TOKEN;
 
 /**
  * @author unknown100name
@@ -57,10 +60,10 @@ public class TokenAspect {
             // TODO: 拒绝访问 token 写好之后重新覆盖
             String token = null;
             // 从 token 中获取 userId
-//            Long userId = JwtUtil.getUserId(token);
-//            if (userId == null || token == null || !token.equals(redisService.get(String.valueOf(userId)))){
+            Long userId = JwtUtil.getUserId(token);
+            if (userId == null || token == null || !token.equals(redisService.get(REDIS_PREFIX_TOKEN + userId))){
 //                return null;
-//            }
+            }
 
             return point.proceed();
         } catch (Throwable e) {

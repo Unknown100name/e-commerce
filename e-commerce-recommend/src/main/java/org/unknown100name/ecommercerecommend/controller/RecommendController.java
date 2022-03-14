@@ -9,6 +9,7 @@ import org.unknown100name.ecommercerecommend.dao.CategoryMapper;
 import org.unknown100name.ecommercerecommend.pojo.entity.UserActivity;
 import org.unknown100name.ecommercerecommend.service.RecommendService;
 import org.unknown100name.ecommercerecommend.service.UserActivityService;
+import org.unknown100name.ecommercerecommend.service.UserSimilarityService;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -32,6 +33,9 @@ public class RecommendController {
     private UserActivityService userActivityService;
 
     @Resource
+    private UserSimilarityService userSimilarityService;
+
+    @Resource
     private CategoryMapper categoryMapper;
 
     @GetMapping(GET_RECOMMEND_CATEGORY)
@@ -41,7 +45,7 @@ public class RecommendController {
                 recommendService.getRecommendCategoryTwoId(Long.parseLong(userId)));
     }
 
-    @PostMapping(SAVE_ACTIVITY_USER)
+    @PostMapping(SAVE_ACTIVITY)
     @ResponseBody
     public BaseResult<String> saveActivity(@RequestParam("userId") String userId, @RequestParam("categoryTwoId")String categoryTwoId){
         userActivityService.saveUserActivity(new UserActivity(Long.parseLong(userId), Long.parseLong(categoryTwoId), null));
@@ -56,6 +60,13 @@ public class RecommendController {
                 categoryTwo -> userActivityService.saveUserActivity(new UserActivity(Long.parseLong(userId), categoryTwo.getCategoryTwoId(), null))
         );
         return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
+    }
+
+    @PostMapping(UPDATE_SIMILARITY)
+    @ResponseBody
+    public BaseResult<Boolean> updateSimilarity(@RequestParam("userId") String userId){
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS,
+                userSimilarityService.updateSimilarity(Long.parseLong(userId)));
     }
 
 }

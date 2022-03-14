@@ -1,13 +1,16 @@
-package org.unknown100name.ecommercerecommend.util;
+package org.unknown100name.ecommercerecommend.task;
 
 import org.unknown100name.ecommercerecommend.config.ApplicationContextHolder;
 import org.unknown100name.ecommercerecommend.dao.UserActivityMapper;
 import org.unknown100name.ecommercerecommend.pojo.entity.UserActivity;
-import org.unknown100name.ecommercerecommend.pojo.entity.UserSimilarity;
 import org.unknown100name.ecommercerecommend.service.UserSimilarityService;
+import org.unknown100name.ecommercerecommend.util.RecommendUtils;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
+
+import static common.ConstUtil.DEFAULT_RECOMMEND_USER_NUMBER;
 
 /**
  * @author unknown100name
@@ -33,17 +36,19 @@ public class RecommendGetTask implements Callable<List<Long>> {
     public List<Long> call() {
         try {
             // 找到当前用户与其他用户的相似度列表
-            List<UserSimilarity> userSimilarityList = userSimilarityService.getUserSimilarityByUserId(userId);
+            List<Long> topSimilarityUserIdList = userSimilarityService.getTopSimilarityUserByUserId(userId, DEFAULT_RECOMMEND_USER_NUMBER);
 
-            // 找到与当前用户相似度最高的topN个用户
-            List<Long> userIds = RecommendUtils.getSimilarityBetweenUsers(userId, userSimilarityList);
+            // 找到 userId 的点击行为
+            List<UserActivity> userActivityList = userActivityMapper.listUserActivityByUserIdList(Collections.singletonList(userId));
+
+            // 找到这些相似用户的点击行为
+            List<UserActivity> similarityUserActivityList = userActivityMapper.listUserActivityByUserIdList(topSimilarityUserIdList);
 
             // 找到应该推荐给用户的二级类目的id
-            List<UserActivity> userActivityList = userActivityMapper.listAllUserActivity();
-            return RecommendUtils.getRecommendCategoryTwo(userId, userIds, userActivityList);
+            return RecommendUtils.getRecommendCategoryTwo(userId, userActivityList, topSimilarityUserIdList, similarityUserActivityList);
         }catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 }

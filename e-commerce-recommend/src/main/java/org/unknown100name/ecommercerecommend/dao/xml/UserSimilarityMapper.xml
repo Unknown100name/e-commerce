@@ -10,31 +10,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	   user_id, user_ref_id, similarity
 	</sql>
 	
-	<!-- 查询出所有的用户行为 -->
-	<insert id="saveUserSimilarity" parameterType="org.unknown100name.ecommercerecommend.pojo.entity.UserSimilarity">
-	   INSERT INTO user_similarity(user_id, user_ref_id, similarity)
-	   VALUES(#{userId}, #{userRefId}, #{similarity})
-	</insert>
-	
 	<!-- 更新用户相似度数据 -->
 	<update id="updateUserSimilarity" parameterType="org.unknown100name.ecommercerecommend.pojo.entity.UserSimilarity">
 	   UPDATE user_similarity
 	   SET similarity = #{similarity}
-	   WHERE user_id = #{userId} AND user_ref_id = #{userRefId}
+	   WHERE (user_id = #{userId} AND user_ref_id = #{userRefId}) OR (user_id = #{userRefId} AND user_ref_id = #{userId})
 	</update>
 	
 	<!-- 判断某两个用户之间的相似度是否已经存在 -->
-	<select id="countUserSimilarity" parameterType="org.unknown100name.ecommercerecommend.pojo.entity.UserSimilarity" resultType="java.lang.Integer">
+	<select id="containUserSimilarity" parameterType="org.unknown100name.ecommercerecommend.pojo.entity.UserSimilarity" resultType="java.lang.Boolean">
 	   SELECT COUNT(*) FROM user_similarity
 	   WHERE user_id = #{userId} AND user_ref_id = #{userRefId}
 	   OR user_ref_id = #{userId} AND user_id = #{userRefId}
 	</select>
-	
-	<!-- 查询某个用户与其他用户之间的相似度列表  -->
-	<select id="getUserSimilarityByUserId" parameterType="java.lang.Long" resultType="org.unknown100name.ecommercerecommend.pojo.entity.UserSimilarity">
-	   SELECT <include refid="userSimilarityProperty" />
-	   FROM user_similarity
-	   WHERE user_id = #{userId} OR user_ref_id = #{userId}
+
+    <select id="getTopSimilarityUserByUserId" resultType="java.lang.Long">
+		SELECT new_similarity.user_id
+		FROM
+			((SELECT us.user_ref_id AS 'user_id', us.similarity
+			FROM user_similarity us WHERE us.user_id = #{userId} ORDER BY us.user_id)
+			UNION
+			(SELECT us.user_id AS 'user_id', us.similarity
+			FROM user_similarity us WHERE us.user_ref_id = #{userId} ORDER BY us.user_id)) new_similarity
+		ORDER BY new_similarity.similarity DESC
+		LIMIT #{defaultRecommendUserNumber}
 	</select>
-	
+
 </mapper>

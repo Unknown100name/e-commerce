@@ -72,8 +72,8 @@ public class UserServiceImpl implements UserService {
         // 颁发 token
         String token = JwtUtil.sign(userId, null);
         // redis 处理
-        redisService.set(userId, token);
-        redisService.expire(userId, JwtUtil.EXPIRE_TIME);
+        redisService.set(REDIS_PREFIX_TOKEN + userId, token);
+        redisService.expire(REDIS_PREFIX_TOKEN + userId, JwtUtil.EXPIRE_TIME);
         return token;
     }
 
@@ -90,13 +90,14 @@ public class UserServiceImpl implements UserService {
         // 目录注册
         Map<String, Object> param = new HashMap<>(1);
         param.put("userId", insertUser.getId());
+        // 使用同步保证请求能够成功
         HttpRequestUtil.doPost(RECOMMEND_HOST + RECOMMEND_CONTROLLER + REGISTER_NEW_USER, param, null);
         return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 
     @Override
     public BaseResult<String> logout(Long userId) {
-        redisService.remove(String.valueOf(userId));
+        redisService.remove(REDIS_PREFIX_TOKEN + userId);
         return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 

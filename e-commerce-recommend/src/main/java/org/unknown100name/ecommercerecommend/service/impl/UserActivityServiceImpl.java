@@ -1,5 +1,6 @@
 package org.unknown100name.ecommercerecommend.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -24,12 +25,14 @@ public class UserActivityServiceImpl implements UserActivityService {
 	@Override
 	@Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void saveUserActivity(UserActivity userActivity) {
-		int rows = userActivityMapper.countUserActivity(userActivity);
-		if (rows < 1) {
+		UserActivity existUserActivity = userActivityMapper.selectOne(new QueryWrapper<UserActivity>()
+						.eq("user_id", userActivity.getUserId())
+						.eq("category_two_id", userActivity.getCategoryTwoId()));
+		if (existUserActivity == null) {
 			userActivity.setHits(0L);
 			userActivityMapper.insert(userActivity);
 		} else { // 已经存在
-			userActivity.setHits(userActivityMapper.getHitsByUserActivityInfo(userActivity) + 1L);
+			userActivity.setHits(existUserActivity.getHits() + 1L);
 			userActivityMapper.update(userActivity, new UpdateWrapper<UserActivity>()
 					.eq("user_id", userActivity.getUserId())
 					.eq("category_two_id", userActivity.getCategoryTwoId()));

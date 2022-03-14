@@ -1,5 +1,6 @@
 package org.unknown100name.ecommercerecommend.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.unknown100name.ecommercerecommend.pojo.entity.UserSimilarity;
 
@@ -10,14 +11,7 @@ import java.util.List;
  * @since 2022.02.27
  */
 @Mapper
-public interface UserSimilarityMapper {
-
-	/**
-	 * 新增用户相似度数据
-	 * @param userSimilarity
-	 * @return 受影响到的行数，0表示影响0行，1表示影响1行
-	 */
-	int saveUserSimilarity(UserSimilarity userSimilarity);
+public interface UserSimilarityMapper extends BaseMapper<UserSimilarity> {
 	
 	/**
 	 * 更新用户相似度数据
@@ -31,13 +25,13 @@ public interface UserSimilarityMapper {
 	 * @param userSimilarity
 	 * @return 返回1表示已经存在，返回0表示不存在
 	 */
-	int countUserSimilarity(UserSimilarity userSimilarity);
-	
+	Boolean containUserSimilarity(UserSimilarity userSimilarity);
+
 	/**
-	 * 查询某个用户与其他用户之间的相似度列表
-	 * @param userId
-	 * @return 该用户与其他用户的相似度列表
+	 * 获取与该用户最相似的几个用户的 userId
+	 * @param userId 基准用户
+	 * @param defaultRecommendUserNumber 推荐的用户个数
+	 * @return
 	 */
-	List<UserSimilarity> getUserSimilarityByUserId(Long userId);
-	
+	List<Long> getTopSimilarityUserByUserId(Long userId, Integer defaultRecommendUserNumber);
 }

@@ -48,7 +48,7 @@ public class OrderServiceImpl implements OrderService{
     @Resource
     private ItemMapper itemMapper;
 
-    private static final Boolean INVENTORY_CHECK = true;
+    private final Object inventoryLock = new Object();
 
     @Override
     @Transactional
@@ -75,7 +75,7 @@ public class OrderServiceImpl implements OrderService{
             }
 
             // 验证库存
-            synchronized (INVENTORY_CHECK){
+            synchronized (inventoryLock){
                 for (InnerShoppingCarDTO innerShoppingCarDTO : existShoppingCarDTO.getInnerShoppingCarList()) {
                     if (innerShoppingCarDTO.getNumber() > innerShoppingCarDTO.getInnerItemDTO().getInventory()) {
                         return BaseResult.failResult(BaseResultMsg.ERROR_INVENTORY_NOT_MATCH);

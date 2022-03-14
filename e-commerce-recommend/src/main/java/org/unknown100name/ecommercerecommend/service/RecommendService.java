@@ -13,6 +13,7 @@ public interface RecommendService {
 
     /**
      * 根据用户 ID 获取推荐的二级目录
+     * @param userId
      * @return
      */
     List<Long> getRecommendCategoryTwoId(Long userId);
