@@ -15,6 +15,9 @@ public final class IpUtil {
     public static String getIpAddress(HttpServletRequest request) {
         //注意本地测试时，浏览器请求不要用localhost，要用本机IP访问项目地址，不然这里取不到ip
         // 获取请求主机IP地址,如果通过代理进来，则透过防火墙获取真实IP地址
+        if (request == null){
+            return "";
+        }
 
         String ip = request.getHeader("X-Forwarded-For");
 

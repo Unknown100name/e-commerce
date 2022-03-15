@@ -51,7 +51,7 @@ public class ConstUtil {
     /**
      * 获取相似度最高的 N 个用户
      */
-    public static final Integer DEFAULT_RECOMMEND_USER_NUMBER = 1;
+    public static final Integer DEFAULT_RECOMMEND_USER_NUMBER = 5;
 
     // ---------------------------------- HttpSender 线程池配置 ---------------------------------- //
 

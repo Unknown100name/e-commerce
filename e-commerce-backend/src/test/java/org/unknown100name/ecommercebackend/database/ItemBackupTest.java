@@ -1,8 +1,9 @@
-package org.unknown100name.ecommercebackend;
+package org.unknown100name.ecommercebackend.database;
 
 import entity.CategoryTwo;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.unknown100name.ecommercebackend.ECommerceBackendApplication;
 import org.unknown100name.ecommercebackend.dao.CategoryMapper;
 import org.unknown100name.ecommercebackend.dao.ItemMapper;
 import org.unknown100name.ecommercebackend.pojo.dto.CategoryDTO;
@@ -20,7 +21,7 @@ import java.util.*;
  * @since 2022.03.07
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = ECommerceBackendApplication.class)
-public class DatabaseItemBackupTest {
+public class ItemBackupTest {
 
     @Resource
     private ItemMapper itemMapper;

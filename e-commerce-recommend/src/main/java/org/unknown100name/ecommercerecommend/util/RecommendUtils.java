@@ -63,6 +63,10 @@ public class RecommendUtils {
         
         // 计算所有的用户之间的相似度对
         for (Long refUserId : userIdList) {
+            // 排除自己
+            if (userId.equals(refUserId)){
+                continue;
+            }
             // 分别获取两个用户对每个二级类目的点击量
             ConcurrentHashMap<Long, Long> userCategoryTwoMap = activityMap.get(userId);
             ConcurrentHashMap<Long, Long> userRefCategoryTwoMap = activityMap.get(refUserId);

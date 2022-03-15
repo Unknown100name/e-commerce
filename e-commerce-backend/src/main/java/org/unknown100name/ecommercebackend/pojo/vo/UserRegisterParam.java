@@ -1,6 +1,5 @@
 package org.unknown100name.ecommercebackend.pojo.vo;
 
-import com.sun.istack.internal.NotNull;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
