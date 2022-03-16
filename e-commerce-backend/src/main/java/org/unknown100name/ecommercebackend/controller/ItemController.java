@@ -5,6 +5,8 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +44,8 @@ public class ItemController {
     @ApiOperation(value = "根据一级目录ID获取商品")
     @GetMapping("getByCategoryOne")
     @ResponseBody
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "categoryOneId", value = "一级目录 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<List<ItemBaseDTO>> getByCategoryOne(String categoryOneId){
         return itemService.getByCategoryOne(Long.parseLong(categoryOneId));
     }
@@ -50,6 +54,9 @@ public class ItemController {
     @GetMapping("getByCategoryTwo")
     @ResponseBody
     @ActivityRecord
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "categoryTwoId", value = "二级目录 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<List<ItemBaseDTO>> getByCategoryTwo(String userId, @ActivityFiled(source = ActivitySource.CATEGORY_TWO_ID) String categoryTwoId){
         return itemService.getByCategoryTwo(Long.parseLong(categoryTwoId));
     }
@@ -62,6 +69,8 @@ public class ItemController {
     @ApiOperation(value = "根据关键词查询商品")
     @GetMapping("searchList")
     @ResponseBody
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "keyword", value = "检索关键词", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<List<ItemBaseDTO>> searchList(String keyword){
         return itemService.searchList(keyword);
     }
@@ -74,6 +83,8 @@ public class ItemController {
     @ApiOperation(value = "根据商店的userId商品")
     @GetMapping("shopList")
     @ResponseBody
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "shopId", value = "商家用户 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<List<ItemBaseDTO>> shopList(String shopId){
         return itemService.shopList(Long.parseLong(shopId));
     }
@@ -87,6 +98,9 @@ public class ItemController {
     @GetMapping("base")
     @ResponseBody
     @ActivityRecord
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "itemId", value = "商品 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<ItemBaseDTO> base(String userId, @ActivityFiled(source = ActivitySource.ITEM_ID)String itemId){
         return itemService.base(Long.parseLong(itemId));
     }
@@ -100,6 +114,9 @@ public class ItemController {
     @GetMapping("detail")
     @ResponseBody
     @ActivityRecord
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "itemId", value = "商品 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<ItemDetailDTO> detail(String userId, @ActivityFiled(source = ActivitySource.ITEM_ID)String itemId){
         return itemService.detail(Long.parseLong(itemId));
     }

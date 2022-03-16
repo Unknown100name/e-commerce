@@ -42,7 +42,7 @@ public class EvaluateCreateParam {
      * 4-6: 中评
      * 7-10: 好评
      */
-    @ApiModelProperty(value = "评论分数", required = true, notes = "从0-10的整数类型")
+    @ApiModelProperty(value = "评论分数(从0-10的整数类型)", required = true)
     private Integer type;
 
 }

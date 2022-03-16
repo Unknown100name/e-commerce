@@ -21,7 +21,7 @@ public class UserBaseDTO implements Serializable {
 
     private static final long serialVersionUID = 6091986662827621269L;
 
-    @ApiModelProperty(value = "用户 ID", notes = "userId")
+    @ApiModelProperty(value = "用户 ID(userId)")
     private Long id;
 
      /**
@@ -36,7 +36,7 @@ public class UserBaseDTO implements Serializable {
      * 1 = 买家
      * 2 = 管理员
      */
-    @ApiModelProperty(value = "用户类型", notes = "0 = 商家\n1 = 买家\n2 = 管理员")
+    @ApiModelProperty(value = "用户类型(0 = 商家\n1 = 买家\n2 = 管理员)")
     private Integer type;
 
     /**
@@ -44,7 +44,7 @@ public class UserBaseDTO implements Serializable {
      * 0 = male
      * 1 = female
      */
-    @ApiModelProperty(value = "用户性别", notes = "0 = male\n1 = female")
+    @ApiModelProperty(value = "用户性别(0 = male\n1 = female)")
     private Integer gender;
     
 }

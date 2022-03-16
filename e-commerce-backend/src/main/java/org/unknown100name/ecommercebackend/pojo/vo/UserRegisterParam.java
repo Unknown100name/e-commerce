@@ -41,7 +41,7 @@ public class UserRegisterParam {
      * 1 = 买家
      * 2 = 管理员
      */
-    @ApiModelProperty(value = "用户种类", notes = "0 = 商家\n1 = 买家\n2 = 管理员")
+    @ApiModelProperty(value = "用户种类(0 = 商家\n1 = 买家\n2 = 管理员)")
     private Integer type;
 
     /**
@@ -49,7 +49,7 @@ public class UserRegisterParam {
      * 0 = male
      * 1 = female
      */
-    @ApiModelProperty(value = "性别", notes = "0:male\n1:female")
+    @ApiModelProperty(value = "性别(0:male\n1:female)")
     private Integer gender;
 
     /**

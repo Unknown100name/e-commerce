@@ -25,13 +25,13 @@ public class OrderDTO implements Serializable {
 
     private static final long serialVersionUID = 2064977188194288778L;
 
-    @ApiModelProperty(value = "订单 ID", notes = "orderId")
+    @ApiModelProperty(value = "订单 ID(orderId)")
     private Long id;
 
     /**
      * 订单下单时间
      */
-    @ApiModelProperty(value = "订单下单时间", notes = "时间戳(ms)")
+    @ApiModelProperty(value = "订单下单时间(时间戳(ms))")
     private Long time;
 
     /**

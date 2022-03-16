@@ -22,7 +22,7 @@ public class ContactDTO implements Serializable {
 
     private static final long serialVersionUID = -5408950146885023832L;
 
-    @ApiModelProperty(value = "联系方式 ID", notes = "contactId")
+    @ApiModelProperty(value = "联系方式 ID(contactId)")
     private Long id;
 
     /**

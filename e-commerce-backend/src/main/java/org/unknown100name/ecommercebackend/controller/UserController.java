@@ -6,13 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import common.BaseResult;
 import common.BaseResultMsg;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.unknown100name.ecommercebackend.aspect.token.TokenAuth;
 import org.unknown100name.ecommercebackend.pojo.dto.ContactDTO;
 import org.unknown100name.ecommercebackend.pojo.dto.UserBaseDTO;
@@ -86,6 +83,8 @@ public class UserController {
     @PostMapping("logout")
     @ResponseBody
     @TokenAuth
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<String> logout(String userId){
         return userService.logout(Long.parseLong(userId));
     }
@@ -99,12 +98,14 @@ public class UserController {
     @PostMapping("delete")
     @ResponseBody
     @TokenAuth
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<String> delete(String userId){
         return userService.delete(Long.parseLong(userId));
     }
 
     /**
-     * 忘记密码
+     * 忘记密码 重置为身份证后六位
      * @param nick
      * @param idCard
      * @return
@@ -112,6 +113,9 @@ public class UserController {
     @ApiOperation(value = "忘记密码")
     @PostMapping("forgetPassword")
     @ResponseBody
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "nick", value = "昵称", paramType = "header", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "idCard", value = "身份证号", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<String> forgetPassword(String nick, String idCard){
         return userService.forgetPassword(nick, idCard);
     }
@@ -127,6 +131,10 @@ public class UserController {
     @PostMapping("resetPassword")
     @ResponseBody
     @TokenAuth
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "oldPassword", value = "旧密码", paramType = "header", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "newPassword", value = "新密码", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<String> resetPassword(String userId, String oldPassword, String newPassword){
         return userService.resetPassword(Long.parseLong(userId), oldPassword, newPassword);
     }
@@ -156,6 +164,8 @@ public class UserController {
     @GetMapping("/contact/get")
     @ResponseBody
     @TokenAuth
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<List<ContactDTO>> contactGet(String userId){
         return userService.contactGet(Long.parseLong(userId));
     }
@@ -170,6 +180,8 @@ public class UserController {
     @PostMapping("/contact/add")
     @ResponseBody
     @TokenAuth
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<String> contactAdd(String userId, @RequestBody ContactCreateParam contactCreateParam){
         return userService.contactAdd(Long.parseLong(userId), contactCreateParam);
     }
@@ -184,6 +196,9 @@ public class UserController {
     @PostMapping("/contact/delete")
     @ResponseBody
     @TokenAuth
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "contactId", value = "联系人 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<String> contactDelete(String userId, String contactId){
         return userService.contactDelete(Long.parseLong(contactId));
     }

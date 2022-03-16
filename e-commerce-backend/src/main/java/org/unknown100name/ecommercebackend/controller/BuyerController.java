@@ -41,10 +41,13 @@ public class BuyerController {
      * @param innerItemId
      * @return
      */
-    @ApiOperation(value = "添加到购物车 + 添加个数", notes = "购物车中没有的时候会添加到购物车, 有的时候会数量 +1")
+    @ApiOperation(value = "添加到购物车 + 添加个数(购物车中没有的时候会添加到购物车, 有的时候会数量 +)")
     @PostMapping("/shoppingCar/increase")
     @ResponseBody
     @TokenAuth
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "innerItemId", value = "商品子项 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<String> shoppingCarIncrease(String userId, String innerItemId) {
         return shoppingCarService.increase(Long.parseLong(userId), Long.parseLong(innerItemId));
     }
@@ -55,10 +58,13 @@ public class BuyerController {
      * @param innerItemId
      * @return
      */
-    @ApiOperation(value = "减少个数", notes = "购物车中的数量为 1 的时候会直接删除")
+    @ApiOperation(value = "减少个数(购物车中的数量为 1 的时候会直接删除)")
     @PostMapping("/shoppingCar/decrease")
     @ResponseBody
     @TokenAuth
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "innerItemId", value = "商品子项 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<String> shoppingCarDecrease(String userId, String innerItemId) {
         return shoppingCarService.decrease(Long.parseLong(userId), Long.parseLong(innerItemId));
     }
@@ -73,6 +79,9 @@ public class BuyerController {
     @PostMapping("/shoppingCar/delete")
     @ResponseBody
     @TokenAuth
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "innerItemId", value = "商品子项 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<String> shoppingCarDelete(String userId, String innerItemId) {
         return shoppingCarService.delete(Long.parseLong(userId), Long.parseLong(innerItemId));
     }
@@ -86,6 +95,8 @@ public class BuyerController {
     @GetMapping("/shoppingCar/get")
     @ResponseBody
     @TokenAuth
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<ShoppingCarDTO> shoppingCarGet(String userId) {
         return shoppingCarService.get(Long.parseLong(userId));
     }
@@ -95,7 +106,7 @@ public class BuyerController {
      * @param shoppingCarTurnOrderParam
      * @return
      */
-    @ApiOperation(value = "提交订单准备支付", notes = "从购物车中删除对应信息, 并返回订单 ID")
+    @ApiOperation(value = "提交订单准备支付(从购物车中删除对应信息, 并返回订单 ID)")
     @PostMapping("/order/prepay")
     @ResponseBody
     @TokenAuth
@@ -112,6 +123,8 @@ public class BuyerController {
     @GetMapping("/order/check")
     @ResponseBody
     @TokenAuth
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<List<OrderDTO>> orderCheck(String userId){
         return orderService.check(userId);
     }
@@ -125,6 +138,9 @@ public class BuyerController {
     @PostMapping("/order/pay")
     @ResponseBody
     @TokenAuth
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "orderId", value = "订单 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<String> orderPay(String userId, String orderId) {
         return orderService.pay(Long.parseLong(orderId));
     }
@@ -138,6 +154,9 @@ public class BuyerController {
     @PostMapping("/order/accept")
     @ResponseBody
     @TokenAuth
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "innerOrderId", value = "子订单 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<String> orderAccept(String userId, String innerOrderId) {
         return orderService.accept(Long.parseLong(innerOrderId));
     }
@@ -147,10 +166,13 @@ public class BuyerController {
      * @param innerOrderId
      * @return
      */
-    @ApiOperation(value = "取消订单", notes = "取消订单不会将订单退回至购物车")
+    @ApiOperation(value = "取消订单(取消订单不会将订单退回至购物车)")
     @PostMapping("/order/cancel")
     @ResponseBody
     @TokenAuth
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "innerOrderId", value = "子订单 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<String> orderCancel(String userId, String innerOrderId) {
         return orderService.buyerCancel(Long.parseLong(innerOrderId));
     }
@@ -177,6 +199,8 @@ public class BuyerController {
     @PostMapping("/order/evaluate")
     @ResponseBody
     @TokenAuth
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<String> evaluate(String userId, @RequestBody EvaluateCreateParam evaluateGiveParam) {
         return evaluateService.insertEvaluate(evaluateGiveParam);
     }

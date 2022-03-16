@@ -44,9 +44,6 @@ public class UserServiceImpl implements UserService {
     private ContactMapper contactMapper;
 
     @Resource
-    private CategoryMapper categoryMapper;
-
-    @Resource
     private RedisService redisService;
 
     @Override
@@ -123,6 +120,9 @@ public class UserServiceImpl implements UserService {
     public BaseResult<String> resetPassword(Long userId, String oldPassword, String newPassword) {
         // 验证身份证
         UserDetailDTO existUser = userMapper.getUserDetailById(userId);
+        if (existUser == null){
+            return BaseResult.failResult(BaseResultMsg.ERROR_NICK);
+        }
         if(!SHA1Util.encodeToSha1(oldPassword).equals(existUser.getPassword())){
             return BaseResult.failResult(BaseResultMsg.ERROR_NICK_OR_PASSWORD);
         }

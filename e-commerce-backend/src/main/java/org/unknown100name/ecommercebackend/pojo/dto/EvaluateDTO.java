@@ -21,13 +21,13 @@ public class EvaluateDTO implements Serializable {
 
     private static final long serialVersionUID = -4514631523163089574L;
 
-    @ApiModelProperty(value = "评论 ID", notes = "evaluateId")
+    @ApiModelProperty(value = "评论 ID(evaluateId)")
     private Long id;
 
     /**
      * 评论时间
      */
-    @ApiModelProperty(value = "评论时间", notes = "时间戳(ms)")
+    @ApiModelProperty(value = "评论时间(时间戳(ms))")
     private Long time;
 
     /**
@@ -43,7 +43,7 @@ public class EvaluateDTO implements Serializable {
      * 4-6: 中评
      * 7-10: 好评
      */
-    @ApiModelProperty(value = "评论分数", notes = "0-10整数")
+    @ApiModelProperty(value = "评论分数(0-10整数)")
     private Integer type;
 
     /**

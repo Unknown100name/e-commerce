@@ -19,6 +19,7 @@
     <description>A e-commerce system for graduation design</description>
     <properties>
         <java.version>1.8</java.version>
+        <skipTests>true</skipTests>
     </properties>
     <dependencies>
 

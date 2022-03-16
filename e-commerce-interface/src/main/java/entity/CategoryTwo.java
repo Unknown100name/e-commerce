@@ -29,7 +29,7 @@ public class CategoryTwo implements Serializable {
      * 二级目录 ID
      */
     @TableId
-    @ApiModelProperty(value = "二级目录 ID", notes = "categoryTwoId")
+    @ApiModelProperty(value = "二级目录 ID(categoryTwoId)")
     private Long categoryTwoId;
 
     /**
@@ -43,6 +43,6 @@ public class CategoryTwo implements Serializable {
      * 一级目录 ID
      */
     @TableField(value = "category_one_id")
-    @ApiModelProperty(value = "一级目录 ID", notes = "categoryOneId")
+    @ApiModelProperty(value = "一级目录 ID(categoryOneId)")
     private Long categoryOneId;
 }

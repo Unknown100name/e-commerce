@@ -23,7 +23,7 @@ public class CategoryDTO {
     /**
      * 一级目录 ID
      */
-    @ApiModelProperty(value = "一级目录 ID", notes = "categoryOneId")
+    @ApiModelProperty(value = "一级目录 ID(categoryOneId)")
     private Long categoryOneId;
 
     /**

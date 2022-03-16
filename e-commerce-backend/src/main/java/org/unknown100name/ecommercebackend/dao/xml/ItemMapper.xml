@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result column="sub_title" property="subTitle" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="state" property="state" javaType="java.lang.Integer" jdbcType="INTEGER"/>
         <result column="sell_count" property="sellCount" javaType="java.lang.Long" jdbcType="INTEGER"/>
-        <result column="image_base64" property="mainImageBase64" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="image_base64" property="mainImageBase64" javaType="java.lang.String" jdbcType="LONGVARCHAR"/>
         <result column="category_one_id" property="categoryOneId" javaType="java.lang.Long" jdbcType="BIGINT"/>
         <result column="category_two_id" property="categoryTwoId" javaType="java.lang.Long" jdbcType="BIGINT"/>
 
@@ -37,7 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result column="h5_base64" property="h5Base64" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="state" property="state" javaType="java.lang.Integer" jdbcType="INTEGER"/>
         <result column="sell_count" property="sellCount" javaType="java.lang.Long" jdbcType="INTEGER"/>
-        <result column="image_base64" property="mainImageBase64" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="image_base64" property="mainImageBase64" javaType="java.lang.String" jdbcType="LONGVARCHAR"/>
         <result column="category_one_id" property="categoryOneId" javaType="java.lang.Long" jdbcType="BIGINT"/>
         <result column="category_two_id" property="categoryTwoId" javaType="java.lang.Long" jdbcType="BIGINT"/>
 
@@ -52,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <id column="id" property="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
         <result column="type_name" property="typeName" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="price" property="price" javaType="java.math.BigDecimal" jdbcType="DECIMAL"/>
-        <result column="image_base64" property="imageBase64" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="image_base64" property="imageBase64" javaType="java.lang.String" jdbcType="LONGVARCHAR"/>
         <result column="inventory" property="inventory" javaType="java.lang.Integer" jdbcType="INTEGER"/>
         <result column="item_id" property="itemId" javaType="java.lang.Long" jdbcType="BIGINT"/>
     </resultMap>

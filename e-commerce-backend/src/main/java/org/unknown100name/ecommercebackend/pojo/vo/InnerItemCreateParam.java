@@ -35,6 +35,6 @@ public class InnerItemCreateParam {
      * 库存
      * -1 为无限量
      */
-    @ApiModelProperty(value = "库存", notes = "-1 为无限量")
+    @ApiModelProperty(value = "库存(-1 为无限量)")
     private Integer inventory;
 }

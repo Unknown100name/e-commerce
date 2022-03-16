@@ -2,6 +2,8 @@ package org.unknown100name.ecommercebackend.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,8 +37,10 @@ public class RecommendController {
     @Resource
     private ItemService itemService;
 
-    @ApiOperation(value = "根据用户id商品推荐", notes = "不传用户则随机返回商品")
+    @ApiOperation(value = "根据用户id商品推荐(不传用户则随机返回商品)")
     @GetMapping("/item")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<List<ItemBaseDTO>> getRecommendItem(String userId){
         // 如果没有登录
         if (StringUtils.isBlank(userId)){

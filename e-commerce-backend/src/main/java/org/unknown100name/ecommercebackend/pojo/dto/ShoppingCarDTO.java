@@ -25,7 +25,7 @@ public class ShoppingCarDTO implements Serializable{
 
     private static final long serialVersionUID = -4975714059880996359L;
 
-    @ApiModelProperty(value = "用户 ID", notes = "userId")
+    @ApiModelProperty(value = "用户 ID(userId)")
     private Long userId;
 
     @ApiModelProperty(value = "购物车子项")

@@ -3,6 +3,8 @@ package org.unknown100name.ecommercebackend.controller;
 import javax.annotation.Resource;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import org.unknown100name.ecommercebackend.aspect.token.TokenAuth;
@@ -34,6 +36,8 @@ public class SellerController {
     @PostMapping("/item/create")
     @ResponseBody
     @TokenAuth
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<String> itemCreate(String userId, @RequestBody ItemCreateParam itemCreateParam){
         itemCreateParam.setUserId(Long.parseLong(userId));
         return itemService.create(itemCreateParam);
@@ -56,6 +60,9 @@ public class SellerController {
     @PostMapping("/item/upload")
     @ResponseBody
     @TokenAuth
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "itemId", value = "商品 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<String> itemUpload(String userId, String itemId){
         return itemService.upload(Long.parseLong(itemId));
     }
@@ -67,6 +74,9 @@ public class SellerController {
     @PostMapping("/item/up")
     @ResponseBody
     @TokenAuth
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "itemId", value = "商品 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<String> itemUp(String userId, String itemId){
         return itemService.up(Long.parseLong(itemId));
     }
@@ -78,6 +88,9 @@ public class SellerController {
     @PostMapping("/item/down")
     @ResponseBody
     @TokenAuth
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "itemId", value = "商品 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<String> itemDown(String userId, String itemId){
         return itemService.down(Long.parseLong(itemId));
     }
@@ -89,6 +102,9 @@ public class SellerController {
     @PostMapping("/item/delete")
     @ResponseBody
     @TokenAuth
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "itemId", value = "商品 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<String> itemDelete(String userId, String itemId){
         return itemService.delete(Long.parseLong(itemId));
     }
@@ -102,6 +118,10 @@ public class SellerController {
     @PostMapping("/order/send")
     @ResponseBody
     @TokenAuth
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "innerOrderId", value = "子订单 ID", paramType = "header", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "expressCode", value = "快递号", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<String> orderSend(String userId, String innerOrderId, String expressCode){
         return orderService.send(Long.parseLong(innerOrderId), expressCode);
     }
@@ -115,6 +135,9 @@ public class SellerController {
     @PostMapping("/order/cancel")
     @ResponseBody
     @TokenAuth
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "innerOrderId", value = "子订单 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<String> orderCancel(String userId, String innerOrderId){
         return orderService.sellerCancel(Long.parseLong(innerOrderId));
     }

@@ -23,7 +23,7 @@ public class ItemCreateParam {
     /**
      * 不需要传, 在 params 里面会复制
      */
-    @ApiModelProperty(value = "用户 ID", notes = "不需要传")
+    @ApiModelProperty(value = "用户 ID(不需要传)")
     private Long userId;
     
     /**
@@ -41,7 +41,7 @@ public class ItemCreateParam {
     /**
      * 详情页
      */
-    @ApiModelProperty(value = "详情页图片", notes = "base64")
+    @ApiModelProperty(value = "详情页图片(base64)")
     private String h5Base64;
 
     /**
@@ -53,12 +53,12 @@ public class ItemCreateParam {
     /**
      * 一级目录 ID
      */
-    @ApiModelProperty(value = "一级目录 ID", notes = "categoryOneId")
+    @ApiModelProperty(value = "一级目录 ID(categoryOneId)")
     private Long categoryOneId;
 
     /**
      * 二级目录 ID
      */
-    @ApiModelProperty(value = "二级目录 ID", notes = "categoryTwoId")
+    @ApiModelProperty(value = "二级目录 ID(categoryTwoId)")
     private Long categoryTwoId;
 }

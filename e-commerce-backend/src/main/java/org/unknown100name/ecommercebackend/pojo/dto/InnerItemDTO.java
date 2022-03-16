@@ -22,7 +22,7 @@ public class InnerItemDTO implements Serializable {
 
     private static final long serialVersionUID = 8715815067829731131L;
 
-    @ApiModelProperty(value = "细分商品ID" ,notes = "innerItemId")
+    @ApiModelProperty(value = "细分商品ID(innerItemId)")
     private Long id;
 
     /**

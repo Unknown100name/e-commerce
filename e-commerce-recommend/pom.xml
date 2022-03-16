@@ -6,7 +6,7 @@
         <groupId>org.unknown100name</groupId>
         <artifactId>e-commerce</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
+<!--        <relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
     </parent>
     <artifactId>e-commerce-recommend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -14,6 +14,7 @@
     <description>e-commerce-recommend</description>
     <properties>
         <java.version>1.8</java.version>
+        <skipTests>true</skipTests>
     </properties>
     <dependencies>
 
@@ -46,6 +47,7 @@
                         </exclude>
                     </excludes>
                 </configuration>
+
             </plugin>
         </plugins>
         <resources>

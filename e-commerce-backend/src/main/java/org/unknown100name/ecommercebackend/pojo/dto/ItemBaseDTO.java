@@ -21,7 +21,7 @@ public class ItemBaseDTO implements Serializable {
 
     private static final long serialVersionUID = 7025692889188132757L;
 
-    @ApiModelProperty(value = "商品 ID", notes = "itemId")
+    @ApiModelProperty(value = "商品 ID(itemId)")
     private Long id;
 
     /**
@@ -45,7 +45,7 @@ public class ItemBaseDTO implements Serializable {
      * 4: 已下线(权限等同于已审核)
      * 5: 已删除
      */
-    @ApiModelProperty(value = "商品状态", notes = "0: 已暂存\n1: 已审核\n2: 已上线\n3: 待下线(已下线, 但还有订单未完成)\n4: 已下线(权限等同于已审核)\n5: 已删除\n")
+    @ApiModelProperty(value = "商品状态(0: 已暂存\n1: 已审核\n2: 已上线\n3: 待下线(已下线, 但还有订单未完成)\n4: 已下线(权限等同于已审核)\n5: 已删除\n)")
     private Integer state;
 
     /**
@@ -63,19 +63,19 @@ public class ItemBaseDTO implements Serializable {
     /**
      * 主图
      */
-    @ApiModelProperty(value = "主图", notes = "base64")
+    @ApiModelProperty(value = "主图(base64)")
     private String mainImageBase64;
 
     /**
      * 一级目录分类
      */
-    @ApiModelProperty(value = "一级目录 ID", notes = "categoryOneId")
+    @ApiModelProperty(value = "一级目录 ID(categoryOneId)")
     private Long categoryOneId;
 
     /**
      * 二级目录分类
      */
-    @ApiModelProperty(value = "二级目录 ID", notes = "categoryTwoId")
+    @ApiModelProperty(value = "二级目录 ID(categoryTwoId)")
     private Long categoryTwoId;
 
 }
