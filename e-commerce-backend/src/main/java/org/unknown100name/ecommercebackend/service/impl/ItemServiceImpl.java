@@ -95,13 +95,19 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public BaseResult<String> upload(Long itemId) {
-        itemMapper.updateItemState(itemId, 0, 1);
+        int result = itemMapper.updateItemState(itemId, 0, 1);
+        if(result == 0){
+            return BaseResult.failResult(BaseResultMsg.ERROR_STATUS);
+        }
         return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null); 
     }
 
     @Override
     public BaseResult<String> up(Long itemId) {
-        itemMapper.updateItemState(itemId, 2, 3);
+        int result = itemMapper.updateItemState(itemId, 2, 3);
+        if(result == 0){
+            return BaseResult.failResult(BaseResultMsg.ERROR_STATUS);
+        }
         return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 
@@ -109,20 +115,28 @@ public class ItemServiceImpl implements ItemService {
     public BaseResult<String> down(Long itemId) {
         boolean exist = orderMapper.existInnerOrderNotFinish(itemId);
         // 存在订单 则为 true 则到达待下架状态, 等待 order 控制
+        int result = 0;
         if(exist){
-            itemMapper.updateItemState(itemId, 3, 4);
+            result = itemMapper.updateItemState(itemId, 3, 4);
         }else{
-            itemMapper.updateItemState(itemId, 3, 5);
+            result = itemMapper.updateItemState(itemId, 3, 5);
+        }
+        if(result == 0){
+            return BaseResult.failResult(BaseResultMsg.ERROR_STATUS);
         }
         return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 
     @Override
     public BaseResult<String> delete(Long itemId) {
-        itemMapper.updateItemState(itemId, 0, 6);
-        itemMapper.updateItemState(itemId, 1, 6);
-        itemMapper.updateItemState(itemId, 2, 6);
-        itemMapper.updateItemState(itemId, 5, 6);
+        int result = 0;
+        result += itemMapper.updateItemState(itemId, 0, 6);
+        result += itemMapper.updateItemState(itemId, 1, 6);
+        result += itemMapper.updateItemState(itemId, 2, 6);
+        result += itemMapper.updateItemState(itemId, 5, 6);
+        if(result == 0){
+            return BaseResult.failResult(BaseResultMsg.ERROR_STATUS);
+        }
         return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 

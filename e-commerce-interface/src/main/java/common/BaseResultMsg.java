@@ -28,5 +28,6 @@ public final class BaseResultMsg {
     public static final String ERROR_PARAM = "参数错误，请尝试使用正常途径访问接口";
 
     public static final String ERROR_INVENTORY_NOT_MATCH = "物品库存不足";
+    public static final String ERROR_STATUS = "该状态下无法进行该操作";
 
 }

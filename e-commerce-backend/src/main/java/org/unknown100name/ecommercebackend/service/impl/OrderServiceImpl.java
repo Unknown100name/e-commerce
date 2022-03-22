@@ -131,23 +131,29 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public BaseResult<String> pay(Long orderId) {
         OrderDTO existOrder = orderMapper.getOrderById(orderId);
-        existOrder.getInnerOrderList().forEach(
-            innerOrder -> orderMapper.updateInnerOrderState(innerOrder.getId(), 0, 1)
-        );
+        for (InnerOrderDTO innerOrder : existOrder.getInnerOrderList()) {
+            orderMapper.updateInnerOrderState(innerOrder.getId(), 0, 1);
+        }
         return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public BaseResult<String> send(Long innerOrderId, String expressCode) {
-        orderMapper.updateInnerOrderState(innerOrderId, 1, 2);
+        int result = orderMapper.updateInnerOrderState(innerOrderId, 1, 2);
+        if (result == 0){
+            return BaseResult.failResult(BaseResultMsg.ERROR_STATUS);
+        }
         orderMapper.updateExpressCode(innerOrderId, expressCode);
         return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }    
     
     @Override
     public BaseResult<String> accept(Long innerOrderId) {
-        orderMapper.updateInnerOrderState(innerOrderId, 2, 3);
+        int result = orderMapper.updateInnerOrderState(innerOrderId, 2, 3);
+        if (result == 0){
+            return BaseResult.failResult(BaseResultMsg.ERROR_STATUS);
+        }
         InnerOrderDTO innerOrderDTO = orderMapper.getInnerOrderById(innerOrderId);
         itemMapper.increaseSell(innerOrderDTO.getInnerItemId(), innerOrderDTO.getNumber());
         return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
@@ -155,13 +161,19 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public BaseResult<String> buyerCancel(Long innerOrderId) {
-        orderMapper.updateInnerOrderState(innerOrderId, 0, -1);
+        int result = orderMapper.updateInnerOrderState(innerOrderId, 0, -1);
+        if (result == 0){
+            return BaseResult.failResult(BaseResultMsg.ERROR_STATUS);
+        }
         return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 
     @Override
     public BaseResult<String> sellerCancel(Long innerOrderId) {
-        orderMapper.updateInnerOrderState(innerOrderId, 1, -1);
+        int result = orderMapper.updateInnerOrderState(innerOrderId, 1, -1);
+        if (result == 0){
+            return BaseResult.failResult(BaseResultMsg.ERROR_STATUS);
+        }
         return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, null);
     }
 

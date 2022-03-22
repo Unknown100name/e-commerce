@@ -68,7 +68,7 @@ public interface ItemMapper extends BaseMapper<Item> {
      * @param from
      * @param to
      */
-    void updateItemState(Long itemId, int from, int to);
+    int updateItemState(Long itemId, int from, int to);
 
     /***
      * 增加该商品的销量

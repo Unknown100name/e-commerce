@@ -67,7 +67,7 @@ public interface OrderMapper extends BaseMapper<Order> {
      * @param from
      * @param to
      */
-    void updateInnerOrderState(Long innerOrderId, int from, int to);
+    int updateInnerOrderState(Long innerOrderId, int from, int to);
 
     /**
      * 添加发货信息
