@@ -18,6 +18,12 @@ import lombok.NoArgsConstructor;
 @Data
 @ApiOperation(value = "细分商品参数")
 public class InnerItemCreateParam {
+
+    /**
+     * InnerItemId
+     */
+    @ApiModelProperty(value = "细分商品id，创造的时候不需要传，更新的时候需要")
+    private Long id;
     
     /**
      * 种类名称
@@ -37,4 +43,10 @@ public class InnerItemCreateParam {
      */
     @ApiModelProperty(value = "库存(-1 为无限量)")
     private Integer inventory;
+
+    /**
+     * 主图
+     */
+    @ApiModelProperty(value = "细分商品图(base64)")
+    private String imageBase64;
 }

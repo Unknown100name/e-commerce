@@ -7,11 +7,17 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
+import org.unknown100name.ecommercebackend.aspect.activity.ActivityRecord;
 import org.unknown100name.ecommercebackend.aspect.token.TokenAuth;
+import org.unknown100name.ecommercebackend.pojo.dto.InnerOrderDTO;
+import org.unknown100name.ecommercebackend.pojo.dto.ItemBaseDTO;
+import org.unknown100name.ecommercebackend.pojo.dto.ItemDetailDTO;
 import org.unknown100name.ecommercebackend.pojo.vo.ItemCreateParam;
 import org.unknown100name.ecommercebackend.service.ItemService;
 import org.unknown100name.ecommercebackend.service.OrderService;
 import common.BaseResult;
+
+import java.util.List;
 
 /**
  * @author unknown100name
@@ -30,6 +36,33 @@ public class SellerController {
     private OrderService orderService;
 
     /**
+     * 查询所有商品
+     */
+    @ApiOperation(value = "查看所有商品")
+    @PostMapping("/item/check")
+    @ResponseBody
+    @TokenAuth
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class)})
+    public BaseResult<List<ItemBaseDTO>> itemCheck(String userId){
+        return itemService.shopList(Long.parseLong(userId));
+    }
+
+    /**
+     * 查询商品详细信息
+     */
+    @ApiOperation(value = "查询商品详细信息")
+    @GetMapping("/item/detail")
+    @ResponseBody
+    @ActivityRecord
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "itemId", value = "商品 ID", paramType = "header", dataTypeClass = String.class)})
+    public BaseResult<ItemDetailDTO> itemDetail(String userId, String itemId){
+        return itemService.detail(Long.parseLong(itemId));
+    }
+
+    /**
      * 创建商品
      */
     @ApiOperation(value = "创建商品")
@@ -43,15 +76,19 @@ public class SellerController {
         return itemService.create(itemCreateParam);
     }
 
-    // /**
-    //  * 更新商品
-    //  */
-    // @PostMapping("/item/update")
-    // @ResponseBody
-    // @TokenAuth
-    // public BaseResult<String> itemUpdate(ItemCreateParam itemCreateParam){
-    //     return itemService.update(itemCreateParam);
-    // }
+     /**
+      * 更新商品
+      */
+     @ApiOperation(value = "更新商品")
+     @PostMapping("/item/update")
+     @ResponseBody
+     @TokenAuth
+     @ApiImplicitParams({
+             @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class)})
+     public BaseResult<String> itemUpdate(String userId, @RequestBody ItemCreateParam itemCreateParam){
+         itemCreateParam.setUserId(Long.parseLong(userId));
+         return itemService.update(itemCreateParam);
+     }
     
     /**
      * 上传审核
@@ -107,6 +144,21 @@ public class SellerController {
             @ApiImplicitParam(name = "itemId", value = "商品 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<String> itemDelete(String userId, String itemId){
         return itemService.delete(Long.parseLong(itemId));
+    }
+
+    /**
+     * 卖家查看订单
+     * @param userId
+     * @return
+     */
+    @ApiOperation(value = "卖家查看订单")
+    @PostMapping("/order/check")
+    @ResponseBody
+    @TokenAuth
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class)})
+    public BaseResult<List<InnerOrderDTO>> orderCheck(String userId){
+        return orderService.sellerCheck(Long.parseLong(userId));
     }
 
     /**

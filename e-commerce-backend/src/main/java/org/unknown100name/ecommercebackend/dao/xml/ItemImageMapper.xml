@@ -11,4 +11,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE ii.item_id = #{itemId} AND ii.type = 1
     </select>
 
+    <insert id="insertItemImage" parameterType="java.util.List">
+        INSERT INTO
+            item_image(id, image_base64, item_id, type, "order") 
+        VALUES
+        <foreach collection="imageList" index="index" item="image" separator=",">
+            (#{image.id}, #{image.imageBase64}, #{image.itemId}, #{image.type}, #{image.order})
+        </foreach>
+    </insert>
+
+    <delete id="deleteByItemId" parameterType="java.lang.Long">
+        DELETE
+        FROM item_image ii
+        WHERE ii.item_id = #{itemId} OR ii.item_id IN (
+            SELECT ii.id
+            FROM inner_item ii
+            WHERE ii.item_id = #{itemId}
+        )
+    </delete>
 </mapper>

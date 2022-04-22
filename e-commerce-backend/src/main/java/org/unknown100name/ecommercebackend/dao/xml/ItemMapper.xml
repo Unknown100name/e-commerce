@@ -62,37 +62,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="getItemBaseByCategoryOne" resultMap="itemBaseDTO">
         SELECT <include refid="itemBaseDTOProperty"/>
         FROM item i LEFT JOIN item_image ii ON i.id = ii.item_id AND ii.type = 1
-        WHERE i.category_one_id = #{categoryOneId}
+        WHERE i.category_one_id = #{categoryOneId} AND i.state != 6
     </select>
 
     <select id="getItemBaseByCategoryTwo" resultMap="itemBaseDTO">
         SELECT <include refid="itemBaseDTOProperty"/>
         FROM item i LEFT JOIN item_image ii ON i.id = ii.item_id AND ii.type = 1
-        WHERE i.category_two_id = #{categoryTwoId}
+        WHERE i.category_two_id = #{categoryTwoId} AND i.state != 6
     </select>
 
     <select id="getItemBaseByKeyword" resultMap="itemBaseDTO">
         SELECT <include refid="itemBaseDTOProperty"/>
         FROM item i LEFT JOIN item_image ii ON i.id = ii.item_id AND ii.type = 1
-        WHERE (i.title LIKE CONCAT('%',#{keyword},'%') OR i.sub_title LIKE CONCAT('%',#{keyword},'%'))
+        WHERE (i.title LIKE CONCAT('%',#{keyword},'%') OR i.sub_title LIKE CONCAT('%',#{keyword},'%')) AND i.state != 6
     </select>
 
     <select id="getItemBaseByShopId" resultMap="itemBaseDTO">
         SELECT <include refid="itemBaseDTOProperty"/>
         FROM item i LEFT JOIN item_image ii on i.id = ii.item_id AND ii.type = 1
-        WHERE i.shop_id = #{shopId}
+        WHERE i.shop_id = #{shopId} AND i.state != 6
     </select>
 
     <select id="getItemBaseById" resultMap="itemBaseDTO">
         SELECT <include refid="itemBaseDTOProperty"/>
         FROM item i LEFT JOIN item_image ii on i.id = ii.item_id AND ii.type = 1
-        WHERE i.id = #{itemId}
+        WHERE i.id = #{itemId} AND i.state != 6
     </select>
 
     <select id="getItemDetailById" resultMap="itemDetailDTO">
         SELECT <include refid="itemDetailDTOProperty"/>
         FROM item i LEFT JOIN item_image ii on i.id = ii.item_id AND ii.type = 1
-        WHERE i.id = #{itemId}
+        WHERE i.id = #{itemId} AND i.state != 6
     </select>
 
     <update id="updateItemState">
@@ -124,13 +124,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="getMaxSellItemByCategoryTwoId" resultMap="itemBaseDTO">
         SELECT <include refid="itemBaseDTOProperty"/>
         FROM item i LEFT JOIN item_image ii on i.id = ii.item_id AND ii.type = 1
-        WHERE i.category_two_id = #{categoryTwoId}
+        WHERE i.category_two_id = #{categoryTwoId} AND i.state != 6
         ORDER BY i.sell_count ASC LIMIT 1
     </select>
 
     <select id="getItemByRandom" resultMap="itemBaseDTO">
         SELECT <include refid="itemBaseDTOProperty"/>
-        FROM item i LEFT JOIN item_image ii on i.id = ii.item_id AND ii.type = 1
+        FROM item i LEFT JOIN item_image ii on i.id = ii.item_id AND ii.type = 1 AND i.state != 6
         ORDER BY RAND()
         LIMIT 10
     </select>
@@ -140,23 +140,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="getInnerItemById" resultMap="innerItemDTO">
         SELECT <include refid="innerItemDTOProperty"/>
         FROM inner_item ii LEFT JOIN item_image iimage on iimage.item_id = ii.item_id AND iimage.type = 2
-        WHERE ii.id = #{id}
+        WHERE ii.id = #{id} AND ii.deleted = 0
     </select>
 
     <select id="getInnerItemByItemId" resultMap="innerItemDTO">
         SELECT <include refid="innerItemDTOProperty"/>
         FROM inner_item ii LEFT JOIN item_image iimage on iimage.item_id = ii.item_id AND iimage.type = 2
-        WHERE ii.item_id = #{itemId}
+        WHERE ii.item_id = #{itemId} AND ii.deleted = 0
     </select>
 
     <insert id="insertInnerItem" parameterType="java.util.List">
         INSERT INTO
-        inner_item(id, item_id, type_name, price, inventory)
+            inner_item(id, item_id, type_name, price, inventory)
         VALUES
         <foreach collection="innerItemList" item="innerItem" index="index" separator=",">
             (#{innerItem.id}, #{innerItem.itemId}, #{innerItem.typeName}, #{innerItem.price}, #{innerItem.inventory})
         </foreach>
     </insert>
 
-
+    <delete id="deleteInnerItemByItemId" parameterType="java.lang.Long">
+        UPDATE inner_item
+        SET inner_item.deleted = 1
+        WHERE inner_item.id = #{itemId}
+    </delete>
 </mapper>

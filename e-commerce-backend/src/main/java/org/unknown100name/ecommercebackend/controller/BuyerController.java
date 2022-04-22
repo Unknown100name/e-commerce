@@ -126,7 +126,7 @@ public class BuyerController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "用户 ID", paramType = "header", dataTypeClass = String.class)})
     public BaseResult<List<OrderDTO>> orderCheck(String userId){
-        return orderService.check(userId);
+        return orderService.buyerCheck(Long.parseLong(userId));
     }
 
     /**

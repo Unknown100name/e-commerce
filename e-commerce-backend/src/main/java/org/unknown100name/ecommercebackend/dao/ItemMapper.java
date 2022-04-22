@@ -101,6 +101,7 @@ public interface ItemMapper extends BaseMapper<Item> {
      * @return
      */
     List<ItemBaseDTO> getItemByRandom();
+
     //-------------------- INNER ITEM --------------------
 
     /**
@@ -122,4 +123,10 @@ public interface ItemMapper extends BaseMapper<Item> {
      * @param innerItemList
      */
     void insertInnerItem(List<InnerItem> innerItemList);
+
+    /**
+     * 删除内部商品
+     * @param itemId
+     */
+    void deleteInnerItemByItemId(Long itemId);
 }

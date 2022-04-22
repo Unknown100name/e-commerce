@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import util.IdUtil;
 
 /**
  * @author unknown100name
@@ -52,4 +53,12 @@ public class ItemImage implements Serializable {
      */
     @TableField(value = "order")
     private Integer order;
+
+    public ItemImage(String imageBase64, Long itemId, Integer type, Integer order){
+        this.id = IdUtil.getId();
+        this.imageBase64 = imageBase64;
+        this.itemId = itemId;
+        this.type = type;
+        this.order = order;
+    }
 }

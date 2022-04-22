@@ -101,7 +101,7 @@ public class OrderServiceImpl implements OrderService{
             List<InnerOrder> insertInnerOrderList = new ArrayList<>();
             // 目前购物车的 List 与 Map
             List<InnerShoppingCarDTO> existInnerShoppingCarList = existShoppingCarDTO.getInnerShoppingCarList();
-            Map<Long, InnerShoppingCarDTO> existInnerShoppingCarMap = new HashMap<>();
+            Map<Long, InnerShoppingCarDTO> existInnerShoppingCarMap = new HashMap<>(existInnerShoppingCarList.size());
             existInnerShoppingCarList.forEach(
                 innerShoppingCarDTO -> existInnerShoppingCarMap.put(innerShoppingCarDTO.getId(), innerShoppingCarDTO));
             // 构造待插入的 InnerOrder
@@ -178,11 +178,16 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public BaseResult<List<OrderDTO>> check(String userId) {
+    public BaseResult<List<OrderDTO>> buyerCheck(Long userId) {
         List<OrderDTO> orderList = orderMapper.getOrderByUserId(userId);
         return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, orderList);
     }
 
+    @Override
+    public BaseResult<List<InnerOrderDTO>> sellerCheck(Long userId) {
+        List<InnerOrderDTO> orderList = orderMapper.getOrderByShopId(userId);
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, orderList);
+    }
 
     // @Override
     // public BaseResult<String> reject(Long innerOrderId) {

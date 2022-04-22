@@ -45,7 +45,7 @@ public interface OrderMapper extends BaseMapper<Order> {
      * @param userId
      * @return
      */
-    List<OrderDTO> getOrderByUserId(String userId);
+    List<OrderDTO> getOrderByUserId(Long userId);
 
     /**
      * 查询小订单
@@ -82,4 +82,11 @@ public interface OrderMapper extends BaseMapper<Order> {
      * @return
      */
     boolean existInnerOrderNotFinish(Long itemId);
+
+    /**
+     * 商家查询子订单
+     * @param shopId
+     * @return
+     */
+    List<InnerOrderDTO> getOrderByShopId(Long shopId);
 }

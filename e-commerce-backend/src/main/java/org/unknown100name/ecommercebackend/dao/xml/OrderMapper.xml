@@ -110,4 +110,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             WHERE ii.item_id = #{itemId}
         )
     </select>
+
+    <select id="getOrderByShopId" resultMap="innerOrderDTO">
+        SELECT <include refid="innerOrderDTOProperty"/>
+        FROM inner_order io
+        LEFT JOIN
+            (SELECT
+                Concat(i.title,ii.type_name) AS 'concat_title', ii.id, iimage.image_base64, i.shop_id AS 'shop_id'
+            FROM inner_item ii
+                LEFT JOIN item i ON ii.item_id = i.id
+                LEFT JOIN item_image iimage ON ii.id = iimage.item_id AND type = 2) simple_item
+            ON simple_item.id = io.inner_item_id
+        WHERE simple_item.shop_id = #{shopId}
+    </select>
 </mapper>

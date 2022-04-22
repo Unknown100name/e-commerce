@@ -21,4 +21,15 @@ public interface ItemImageMapper extends BaseMapper<ItemImage> {
      */
     List<String> getItemImagesByItemId(String itemId);
 
+    /**
+     * 插入商品图册
+     * @param imageList
+     */
+    void insertItemImage(List<ItemImage> imageList);
+
+    /**
+     * 删除原有的图片
+     * @param itemId
+     */
+    void deleteByItemId(Long itemId);
 }

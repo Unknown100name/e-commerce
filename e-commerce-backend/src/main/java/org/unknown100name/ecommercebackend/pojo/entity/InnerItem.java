@@ -24,14 +24,6 @@ import lombok.NoArgsConstructor;
 @TableName("inner_item")
 public class InnerItem implements Serializable {
 
-    public InnerItem(Item insertItem, InnerItemCreateParam innerItemCreateParam) {
-        this.id = IdUtil.getId();
-        this.typeName = innerItemCreateParam.getTypeName();
-        this.price = innerItemCreateParam.getPrice();
-        this.inventory = innerItemCreateParam.getInventory();
-        this.itemId = insertItem.getId();
-    }
-
     private static final long serialVersionUID = 9022119600667721349L;
 
     @TableId
@@ -61,4 +53,19 @@ public class InnerItem implements Serializable {
      */
     @TableField(value = "inventory")
     private Integer inventory;
+
+    /**
+     * 是否删除
+     */
+    @TableField(value = "deleted")
+    private Integer deleted;
+
+    public InnerItem(Item insertItem, InnerItemCreateParam innerItemCreateParam) {
+        this.id = IdUtil.getId();
+        this.typeName = innerItemCreateParam.getTypeName();
+        this.price = innerItemCreateParam.getPrice();
+        this.inventory = innerItemCreateParam.getInventory();
+        this.itemId = insertItem.getId();
+        this.deleted = 0;
+    }
 }

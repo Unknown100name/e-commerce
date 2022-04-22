@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.unknown100name.ecommercebackend.pojo.vo.InnerItemCreateParam;
 
 /**
  * @author unknown100name
@@ -23,8 +22,14 @@ public class ItemCreateParam {
     /**
      * 不需要传, 在 params 里面会复制
      */
-    @ApiModelProperty(value = "用户 ID(不需要传)")
+    @ApiModelProperty(value = "用户 ID(不需要传),  在 params 里面会复制")
     private Long userId;
+
+    /**
+     * ItemId
+     */
+    @ApiModelProperty(value = "itemId, 创造的时候不需要传，更新的时候需要")
+    private Long id;
     
     /**
      * 标题
@@ -35,7 +40,7 @@ public class ItemCreateParam {
     /**
      * 副标题
      */
-    @ApiModelProperty(value = "标题")
+    @ApiModelProperty(value = "福标题")
     private String subTitle;
 
     /**
@@ -43,6 +48,18 @@ public class ItemCreateParam {
      */
     @ApiModelProperty(value = "详情页图片(base64)")
     private String h5Base64;
+
+    /**
+     * 主图
+     */
+    @ApiModelProperty(value = "主图(base64)")
+    private String mainImageBase64;
+
+    /**
+     * 商品图册
+     */
+    @ApiModelProperty(value = "商品图册(base64)")
+    private List<String> imageListBase64;
 
     /**
      * 细分商品

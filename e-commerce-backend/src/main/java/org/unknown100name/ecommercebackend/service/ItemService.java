@@ -34,7 +34,7 @@ public interface ItemService {
 
     BaseResult<String> create(ItemCreateParam itemCreateParam);
 
-    // BaseResult<String> update(ItemCreateParam itemCreateParam);
+     BaseResult<String> update(ItemCreateParam itemCreateParam);
 
     BaseResult<String> upload(Long itemId);
 
