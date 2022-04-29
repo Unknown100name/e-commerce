@@ -1022,25 +1022,25 @@ public class ItemBackupTest {
     }
 
     private void addItem(String title, String subTitle, String[] typeName) {
-        ItemCreateParam itemCreateParam = new ItemCreateParam();
-        itemCreateParam.setUserId(21979855163752448L);
-        itemCreateParam.setTitle(title);
-        itemCreateParam.setSubTitle(subTitle);
-        itemCreateParam.setH5Base64(null);
-        itemCreateParam.setCategoryTwoId(nowId.longValue());
-        itemCreateParam.setCategoryOneId(categoryMap.get(nowId.longValue()).getCategoryOneId());
-        Item item = new Item(itemCreateParam);
-        itemList.add(item);
-        Random random = new Random();
-        for (String s : typeName) {
-            innerItemList.add(new InnerItem(item, new InnerItemCreateParam(s, BigDecimal.valueOf(random.nextInt(1000) + random.nextDouble() % 1), random.nextInt(1000))));
-        }
-
-        if (isNext){
-            isNext = false;
-            nowId++;
-        }else {
-            isNext = true;
-        }
+//        ItemCreateParam itemCreateParam = new ItemCreateParam();
+//        itemCreateParam.setUserId(21979855163752448L);
+//        itemCreateParam.setTitle(title);
+//        itemCreateParam.setSubTitle(subTitle);
+//        itemCreateParam.setH5Base64(null);
+//        itemCreateParam.setCategoryTwoId(nowId.longValue());
+//        itemCreateParam.setCategoryOneId(categoryMap.get(nowId.longValue()).getCategoryOneId());
+//        Item item = new Item(itemCreateParam);
+//        itemList.add(item);
+//        Random random = new Random();
+//        for (String s : typeName) {
+//            innerItemList.add(new InnerItem(item, new InnerItemCreateParam(s, BigDecimal.valueOf(random.nextInt(1000) + random.nextDouble() % 1), random.nextInt(1000))));
+//        }
+//
+//        if (isNext){
+//            isNext = false;
+//            nowId++;
+//        }else {
+//            isNext = true;
+//        }
     }
 }

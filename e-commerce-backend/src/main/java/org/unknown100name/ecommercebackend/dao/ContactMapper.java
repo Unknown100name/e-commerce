@@ -20,7 +20,7 @@ public interface ContactMapper extends BaseMapper<Contact> {
      * @param contactId
      * @return
      */
-    ContactDTO getContactById(long contactId);
+    ContactDTO getContactByIdWithOutDelete(long contactId);
 
     /**
      * 根据 userId 获取联系人菜单

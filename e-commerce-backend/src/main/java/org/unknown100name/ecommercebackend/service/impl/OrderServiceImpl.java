@@ -51,7 +51,7 @@ public class OrderServiceImpl implements OrderService{
     private final Object inventoryLock = new Object();
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public BaseResult<String> prePay(ShoppingCarTurnOrderParam shoppingCarTurnOrderParam) {
         try{
             // 验证 ShoppingCarId
@@ -74,22 +74,30 @@ public class OrderServiceImpl implements OrderService{
                 return BaseResult.failResult(BaseResultMsg.ERROR_PARAM);
             }
 
+            // 目前购物车的 List 与 Map
+            List<InnerShoppingCarDTO> existInnerShoppingCarList = existShoppingCarDTO.getInnerShoppingCarList();
+            Map<Long, InnerShoppingCarDTO> existInnerShoppingCarMap = new HashMap<>(existInnerShoppingCarList.size());
+            existInnerShoppingCarList.forEach(
+                    innerShoppingCarDTO -> existInnerShoppingCarMap.put(innerShoppingCarDTO.getId(), innerShoppingCarDTO));
+
             // 验证库存
-            synchronized (inventoryLock){
-                for (InnerShoppingCarDTO innerShoppingCarDTO : existShoppingCarDTO.getInnerShoppingCarList()) {
-                    if (innerShoppingCarDTO.getNumber() > innerShoppingCarDTO.getInnerItemDTO().getInventory()) {
+            synchronized (inventoryLock) {
+
+                // 验证
+                for (String insertShoppingCarId : shoppingCarTurnOrderParam.getInnerShoppingCarId()) {
+                    InnerShoppingCarDTO innerShoppingCarDTO = existInnerShoppingCarMap.get(Long.parseLong(insertShoppingCarId));
+                    if (innerShoppingCarDTO == null) {
+                        return BaseResult.failResult(BaseResultMsg.ERROR_PARAM);
+                    }
+                    if (innerShoppingCarDTO.getInnerItemDTO().getInventory() != -1
+                            && innerShoppingCarDTO.getNumber() > innerShoppingCarDTO.getInnerItemDTO().getInventory()) {
                         return BaseResult.failResult(BaseResultMsg.ERROR_INVENTORY_NOT_MATCH);
                     }
                 }
 
                 // 减少库存
-                for (InnerShoppingCarDTO innerShoppingCarDTO : existShoppingCarDTO.getInnerShoppingCarList()) {
-                    if (innerShoppingCarDTO.getNumber() > innerShoppingCarDTO.getInnerItemDTO().getInventory()) {
-                        return BaseResult.failResult(BaseResultMsg.ERROR_INVENTORY_NOT_MATCH);
-                    }
-                }
-
-                for (InnerShoppingCarDTO innerShoppingCarDTO : existShoppingCarDTO.getInnerShoppingCarList()) {
+                for (String insertShoppingCarId : shoppingCarTurnOrderParam.getInnerShoppingCarId()) {
+                    InnerShoppingCarDTO innerShoppingCarDTO = existInnerShoppingCarMap.get(Long.parseLong(insertShoppingCarId));
                     itemMapper.decreaseInventory(innerShoppingCarDTO.getInnerItemDTO().getId(), innerShoppingCarDTO.getNumber());
                 }
             }
@@ -99,11 +107,6 @@ public class OrderServiceImpl implements OrderService{
             Order insertOrder = new Order(shoppingCarTurnOrderParam);
             // 待插入的 InnerOrder
             List<InnerOrder> insertInnerOrderList = new ArrayList<>();
-            // 目前购物车的 List 与 Map
-            List<InnerShoppingCarDTO> existInnerShoppingCarList = existShoppingCarDTO.getInnerShoppingCarList();
-            Map<Long, InnerShoppingCarDTO> existInnerShoppingCarMap = new HashMap<>(existInnerShoppingCarList.size());
-            existInnerShoppingCarList.forEach(
-                innerShoppingCarDTO -> existInnerShoppingCarMap.put(innerShoppingCarDTO.getId(), innerShoppingCarDTO));
             // 构造待插入的 InnerOrder
             shoppingCarTurnOrderParam.getInnerShoppingCarId().forEach(
                 insertShoppingCarId -> {

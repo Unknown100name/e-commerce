@@ -42,6 +42,10 @@ public class RecommendGetTask implements Callable<List<Long>> {
             List<UserActivity> userActivityList = userActivityMapper.listUserActivityByUserIdList(Collections.singletonList(userId));
 
             // 找到这些相似用户的点击行为
+            if (topSimilarityUserIdList.isEmpty()){
+                return null;
+            }
+
             List<UserActivity> similarityUserActivityList = userActivityMapper.listUserActivityByUserIdList(topSimilarityUserIdList);
 
             // 找到应该推荐给用户的二级类目的id

@@ -48,6 +48,24 @@ public class RecommendUtils {
      * @param userId 作为基础的用户 Id
      * @param activityMap 用户对各个二级类目的点击行为的一个map集合
      * @return 计算出的用户与用户之间的相似度的对象存储形式
+     *
+     * 这里其实就是在算余弦相似度,即给定两个属性向量,其相似度
+     *
+     * 简单地说，就是
+     *             | N(a) ∩ N(b) |
+     *  W(ab) = ------------------
+     *            sqrt(N(a) * N(b))
+     *
+     *  N(a) 和 N(b) 是向量
+     * 即
+     *
+     *                          A * B              Σ (Ai * Bi)
+     * similarity = cos(Θ) = ----------- = ----------------------------
+     *                       ||A| * |B||   sqrt(Σ(Ai)^2) * sqrt(Σ(Bi)^2)
+     *
+     *
+     * 在这里, Ai 和 Bi 就表示在品类 i 上两者的点击量
+     *
      */
     public static List<UserSimilarity> calculateSimilarityUser(Long userId, ConcurrentHashMap<Long, ConcurrentHashMap<Long, Long>> activityMap) {
 

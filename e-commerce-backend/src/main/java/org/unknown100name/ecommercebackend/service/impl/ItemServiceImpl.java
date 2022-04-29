@@ -12,10 +12,7 @@ import org.unknown100name.ecommercebackend.dao.CategoryMapper;
 import org.unknown100name.ecommercebackend.dao.ItemImageMapper;
 import org.unknown100name.ecommercebackend.dao.ItemMapper;
 import org.unknown100name.ecommercebackend.dao.OrderMapper;
-import org.unknown100name.ecommercebackend.pojo.dto.CategoryDTO;
-import org.unknown100name.ecommercebackend.pojo.dto.InnerItemDTO;
-import org.unknown100name.ecommercebackend.pojo.dto.ItemBaseDTO;
-import org.unknown100name.ecommercebackend.pojo.dto.ItemDetailDTO;
+import org.unknown100name.ecommercebackend.pojo.dto.*;
 import org.unknown100name.ecommercebackend.pojo.entity.InnerItem;
 import org.unknown100name.ecommercebackend.pojo.entity.Item;
 import org.unknown100name.ecommercebackend.pojo.entity.ItemImage;
@@ -159,7 +156,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public BaseResult<String> upload(Long itemId) {
-        int result = itemMapper.updateItemState(itemId, 0, 1);
+        int result = itemMapper.updateItemState(itemId, 0, 2);
         if(result == 0){
             return BaseResult.failResult(BaseResultMsg.ERROR_STATUS);
         }

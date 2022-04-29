@@ -1,5 +1,6 @@
 package org.unknown100name.ecommercebackend.aspect.activity;
 
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -21,6 +22,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import static common.ConstUtil.*;
 
@@ -63,7 +65,10 @@ public class ActivityAspect {
             for (Parameter parameter : parameters) {
                 // userId
                 if ("userId".equals(parameter.getName())) {
-                    userId = Long.parseLong((String)paramMap.get(parameter.getName()));
+                    String userIdStr = (String)paramMap.get(parameter.getName());
+                    if (StringUtils.isNotBlank(userIdStr)){
+                        userId = Long.parseLong(userIdStr);
+                    }
                 }
                 // sourceId
                 else if (parameter.isAnnotationPresent(ActivityFiled.class)) {
@@ -138,7 +143,7 @@ public class ActivityAspect {
 
         } catch (Throwable e) {
             e.printStackTrace();
-            return BaseResult.failResult(BaseResultMsg.ERROR_UNKNOWN);
+            return point.proceed();
         }
         return point.proceed();
     }

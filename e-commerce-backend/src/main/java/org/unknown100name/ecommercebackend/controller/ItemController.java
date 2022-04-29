@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import common.BaseResultMsg;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.unknown100name.ecommercebackend.aspect.activity.ActivityFiled;
 import org.unknown100name.ecommercebackend.aspect.activity.ActivityRecord;
 import org.unknown100name.ecommercebackend.aspect.activity.ActivitySource;
+import org.unknown100name.ecommercebackend.pojo.dto.CategoryArrayDTO;
 import org.unknown100name.ecommercebackend.pojo.dto.CategoryDTO;
 import org.unknown100name.ecommercebackend.pojo.dto.ItemBaseDTO;
 import org.unknown100name.ecommercebackend.pojo.dto.ItemDetailDTO;
@@ -34,10 +36,17 @@ public class ItemController {
     @Resource
     private ItemService itemService;
 
-    @ApiOperation(value = "获取目录")
-    @GetMapping("getCategory")
+    @ApiOperation(value = "获取目录（商家，数组返回）")
+    @GetMapping("getCategoryForSeller")
     @ResponseBody
-    public BaseResult<List<CategoryDTO>> getCategory(){
+    public BaseResult<CategoryArrayDTO> getCategoryForSeller(){
+        return BaseResult.successResult(BaseResultMsg.SUCCESS_OTHERS, new CategoryArrayDTO(itemService.getCategory().getData()));
+    }
+
+    @ApiOperation(value = "获取目录（买家，列表返回）")
+    @GetMapping("getCategoryForBuyer")
+    @ResponseBody
+    public BaseResult<List<CategoryDTO>> getCategoryForBuyer(){
         return itemService.getCategory();
     }
 

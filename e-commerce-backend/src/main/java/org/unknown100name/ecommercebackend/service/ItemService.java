@@ -3,6 +3,7 @@ package org.unknown100name.ecommercebackend.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.unknown100name.ecommercebackend.pojo.dto.CategoryArrayDTO;
 import org.unknown100name.ecommercebackend.pojo.dto.CategoryDTO;
 import org.unknown100name.ecommercebackend.pojo.dto.ItemBaseDTO;
 import org.unknown100name.ecommercebackend.pojo.dto.ItemDetailDTO;
